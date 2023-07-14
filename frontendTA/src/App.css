@@ -1,0 +1,91 @@
+.form {
+  width: 750px !important;
+}
+
+.cards {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  height: 300px;
+  color: rgb(9, 95, 241);
+  width: 50%;
+}
+
+#card1 {
+  margin-right: 2px;
+}
+
+#card2 {
+  margin-left: 2px;
+}
+
+.transform {
+  transition-duration: 0.3s;
+}
+
+.open {
+  width: 100%;
+  transition: ease 0.3s;
+}
+
+img {
+  height: 225px;
+  margin: 0;
+  padding: 0;
+}
+
+.info1, .info2 {
+  padding: 0;
+}
+
+#dash1, #dash2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card p {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#switch1, #switch2 {
+  right: -120%;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+  display: none;
+}
+
+#button1, #button2 {
+  width: 225px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#text1, #text2 {
+  font-size: 25px;
+  font-weight: 500;
+  display: none;
+}
+
+.disabled-overlay {
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+#alert {
+  display: none;
+  position: absolute;
+  top: 40%;
+  right: 35%;
+  z-index: 1;
+}
+
+
