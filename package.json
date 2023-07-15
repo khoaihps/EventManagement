@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "npm install concurrently --no-save && concurrently \"npm run install:frontendTA\" \"npm run install:backend\"",
+    "install:frontendTA": "cd frontendTA && npm install",
+    "install:backend": "cd backend && npm install",
     "start": "concurrently \"npm run start:frontendTA\" \"npm run start:backend\"",
     "start:frontendTA": "cd frontendTA && npm start",
-    "start:backend": "cd backend && npm start",
-    "install": "concurrently \"npm run install:frontendTA\" \"npm run install:backend\"",
-    "install:frontendTA": "cd frontendTA && npm install",
-    "install:backend": "cd backend && npm install"
+    "start:backend": "cd backend && npm start"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/khoaihps/EventManagement/issues"
   },
-  "homepage": "https://github.com/khoaihps/EventManagement#readme"
+  "homepage": "https://github.com/khoaihps/EventManagement#readme",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
 }
