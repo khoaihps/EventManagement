@@ -31,7 +31,7 @@ const LoginForm = () => {
             button2.style.display = "none";
             text1.style.display = "block";
             text2.style.display = "block";
-            role.current = { value: 'manager' };
+            role.current = "employee"
         };
 
         const handleButton2Click = () => {
@@ -44,14 +44,14 @@ const LoginForm = () => {
             button2.style.display = "none";
             text1.style.display = "block";
             text2.style.display = "block";
-            role.current = { value: 'employee' };
+            role.current = "manager"
         };
 
         const handleSwitch1Click = () => {
             card1.style.display = "none";
             card2.style.display = "block";
             switch2.style.display = "block";
-            role.current = { value: 'employee' };
+            role.current = "employee"
         };
 
 
@@ -59,7 +59,7 @@ const LoginForm = () => {
             card2.style.display = "none";
             card1.style.display = "block";
             switch1.style.display = "block";
-            role.current = { value: 'manager' };
+            role.current = "manager"
         }
 
         button1.addEventListener("click", handleButton1Click);
@@ -86,19 +86,19 @@ const LoginForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (role.current.value === '') {
-            alert.current.style.display = 'block';
-            form.current.classList.add('disabled-overlay');
+        if (role.current === '') {
+            alert.style.display = 'block';
+            form.classList.add('disabled-overlay');
             document.body.addEventListener('click', () => {
-                form.current.classList.remove('disabled-overlay');
-                alert.current.style.display = 'none';
+                form.classList.remove('disabled-overlay');
+                alert.style.display = 'none';
             });
         } else {
             try {
                 const { success, sessionToken, error } = await login(
                 username,
                 password,
-                role.current.value
+                role.current
                 );
       
             if (success) {
@@ -108,9 +108,9 @@ const LoginForm = () => {
                 localStorage.setItem('sessionToken', sessionToken);
       
                 // Redirect to the protected page based on the user role
-                if (role.current.value === 'manager') {
+                if (role.current === 'manager') {
                     navigate('/manager/home');
-                } else if (role.current.value === 'employee') {
+                } else if (role.current === 'employee') {
                     navigate('/employee/home');
                 }
             } else {
