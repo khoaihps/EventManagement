@@ -1,1 +1,5 @@
 .DS_Store
+backend/.DS_Store
+frontendTA/.DS_Store
+backend/node_modules/
+frontendTA/node_modules/
