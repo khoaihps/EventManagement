@@ -1,8 +1,8 @@
 # EventManagement
 
-### `npm install`
+### `npm run install:frontendTA`
+### `npm run install:backend`
 to install all dependencies
-
 
 ### `npm start`
 to start all the server
