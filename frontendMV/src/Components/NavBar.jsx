@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/white-logo.png";
 
@@ -6,8 +6,10 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-black">
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
+    <header className="bg-gray-800 sticky top-0 z-50 w-full">
+      <div
+        className={`mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8`}
+      >
         <a className="block text-teal-600" href="/">
           <img src={Logo} style={{ height: 32 }}></img>
         </a>
@@ -17,7 +19,7 @@ const Navbar = () => {
             <ul className="flex items-center gap-6 text-sm">
               <li>
                 <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
+                  className="text-white transition hover:text-gray-500/75"
                   href="/"
                 >
                   Home
@@ -25,7 +27,7 @@ const Navbar = () => {
               </li>
               <li>
                 <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
+                  className="text-white transition hover:text-gray-500/75"
                   href="/"
                 >
                   About
@@ -33,20 +35,22 @@ const Navbar = () => {
               </li>
 
               <li>
-                <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/"
-                >
-                  Careers
-                </a>
+                <Link to="/event">
+                  <a
+                    className="text-white transition hover:text-gray-500/75"
+                    href="/"
+                  >
+                    Your Events
+                  </a>
+                </Link>
               </li>
 
               <li>
                 <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
+                  className="text-white transition hover:text-gray-500/75"
                   href="/"
                 >
-                  Our Services
+                  Contact us
                 </a>
               </li>
             </ul>
@@ -58,8 +62,8 @@ const Navbar = () => {
                 className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
                 href="/login"
               >
-                <span className="absolute inset-0 border border-yellow-600 group-active:border-yellow-500"></span>
-                <span className="block border border-yellow-600 bg-yellow-600 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
+                <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
+                <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
                   Log in
                 </span>
               </a>
