@@ -1,7 +1,91 @@
+import React, {  useState, useRef } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { register } from "../api";
 import BgImg from "../assets/img/carousel1.png";
+
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [dob, setDoB] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress]= useState("");
+  let role = useRef("");
+  const alert = document.getElementById("alert");
+  const form = document.getElementById("form");
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleDoBChange = (event) => {
+    setDoB(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
+  };
+
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (role.current === "") {
+    //   alert.style.display = "block";
+    //   form.classList.add("disabled-overlay");
+    //   document.body.addEventListener("click", () => {
+    //   form.classList.remove("disabled-overlay");
+    //   alert.style.display = "none";
+    // });
+    } else {
+      try {
+        const {success, error} = await register (
+          firstname,
+          lastname,
+          username,
+          password,
+          dob,
+          email,
+          phone,
+          address, 
+          role.current
+        );
+        
+        if (success) {
+          console.log("Regiter successfully:");
+        } else {
+          // Register failed
+          console.log("Regiter failed:", error);
+        }
+      } catch (error) {
+        console.error("An error occurred during register:", error);
+      }
+    }
+  };
+
+
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
       <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
@@ -13,7 +97,7 @@ const Register = () => {
           </p>
         </div>
 
-        <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+        <form action="#" className="mt-8 grid grid-cols-6 gap-6" onSubmit={handleSubmit}>
           <div className="col-span-6 sm:col-span-3">
             <label
               htmlFor="FirstName"
@@ -27,6 +111,7 @@ const Register = () => {
               id="FirstName"
               name="first_name"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={firstname} onChange={handleFirstNameChange}
             />
           </div>
 
@@ -43,9 +128,41 @@ const Register = () => {
               id="LastName"
               name="last_name"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={lastname} onChange={handleLastNameChange}
             />
           </div>
+          <div className="col-span-6">
+            <label
+              htmlFor="Username"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username
+            </label>
 
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={username} onChange={handleUsernameChange}
+            />
+          </div>
+          <div className="col-span-6">
+            <label
+              htmlFor="DoB"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Date of Birth
+            </label>
+
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={dob} onChange={handleDoBChange}
+            />
+          </div>
           <div className="col-span-6">
             <label
               htmlFor="Email"
@@ -59,9 +176,41 @@ const Register = () => {
               id="Email"
               name="email"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={email} onChange={handleEmailChange}
             />
           </div>
+          <div className="col-span-6">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Phone
+            </label>
 
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={phone} onChange={handlePhoneChange}
+            />
+          </div>
+          <div className="col-span-6">
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Address
+            </label>
+
+            <input
+              type="text"
+              id="address"
+              name="address"
+              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={address} onChange={handleAddressChange}
+            />
+          </div>
           <div className="col-span-6 sm:col-span-3">
             <label
               htmlFor="Password"
@@ -75,10 +224,11 @@ const Register = () => {
               id="Password"
               name="password"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={password} onChange={handlePasswordChange}
             />
           </div>
 
-          <div className="col-span-6 sm:col-span-3">
+          {/* <div className="col-span-6 sm:col-span-3">
             <label
               htmlFor="PasswordConfirmation"
               className="block text-sm font-medium text-gray-700"
@@ -92,7 +242,7 @@ const Register = () => {
               name="password_confirmation"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
-          </div>
+          </div> */}
 
           <div className="col-span-6">
             <label htmlFor="MarketingAccept" className="flex gap-4">
@@ -125,13 +275,16 @@ const Register = () => {
           </div>
 
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400">
-              Create an account
-            </button>
+            <Link to="/login/customer">
+              <button className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400">
+                Create an account
+              </button>
+            </Link>
+            
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
-              <Link to="/login">
+              <Link to="/login/customer">
                 <a href="#" className="text-gray-700 underline">
                   Log in
                 </a>

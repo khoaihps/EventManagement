@@ -60,7 +60,7 @@ const Navbar = () => {
             <div className="sm:flex sm:gap-4">
               <a
                 className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                href="/login"
+                href="/login/customer"
               >
                 <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
                 <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">

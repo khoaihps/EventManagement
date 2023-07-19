@@ -19,14 +19,14 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={<Navbar />}></Route>
-        <Route path="/login" element={<></>}></Route>
-        <Route path="/register" element={<></>}></Route>
+        <Route path="/login/customer" element={<></>}></Route>
+        <Route path="/register/customer" element={<></>}></Route>
         <Route path="/event" element={<NavBarEvent />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<CTASection></CTASection>}></Route>
-        <Route path="/login" element={<LogIn />}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route path="/login/customer" element={<LogIn />}></Route>
+        <Route path="/register/customer" element={<Register />}></Route>
         <Route path="/event" element={<HeadEvent></HeadEvent>}></Route>
       </Routes>
       <Routes>
