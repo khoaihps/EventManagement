@@ -1,5 +1,6 @@
 .DS_Store
 .idea/
+node_modules/
 backend/.DS_Store
 backend/node_modules/
 backend/.idea/

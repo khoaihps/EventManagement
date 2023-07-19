@@ -7,9 +7,9 @@ const userSchema = new mongoose.Schema({
 });
 
 // Customer Schema
-const customerSchema = new Schema({
-    customer_id: { type: Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
-    name: { type: String, required: true },
+const customerSchema = new mongoose.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     DOB: { type: Date, required: true },
@@ -19,9 +19,9 @@ const customerSchema = new Schema({
 });
 
 // Manager Schema
-const managerSchema = new Schema({
-    manager_id: { type: Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
-    name: { type: String, required: true },
+const managerSchema = new mongoose.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     DOB: { type: Date, required: true },
@@ -31,9 +31,9 @@ const managerSchema = new Schema({
 });
 
 // Employee Schema
-const employeeSchema = new Schema({
-    employee_id: { type: String, required: true },
-    name: { type: String, required: true },
+const employeeSchema = new mongoose.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     DOB: { type: Date, required: true },

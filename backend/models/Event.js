@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 // Event Schema
 const eventSchema = new Schema({
-    event_id: { type: String, required: true },
     name: { type: String, required: true },
     customer_id: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
     deadline: { type: Date, required: true },
@@ -25,25 +24,24 @@ const eventSchema = new Schema({
 
 // Task Schema
 const taskSchema = new Schema({
-    task_id: { type: String, required: true },
     name: { type: String, required: true },
     deadline: { type: Date, required: true },
     budget: { type: Number, required: true },
     description: { type: String, required: true },
     department_involved: { type: String, required: true },
     event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true }
-  });
+});
 
 // Task Assign Schema
 const taskAssignSchema = new Schema({
     task_id: { type: Schema.Types.ObjectId, ref: 'Task', required: true },
-    t_member_id: { type: Schema.Types.ObjectId, ref: 'TeamMember', required: true }
+    t_member_id: { type: Schema.Types.ObjectId, ref: 'Employee', required: true }
 });
 
 // Event Register Schema
 const eventRegisterSchema = new Schema({
     event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
-    t_member_id: { type: Schema.Types.ObjectId, ref: 'TeamMember', required: true }
+    t_member_id: { type: Schema.Types.ObjectId, ref: 'Employee', required: true }
 });
 
 

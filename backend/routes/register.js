@@ -1,38 +1,102 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const User = require('../models/User.js');
+const { Manager, Employee } = require('../models/User');
 
 const router = express.Router();
 
-// Register route
-router.post('/', async (req, res) => {
+// Manager Register route
+router.post('/manager', async (req, res) => {
     try {
-      const { username, password, role } = req.body;
-  
-      // Check if the user already exists
-      const existingUser = await User.findOne({ username });
-      if (existingUser) {
-        return res.status(409).send('User already exists.');
-      }
-  
-      // Generate a salt and hash the password
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
-  
-      // Create a new user
-      const newUser = new User({
-        username,
-        password: hashedPassword,
-        role
-      });
-  
-      // Save the user to the database
-      await newUser.save();
-  
-      res.status(201).send('User registered successfully.');
+        const {
+            firstName,
+            lastName,
+            username,
+            password,
+            DOB,
+            email,
+            phone,
+            address
+        } = req.body;
+
+        // Check if the employee already exists
+        const existingManager = await Manager.findOne({ username });
+        if (existingManager) {
+            return res.status(409).json({ message: 'Username already exists.' });
+        }
+        
+        // Generate a salt and hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create a new employee
+        const newManager = new Manager({
+            firstName,
+            lastName,
+            username,
+            password: hashedPassword,
+            DOB,
+            email,
+            phone,
+            address
+        });
+
+        // Save the employee to the database
+        await newManager.save();
+
+        res.status(201).json({ message: 'Manager account registered successfully.' });
+
     } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred during registration.');
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred during registration.' });
+    }
+});
+
+// Employee Register route
+router.post('/employee', async (req, res) => {
+    try {
+        const {
+            firstName,
+            lastName,
+            username,
+            password,
+            DOB,
+            email,
+            phone,
+            address,
+            department
+        } = req.body;
+        console.log(username);
+        // Check if the employee already exists
+        const existingEmployee = await Employee.findOne({ username });
+        if (existingEmployee) {
+            return res.status(409).json({ message: 'Username already exists.' });
+        }
+        
+        // Generate a salt and hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create a new employee
+        const newEmployee = new Employee({
+            firstName,
+            lastName,
+            username,
+            password: hashedPassword,
+            DOB,
+            email,
+            phone,
+            address,
+            department
+        });
+
+        // Save the employee to the database
+        await newEmployee.save();
+
+        res.status(201).json({ message: 'Employee account registered successfully.' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred during registration.' });
     }
 });
 

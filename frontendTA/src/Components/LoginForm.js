@@ -31,7 +31,7 @@ const LoginForm = () => {
             button2.style.display = "none";
             text1.style.display = "block";
             text2.style.display = "block";
-            role.current = "employee"
+            role.current = "manager"
         };
 
         const handleButton2Click = () => {
@@ -44,7 +44,7 @@ const LoginForm = () => {
             button2.style.display = "none";
             text1.style.display = "block";
             text2.style.display = "block";
-            role.current = "manager"
+            role.current = "employee"
         };
 
         const handleSwitch1Click = () => {
@@ -96,29 +96,29 @@ const LoginForm = () => {
         } else {
             try {
                 const { success, sessionToken, error } = await login(
-                username,
-                password,
-                role.current
+                    username,
+                    password,
+                    role.current
                 );
-      
-            if (success) {
-                // Login successful
-                // Set user session or token (e.g., save to local storage or cookies)
-                // Here, we're using a mock session token for simplicity
-                localStorage.setItem('sessionToken', sessionToken);
-      
-                // Redirect to the protected page based on the user role
-                if (role.current === 'manager') {
-                    navigate('/manager/home');
-                } else if (role.current === 'employee') {
-                    navigate('/employee/home');
+                console.log(username);
+                if (success) {
+                    // Login successful
+                    // Set user session or token (e.g., save to local storage or cookies)
+                    // Here, we're using a mock session token for simplicity
+                    localStorage.setItem('sessionToken', sessionToken);
+        
+                    // Redirect to the protected page based on the user role
+                    if (role.current === 'manager') {
+                        navigate('/manager/home');
+                    } else if (role.current === 'employee') {
+                        navigate('/employee/home');
+                    }
+                } else {
+                    // Login failed
+                    console.log('Login failed:', error);
                 }
-            } else {
-              // Login failed
-              console.log('Login failed:', error);
-            }
-          } catch (error) {
-            console.error('An error occurred during login:', error);
+            } catch (error) {
+                console.error('An error occurred during login:', error);
           }
         }
     };

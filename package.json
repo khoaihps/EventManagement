@@ -9,8 +9,8 @@
     "install:frontendMV": "cd frontendMV && npm install",
     "install:backend": "cd backend && npm install",
     "start": "concurrently \"npm run start:frontendTA\" \"npm run start:backend\" \"npm run start:frontendMV\"",
-    "start:frontendTA": "cd frontendTA && npm start",
-    "start:frontendMV": "cd frontendMV && npm start",
+    "start:frontendTA": "set PORT=3000 && cd frontendTA && npm start",
+    "start:frontendMV": "set PORT=3001 && cd frontendMV && npm start",
     "start:backend": "cd backend && npm start"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/khoaihps/EventManagement#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "concurrently": "^8.2.0"
   }
 }
