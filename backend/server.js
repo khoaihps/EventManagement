@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors');
 const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken');
 const { authenticateManager } = require('./authMiddleware');
 require('dotenv').config()
 

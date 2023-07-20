@@ -3,7 +3,7 @@ const router = express.Router();
 const { Event } = require('../models/Event');
 
 // Route để hiển thị danh sách các event
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         // Lấy tất cả các event từ database
         const events = await Event.find();
