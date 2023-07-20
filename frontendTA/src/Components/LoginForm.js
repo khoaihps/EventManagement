@@ -95,6 +95,7 @@ const LoginForm = () => {
             });
         } else {
             try {
+                console.log(username, password, role.current);
                 const { success, sessionToken, error } = await login(
                     username,
                     password,
