@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
-const secretKey = 'your-secret-key';
 
 function authenticateManager(req, res, next) {
     const token = req.header('Authorization');
@@ -10,7 +9,9 @@ function authenticateManager(req, res, next) {
     }
 
     try {
-        const decodedToken = jwt.verify(token, secretKey);
+        console.log(token);
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decodedToken);
         const userRole = decodedToken.role;
         if (userRole === "manager") {
             req.user = decodedToken; // Lưu thông tin người dùng vào request để sử dụng ở các route sau
@@ -20,7 +21,7 @@ function authenticateManager(req, res, next) {
         }
 
     } catch (error) {
-        return res.status(401).json({ message: 'Invalid token' });
+        return res.status(401).json({ error });
     }
 }
 

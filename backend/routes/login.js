@@ -48,7 +48,7 @@ router.post('/employee', async (req, res) => {
             if (isPasswordValid) {
                 const token = jwt.sign(
                     { role: 'employee', userId: employee._id },
-                    process.env.JWT_SECRET,
+                    process.env.jwt,
                     { expiresIn: '24h' }
                 );
                 res.json({ name: employee.lastName, role: 'employee', loginStatus: 'success', token });

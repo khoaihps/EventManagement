@@ -95,7 +95,7 @@ const LoginForm = () => {
             });
         } else {
             try {
-                const { success, sessionToken, error } = await login(
+                const { success, token, error } = await login(
                     username,
                     password,
                     role.current
@@ -105,7 +105,7 @@ const LoginForm = () => {
                     // Login successful
                     // Set user session or token (e.g., save to local storage or cookies)
                     // Here, we're using a mock session token for simplicity
-                    localStorage.setItem('sessionToken', sessionToken);
+                    localStorage.setItem('token', token);
         
                     // Redirect to the protected page based on the user role
                     if (role.current === 'manager') {
