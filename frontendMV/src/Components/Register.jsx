@@ -13,9 +13,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress]= useState("");
-  let role = useRef("");
-  const alert = document.getElementById("alert");
-  const form = document.getElementById("form");
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -51,38 +49,28 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (role.current === "") {
-    //   alert.style.display = "block";
-    //   form.classList.add("disabled-overlay");
-    //   document.body.addEventListener("click", () => {
-    //   form.classList.remove("disabled-overlay");
-    //   alert.style.display = "none";
-    // });
-    } else {
-      try {
-        const {success, error} = await register (
-          firstname,
-          lastname,
-          username,
-          password,
-          dob,
-          email,
-          phone,
-          address, 
-          role.current
-        );
-        
-        if (success) {
-          console.log("Regiter successfully:");
-        } else {
-          // Register failed
-          console.log("Regiter failed:", error);
-        }
-      } catch (error) {
-        console.error("An error occurred during register:", error);
+    try {
+      const {success, error} = await register (
+        firstname,
+        lastname,
+        username,
+        password,
+        dob,
+        email,
+        phone,
+        address
+      );
+      
+      if (success) {
+        console.log("Regiter successfully:");
+      } else {
+        // Register failed
+        console.log("Regiter failed:", error);
       }
+    } catch (error) {
+      console.error("An error occurred during register:", error);
     }
+    
   };
 
 

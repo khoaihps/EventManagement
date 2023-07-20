@@ -1,10 +1,10 @@
 const BASE_URL = 'http://localhost:4000';
 
 // Login
-export async function login(username, password, role) {
+export async function login(username, password) {
     try {
         console.log(username);
-        const response = await fetch(`${BASE_URL}/login/${role.toLowerCase()}`, {
+        const response = await fetch(`${BASE_URL}/login/customer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,15 +26,15 @@ export async function login(username, password, role) {
 }
 
 // Register
-export async function register(firstname, lastname, username, password, dob, email, phone, address, role) {
+export async function register(firstname, lastname, username, password, dob, email, phone, address) {
     try {
         console.log(username);
-        const response = await fetch(`${BASE_URL}/register/${role.toLowerCase()}`, {
+        const response = await fetch(`${BASE_URL}/register/customer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ firstname, lastname, username, password, dob, email, phone, address, role }),
+            body: JSON.stringify({ firstname, lastname, username, password, dob, email, phone, address }),
         });
 
         if (response.ok) {

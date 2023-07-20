@@ -6,9 +6,6 @@ import { login } from "../api";
 const LogIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  let role = useRef("");
-  const alert = document.getElementById("alert");
-  const form = document.getElementById("form");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -21,34 +18,25 @@ const LogIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (role.current === "") {
-      alert.style.display = "block";
-      form.classList.add("disabled-overlay");
-      document.body.addEventListener("click", () => {
-      form.classList.remove("disabled-overlay");
-      alert.style.display = "none";
-    });
-    } else {
-      try {
-        const { success, sessionToken, error } = await login(
-          username,
-          password,
-          role.current
-        );
-        console.log(username);
-        if (success) {
-          // Login successful
-          // Set user session or token (e.g., save to local storage or cookies)
-          // Here, we're using a mock session token for simplicity
-          localStorage.setItem("sessionToken", sessionToken);
-        } else {
-          // Login failed
-          console.log("Login failed:", error);
-        }
-      } catch (error) {
-        console.error("An error occurred during login:", error);
+    try {
+      const { success, token, error } = await login(
+        username,
+        password
+      );
+      console.log(username);
+      if (success) {
+        // Login successful
+        // Set user session or token (e.g., save to local storage or cookies)
+        // Here, we're using a mock session token for simplicity
+        localStorage.setItem("token", token);
+      } else {
+        // Login failed
+        console.log("Login failed:", error);
       }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
     }
+  
   };
 
   return (
