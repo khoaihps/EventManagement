@@ -17,7 +17,7 @@ const eventSchema = new Schema({
     last_modified: { type: Date, default: Date.now },
     status: {
         type: String,
-        enum: ['pending', 'open', 'closed'],
+        enum: ['pending', 'preparing', 'completed'],
         required: true
     }
 });

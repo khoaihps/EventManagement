@@ -36,3 +36,7 @@ app.use('/login', loginRoute);
 // Register route
 const registerRoute = require('./routes/register');
 app.use('/register', registerRoute);
+
+// Event route
+const eventRoute = require('./routes/event');
+app.use('/event', eventRoute);

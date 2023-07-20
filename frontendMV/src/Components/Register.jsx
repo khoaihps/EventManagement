@@ -68,6 +68,9 @@ const Register = () => {
         console.log("Regiter failed:", error);
       }
     } catch (error) {
+      if (error.status === 409){
+        
+      }
       console.error("An error occurred during register:", error);
     }
     

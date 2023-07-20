@@ -115,11 +115,11 @@ router.post('/customer', async (req, res) => {
       } = req.body;
 
       // Check if the customer already exists
-      const existingCustomer = await Customer.findOne({ username });
+      const existingCustomer = await Customer.findOne({ $or: [{ username }, { email }, { phone }] });
       if (existingCustomer) {
           return res.status(409).json({ message: 'Username already exists.' });
       }
-      
+
       // Generate a salt and hash the password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
