@@ -1,9 +1,9 @@
-require('dotenv').config()
-
 const express = require('express')
-const session = require('express-session')
 const cors = require('cors');
 const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken');
+const { authenticateManager } = require('./authMiddleware');
+require('dotenv').config()
 
 // express app
 const app = express()
@@ -36,3 +36,7 @@ app.use('/login', loginRoute);
 // Register route
 const registerRoute = require('./routes/register');
 app.use('/register', registerRoute);
+
+// Event route for manager
+const eventManagerRoute = require('./routes/eventManager');
+app.use('/manager/event', authenticateManager, eventManagerRoute);
