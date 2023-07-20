@@ -13,7 +13,7 @@ export async function login(username, password, role) {
 
         if (response.ok) {
             const data = await response.json();
-            return { success: true, name: data.name, sessionToken: data.token };
+            return { success: true, name: data.name, token: data.token };
         } else {
             const errorData = await response.json();
             return { success: false, error: errorData.message };
