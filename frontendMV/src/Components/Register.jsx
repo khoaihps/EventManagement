@@ -1,4 +1,4 @@
-import React, {  useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { register } from "../api";
@@ -6,20 +6,33 @@ import BgImg from "../assets/img/carousel1.png";
 
 const Register = () => {
   const [username, setUsername] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const [passwordConfimation, setPasswordConfirmation] = useState("");
+  const [passwordConfirmationError, setPasswordConfirmationError] =
+    useState("");
+
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
+  const [address, setAddress] = useState("");
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [dob, setDoB] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress]= useState("");
-
 
   const handleUsernameChange = (event) => {
+    setUsernameError("");
     setUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
+    setPasswordError("");
     setPassword(event.target.value);
   };
 
@@ -36,10 +49,12 @@ const Register = () => {
   };
 
   const handleEmailChange = (event) => {
+    setEmailError("");
     setEmail(event.target.value);
   };
-  
+
   const handlePhoneChange = (event) => {
+    setPhoneError("");
     setPhone(event.target.value);
   };
 
@@ -47,39 +62,77 @@ const Register = () => {
     setAddress(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const {success, error} = await register (
-        firstname,
-        lastname,
-        username,
-        password,
-        dob,
-        email,
-        phone,
-        address
-      );
-      
-      if (success) {
-        console.log("Regiter successfully:");
-      } else {
-        // Register failed
-        console.log("Regiter failed:", error);
-      }
-    } catch (error) {
-      if (error.status === 409){
-        
-      }
-      console.error("An error occurred during register:", error);
-    }
-    
+  const handlePasswordConfirmation = (event) => {
+    setPasswordConfirmation(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // check username
+    if (username !== "") {
+      //other conditions
+    } else {
+      setUsernameError("Username required");
+    }
+
+    //check email
+    if (email !== "") {
+      //other conditions
+    } else {
+      setEmailError("Email required");
+    }
+
+    //check phone
+    if (phone !== "") {
+      //other conditions
+    } else {
+      setPhoneError("Phone required");
+    }
+
+    //check password
+    if (password !== "") {
+      //other conditions
+    } else {
+      setPasswordError("Password required");
+    }
+
+    //check password confirmation
+    if (passwordConfimation !== password) {
+      setPasswordConfirmationError("Password not matched");
+    }
+  };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const { success, error } = await register(
+  //       firstname,
+  //       lastname,
+  //       username,
+  //       password,
+  //       dob,
+  //       email,
+  //       phone,
+  //       address
+  //     );
+
+  //     if (success) {
+  //       console.log("Regiter successfully:");
+  //     } else {
+  //       // Register failed
+  //       console.log("Regiter failed:", error);
+  //     }
+  //   } catch (error) {
+  //     if (error.status === 409) {
+  //     }
+  //     console.error("An error occurred during register:", error);
+  //   }
+  // };
 
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
-      <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
+      <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-0">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
 
@@ -88,7 +141,11 @@ const Register = () => {
           </p>
         </div>
 
-        <form action="#" className="mt-8 grid grid-cols-6 gap-6" onSubmit={handleSubmit}>
+        <form
+          action="#"
+          className="mt-8 grid grid-cols-6 gap-6"
+          onSubmit={handleSubmit}
+        >
           <div className="col-span-6 sm:col-span-3">
             <label
               htmlFor="FirstName"
@@ -101,8 +158,9 @@ const Register = () => {
               type="text"
               id="FirstName"
               name="first_name"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={firstname} onChange={handleFirstNameChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={firstname}
+              onChange={handleFirstNameChange}
             />
           </div>
 
@@ -118,8 +176,9 @@ const Register = () => {
               type="text"
               id="LastName"
               name="last_name"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={lastname} onChange={handleLastNameChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={lastname}
+              onChange={handleLastNameChange}
             />
           </div>
           <div className="col-span-6">
@@ -128,15 +187,20 @@ const Register = () => {
               className="block text-sm font-medium text-gray-700"
             >
               Username
+              <span className="text-red-500 required-dot">*</span>
             </label>
 
             <input
               type="text"
               id="username"
               name="username"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={username} onChange={handleUsernameChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={username}
+              onChange={handleUsernameChange}
             />
+            {usernameError && (
+              <p className="absolute text-sm text-red-500">{usernameError}</p>
+            )}
           </div>
           <div className="col-span-6">
             <label
@@ -150,8 +214,9 @@ const Register = () => {
               type="date"
               id="dob"
               name="dob"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={dob} onChange={handleDoBChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={dob}
+              onChange={handleDoBChange}
             />
           </div>
           <div className="col-span-6">
@@ -160,15 +225,20 @@ const Register = () => {
               className="block text-sm font-medium text-gray-700"
             >
               Email
+              <span className="text-red-500 required-dot">*</span>
             </label>
 
             <input
               type="email"
               id="Email"
               name="email"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={email} onChange={handleEmailChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={email}
+              onChange={handleEmailChange}
             />
+            {emailError && (
+              <p className="absolute text-sm text-red-500">{emailError}</p>
+            )}
           </div>
           <div className="col-span-6">
             <label
@@ -176,15 +246,20 @@ const Register = () => {
               className="block text-sm font-medium text-gray-700"
             >
               Phone
+              <span className="text-red-500 required-dot">*</span>
             </label>
 
             <input
               type="tel"
               id="phone"
               name="phone"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={phone} onChange={handlePhoneChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={phone}
+              onChange={handlePhoneChange}
             />
+            {phoneError && (
+              <p className="absolute text-sm text-red-500">{phoneError}</p>
+            )}
           </div>
           <div className="col-span-6">
             <label
@@ -198,8 +273,9 @@ const Register = () => {
               type="text"
               id="address"
               name="address"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={address} onChange={handleAddressChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={address}
+              onChange={handleAddressChange}
             />
           </div>
           <div className="col-span-6 sm:col-span-3">
@@ -208,32 +284,45 @@ const Register = () => {
               className="block text-sm font-medium text-gray-700"
             >
               Password
+              <span className="text-red-500 required-dot">*</span>
             </label>
 
             <input
               type="password"
               id="Password"
               name="password"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={password} onChange={handlePasswordChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={password}
+              onChange={handlePasswordChange}
             />
+            {passwordError && (
+              <p className="absolute text-sm text-red-500">{passwordError}</p>
+            )}
           </div>
 
-          {/* <div className="col-span-6 sm:col-span-3">
+          <div className="col-span-6 sm:col-span-3">
             <label
               htmlFor="PasswordConfirmation"
               className="block text-sm font-medium text-gray-700"
             >
               Password Confirmation
+              <span className="text-red-500 required-dot">*</span>
             </label>
 
             <input
               type="password"
               id="PasswordConfirmation"
               name="password_confirmation"
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              value={passwordConfimation}
+              onChange={handlePasswordConfirmation}
             />
-          </div> */}
+            {passwordConfirmationError && (
+              <p className="absolute text-sm text-red-500">
+                {passwordConfirmationError}
+              </p>
+            )}
+          </div>
 
           <div className="col-span-6">
             <label htmlFor="MarketingAccept" className="flex gap-4">
@@ -266,12 +355,14 @@ const Register = () => {
           </div>
 
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <Link to="/login/customer">
-              <button className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400">
-                Create an account
-              </button>
-            </Link>
-            
+            {/* <Link to="/login/customer"> */}
+            <button
+              type="submit"
+              className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
+            >
+              Create an account
+            </button>
+            {/* </Link> */}
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
