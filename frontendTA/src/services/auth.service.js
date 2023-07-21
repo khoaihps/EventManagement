@@ -22,7 +22,7 @@ export const login = async (username, password, role) => {
 
         if (response.ok) {
             const data = await response.json();
-            if (response.data.accessToken) {
+            if (data.token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
             return { success: true, name: data.name, sessionToken: data.token };

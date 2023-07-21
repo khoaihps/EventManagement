@@ -48,7 +48,7 @@ router.post('/employee', async (req, res) => {
             if (isPasswordValid) {
                 const token = jwt.sign(
                     { role: 'employee', userId: employee._id },
-                    process.env.jwt,
+                    process.env.JWT_SECRET,
                     { expiresIn: '24h' }
                 );
                 res.json({ name: employee.lastName, role: 'employee', loginStatus: 'success', token });
@@ -59,7 +59,7 @@ router.post('/employee', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('An error occurred during employee login.');
+        res.status(500).send('An error occurred during login.');
     }
 });
 
