@@ -2,7 +2,8 @@ const express = require('express')
 const cors = require('cors');
 const mongoose = require("mongoose")
 const jwt = require('jsonwebtoken');
-const { authenticateManager } = require('./authMiddleware');
+const { authenticateManager } = require('./middlewares/authMiddleware');
+
 require('dotenv').config()
 
 // express app
@@ -38,7 +39,10 @@ const registerRoute = require('./routes/register');
 app.use('/register', registerRoute);
 
 // Event route for manager
-const eventManagerRoute = require('./routes/eventManager');
-app.use('/manager/event', authenticateManager, eventManagerRoute);
+// const eventManagerRoute = require('./routes/eventManager');
+// app.use('/manager/event', authenticateManager, eventManagerRoute);
 
-require('./routes/manager/event.manager.routes')(app);
+const eventManagerRoutes = require('./routes/manager/event.manager.routes');
+app.use('/manager/event', eventManagerRoutes);
+
+// require('./routes/manager/event.manager.routes')(app);
