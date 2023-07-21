@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:4000';
+const axios = require('axios');
 
 const register = (username, email, password) => {
     return axios.post(API_URL + "signup", {
@@ -8,7 +9,7 @@ const register = (username, email, password) => {
     });
 };
 
-const login = async (username, password, role) => {
+export const login = async (username, password, role) => {
     try {
         console.log(username);
         const response = await fetch(`${API_URL}/login/${role.toLowerCase()}`, {
@@ -21,6 +22,9 @@ const login = async (username, password, role) => {
 
         if (response.ok) {
             const data = await response.json();
+            if (response.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
             return { success: true, name: data.name, sessionToken: data.token };
         } else {
             const errorData = await response.json();
