@@ -1,20 +1,16 @@
 const API_URL = 'http://localhost:4000/event';
 
 const getEventInfo = async (eventId) => {
-    try {
-        const response = await fetch(`${API_URL}/${eventId}`);
-        if (response.ok) {
-            const data = await response.data;
-            return data;
-        }
-    } catch (error) {
-        console.error('An error occurred during fetch event data:', error);
-    }
+    return axios.get(`${API_URL}/${eventId}`, { headers: authHeader() });
+}
+const getAllEvent = async () => {
+    return axios.get(API_URL, { headers: authHeader() });
 }
 
 
 const EventService = {
-    getEventInfo
+    getEventInfo,
+    getAllEvent
 };
 
 export default EventService;

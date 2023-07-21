@@ -40,3 +40,5 @@ app.use('/register', registerRoute);
 // Event route for manager
 const eventManagerRoute = require('./routes/eventManager');
 app.use('/manager/event', authenticateManager, eventManagerRoute);
+
+require('./routes/manager/event.manager.routes')(app);

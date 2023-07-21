@@ -1,17 +1,20 @@
+import authHeader from "./auth-header";
+
 const API_URL = 'http://localhost:4000/task';
 const fetchAllTasks = async (eventId) => {
-    try {
-        const response = await fetch(`${API_URL}/${eventId}`);
-        if (response.ok) {
-            const data = await response.data;
-            return data;
-        }
-    } catch (error) {
-        console.error('An error occurred during login:', error);
-    }
+    return axios.get(API_URL, { headers: authHeader() });
+}
+const getTaskInfo = async (taskId) => {
+    return axios.get(
+        `${API_URL}/${taskId}`, 
+        { 
+            headers: authHeader(),
+            params: { eventId }
+        });
 }
 const TaskService = {
-    fetchAllTasks
+    fetchAllTasks,
+    getTaskInfo
 };
 
 export default TaskService;
