@@ -12,6 +12,7 @@ const register = (username, email, password) => {
 export const login = async (username, password, role) => {
     try {
         console.log(username);
+        // const response = await axios.post(`${API_URL}/login/${role.toLowerCase()}`, { username, password })
         const response = await fetch(`${API_URL}/login/${role.toLowerCase()}`, {
             method: 'POST',
             headers: {

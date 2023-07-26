@@ -26,7 +26,7 @@ const Badge = ({stt}) => {
             </span>
         );
     }
-    else if (stt === 'preparing')
+    else if (stt === 'open')
     {
         return (
             <span
@@ -51,7 +51,7 @@ const Badge = ({stt}) => {
             </span>
         );
     }
-    else if (stt === 'completed')
+    else if (stt === 'closed')
     {
         return (
             <span

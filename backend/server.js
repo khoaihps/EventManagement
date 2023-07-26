@@ -44,5 +44,3 @@ app.use('/register', registerRoute);
 
 const eventManagerRoutes = require('./routes/manager/event.manager.routes');
 app.use('/manager/event', eventManagerRoutes);
-
-// require('./routes/manager/event.manager.routes')(app);

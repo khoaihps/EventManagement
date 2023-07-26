@@ -3,7 +3,7 @@ import LoginForm from "./Components/LoginForm";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React from "react";
 import HomePageEmployee from "./Components/HomePageEmployee";
-import HomePageManager from './Components/HomePageManager';
+import {HomePageManager} from './Components/HomePageManager';
 
 const App = () => {
     return (

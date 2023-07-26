@@ -3,10 +3,9 @@ import Tbody from "./Tbody";
 import 'flowbite';
 import Search from "./Search";
 import {useState} from "react";
-import events from './eventsData'
 import Sort from "./Sort";
 
-const Table = () => {
+const Table = ({events}) => {
 
     const [filteredData, setFilteredData] = useState(events);
 

@@ -1,10 +1,36 @@
-const API_URL = 'http://localhost:4000/event';
+import axios from "axios";
+import authHeader from "./auth-header";
+import authHeaderTest from "./auth-header-test"
 
-const getEventInfo = async (eventId) => {
-    return axios.get(`${API_URL}/${eventId}`, { headers: authHeader() });
+const API_URL = 'http://localhost:4000/';
+
+const getEventInfo = async (eventID) => {
+    try {
+        const response = await fetch(API_URL + "manager/event/" + eventID, {
+            method: 'GET',
+            headers: authHeaderTest(),
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
 }
 const getAllEvent = async () => {
-    return axios.get(API_URL, { headers: authHeader() });
+    try {
+        const response = await fetch(API_URL + "manager/event/all", {
+            method: 'GET',
+            headers: authHeaderTest(),
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
 }
 
 
