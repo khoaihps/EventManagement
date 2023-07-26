@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidebar from "./Sidebar";
+import Sidebar from "./environment/Sidebar";
 import Table from "./table/Table";
-import Header from "./Header";
+import Header from "./environment/Header";
 
 const HomePageEmployee = () => {
     return (

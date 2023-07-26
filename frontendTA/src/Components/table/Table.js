@@ -3,7 +3,7 @@ import Tbody from "./Tbody";
 import 'flowbite';
 import Search from "./Search";
 import {useState} from "react";
-import events from './eventsData'
+import events from '../database/eventsData'
 import Sort from "./Sort";
 
 const Table = () => {

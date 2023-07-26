@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../api';
 import Design from './img/download.svg';
 import Design2 from './img/download1.svg';
-import Alert from './Alert'
+import Alert from './environment/Alert'
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
@@ -40,7 +40,7 @@ const LoginForm = () => {
             button2.style.display = "none";
             text1.style.display = "block";
             text2.style.display = "block";
-            role.current = "employee"
+            role.current = "manager"
         };
 
         const handleButton2Click = () => {
@@ -53,7 +53,7 @@ const LoginForm = () => {
             button2.style.display = "none";
             text1.style.display = "block";
             text2.style.display = "block";
-            role.current = "manager"
+            role.current = "employee"
         };
 
         const handleSwitch1Click = () => {
