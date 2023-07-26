@@ -1,11 +1,12 @@
 import React, {  useState, useRef } from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api";
 
 const LogIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -29,6 +30,7 @@ const LogIn = () => {
         // Set user session or token (e.g., save to local storage or cookies)
         // Here, we're using a mock session token for simplicity
         localStorage.setItem("token", token);
+        navigate('/')
       } else {
         // Login failed
         console.log("Login failed:", error);
@@ -127,14 +129,14 @@ const LogIn = () => {
             </div>
           </div>
 
-          <Link to="/">
+          {/* <Link to="/"> */}
             <button
               type="submit"
               className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
             >
               Log in
             </button>
-          </Link>
+          {/* </Link> */}
 
           <p className="text-center text-sm text-gray-500">
             No account?

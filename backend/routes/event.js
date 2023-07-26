@@ -1,7 +1,7 @@
 const express = require('express');
-const Event = require('../models/Event')
+const Event = require('../models/Event');
 
-const router = express.Router
+const router = express.Router();
 
 router.post('/customer', async (req, res) => {
     try {

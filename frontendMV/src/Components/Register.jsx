@@ -1,18 +1,19 @@
-import React, {  useState, useRef } from "react";
+import React, {  useState } from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api";
 import BgImg from "../assets/img/carousel1.png";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [dob, setDoB] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [DOB, setDoB] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress]= useState("");
+  const navigate = useNavigate();
 
 
   const handleUsernameChange = (event) => {
@@ -51,11 +52,11 @@ const Register = () => {
     event.preventDefault();
     try {
       const {success, error} = await register (
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         username,
         password,
-        dob,
+        DOB,
         email,
         phone,
         address
@@ -63,14 +64,13 @@ const Register = () => {
       
       if (success) {
         console.log("Regiter successfully:");
+        navigate('/login/customer');
       } else {
         // Register failed
         console.log("Regiter failed:", error);
+        navigate('/register/customer')
       }
     } catch (error) {
-      if (error.status === 409){
-        
-      }
       console.error("An error occurred during register:", error);
     }
     
@@ -102,7 +102,8 @@ const Register = () => {
               id="FirstName"
               name="first_name"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={firstname} onChange={handleFirstNameChange}
+              value={firstName} 
+              onChange={handleFirstNameChange}
             />
           </div>
 
@@ -119,7 +120,8 @@ const Register = () => {
               id="LastName"
               name="last_name"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={lastname} onChange={handleLastNameChange}
+              value={lastName} 
+              onChange={handleLastNameChange}
             />
           </div>
           <div className="col-span-6">
@@ -135,7 +137,8 @@ const Register = () => {
               id="username"
               name="username"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={username} onChange={handleUsernameChange}
+              value={username} 
+              onChange={handleUsernameChange}
             />
           </div>
           <div className="col-span-6">
@@ -148,10 +151,11 @@ const Register = () => {
 
             <input
               type="date"
-              id="dob"
+              id="DOB"
               name="dob"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={dob} onChange={handleDoBChange}
+              value={DOB} 
+              onChange={handleDoBChange}
             />
           </div>
           <div className="col-span-6">
@@ -167,7 +171,8 @@ const Register = () => {
               id="Email"
               name="email"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={email} onChange={handleEmailChange}
+              value={email} 
+              onChange={handleEmailChange}
             />
           </div>
           <div className="col-span-6">
@@ -183,7 +188,8 @@ const Register = () => {
               id="phone"
               name="phone"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={phone} onChange={handlePhoneChange}
+              value={phone} 
+              onChange={handlePhoneChange}
             />
           </div>
           <div className="col-span-6">
@@ -199,7 +205,8 @@ const Register = () => {
               id="address"
               name="address"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={address} onChange={handleAddressChange}
+              value={address} 
+              onChange={handleAddressChange}
             />
           </div>
           <div className="col-span-6 sm:col-span-3">
@@ -215,7 +222,8 @@ const Register = () => {
               id="Password"
               name="password"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              value={password} onChange={handlePasswordChange}
+              value={password} onChange=
+              {handlePasswordChange}
             />
           </div>
 
@@ -266,11 +274,13 @@ const Register = () => {
           </div>
 
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <Link to="/login/customer">
-              <button className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400">
+            {/* <Link to="/login/customer"> */}
+              <button 
+                type="submit"
+                className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400">
                 Create an account
               </button>
-            </Link>
+            {/* </Link> */}
             
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
