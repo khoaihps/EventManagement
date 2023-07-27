@@ -1,3 +1,5 @@
+import '../style/item.css';
+import { redirect, useNavigate } from 'react-router-dom';
 import React from "react";
 import Badge from './Badge';
 
@@ -11,8 +13,15 @@ const formatDate = (dateString) => {
   }
   
 const Event = ({id, title, place, deadline, stt, budget}) => {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        console.log(id);
+        // Navigate to the specific event page based on its ID
+        return navigate(`/manager/event/${id}`);
+    };
+
     return (
-        <tr>
+        <tr className="item" onClick={handleClick}>
             <td> {id}</td>
             <td>{title}</td>
             <td>{place}</td>

@@ -1,0 +1,67 @@
+.header {
+    margin: 15px 0 5px 170px !important;
+    padding: 0;
+}
+
+.info {
+    width: 1365px;
+    height: 650px;
+    background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    position: relative;
+    margin: 25px 0 0 170px;
+    z-index: 1;
+}
+
+.infoBody {
+    background-color: #fffb;
+    border-radius: .6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+    flex-direction: column;
+    height: 640px;
+}
+
+.mainInfo {
+    display: flex;
+    position: relative;
+    top: 5px;
+    width: 100%;
+    height: 600px;
+    padding: 20px;
+    justify-content: space-around;
+}
+
+.eventTable {
+    width: 49%;
+    padding: 0;
+    margin: 0;
+    height: 80%;
+}
+
+.eventTable .table {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.tasks {
+    width: 49%;
+    padding: 0;
+    margin: 0;
+    height: 542px;
+}
+
+.tasks table {
+    padding: 5px;
+    margin: 0;
+}
+
+.infoBody button {
+    height: 60px;
+    width: 200px !important;
+}

@@ -12,6 +12,7 @@ const App = () => {
                 <Route path="/" element={<LoginForm />} />
                 <Route path="/manager/home" element={<HomePageManager />} />
                 <Route path="/employee/home" element={<HomePageEmployee />} />
+                <Route path="/manager/home/:id" element={<EventDetail />} />
             </Routes>
         </Router>
     );

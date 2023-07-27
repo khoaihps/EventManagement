@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../services/auth.service';
 import Design from './img/download.svg';
 import Design2 from './img/download1.svg';
-import Alert from './Alert'
+import Alert from './environment/Alert'
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
