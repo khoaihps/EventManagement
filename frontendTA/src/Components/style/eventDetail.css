@@ -53,10 +53,13 @@
     width: 49%;
     padding: 0;
     margin: 0;
-    height: 542px;
 }
 
-.tasks table {
+.tasks .taskss {
+    max-height: 265px;
+}
+
+.tasks .taskss table {
     padding: 5px;
     margin: 0;
 }

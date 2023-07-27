@@ -1,7 +1,8 @@
 import EventTable from "./EventTable";
-import Tasks from "./Tasks";
+import Tasks from "./task/Tasks";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Employees from "../event/employee/Employees";
 
 const EventInfo = () => {
     const navigate = useNavigate();
@@ -35,6 +36,11 @@ const EventInfo = () => {
         setIsEditable(!isEditable);
     };
 
+    const handleDiscardChanges = () => {
+        setEvent(initialEvent);
+        setIsEditable(!isEditable);
+    }
+
     const comeBack = () => {
         navigate('/manager/home/')
     }
@@ -44,7 +50,10 @@ const EventInfo = () => {
             <div className="infoBody">
                 <div className="mainInfo">
                     <EventTable event={passEvent} isEditable={isEditable} change={setPassEvent}/>
-                    <Tasks />
+                    <div className="tasks">
+                        <Tasks isEditable={isEditable} />
+                        <Employees isEditable={isEditable} />
+                    </div>
                 </div>
                 <div className="flex justify-around items-center">
                     <button type="submit"
@@ -59,7 +68,7 @@ const EventInfo = () => {
                     {isEditable ? <button type="submit"
                                            className=" ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                                           onClick={handleEditButtonClick}
+                                           onClick={handleDiscardChanges}
                     >
                         Discard Changes
                     </button> : <button type="submit"
