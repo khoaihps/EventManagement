@@ -26,7 +26,22 @@ const eventDetail = async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch.' });
     }
 }
+const eventOpenDetail = async (req, res, next) => {
+    try {
+        const eventId = req.params.eventId;
 
+        // Tìm sự kiện dựa vào eventId trong database
+        const eventDetail = await Event.findById(eventId);
+
+        if (!eventDetail || !eventDetail.status || eventDetail.status != 'open') {
+            return res.status(404).json({ message: 'Event not found.' });
+        }
+        res.status(200).send(eventDetail);
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ message: 'Failed to fetch.' });
+    }
+}
 const allTaskOfEvent = async (req, res) => {
     try {
         const eventId = req.params.eventId;
@@ -68,5 +83,6 @@ module.exports = {
     eventDetail,
     allTaskOfEvent,
     allEventOfCustomer,
-    allOpenEvents
+    allOpenEvents,
+    eventOpenDetail
 }

@@ -2,16 +2,24 @@ import React from 'react';
 import Sidebar from "./Sidebar";
 import Table from "./table/Table";
 import Header from "./Header";
+import { useLoaderData } from 'react-router-dom';
+import EventService from '../services/event.service';
 
-
-const HomePageEmployee = () => {
+export const loader = async () => {
+    try {
+        return await EventService.getAllOpenEvent();
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
+export const HomePageEmployee = () => {
+    const allEvent = useLoaderData();
+    console.log(allEvent);
     return (
         <div>
             <Header title={"Events"} />
             <Sidebar/>
-            <Table />
+            <Table events={allEvent}/>
         </div>
     );
 };
-
-export default HomePageEmployee;

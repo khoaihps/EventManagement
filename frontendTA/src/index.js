@@ -5,12 +5,19 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import './index.css';
-import App from './App';
 import LoginForm from './Components/LoginForm';
-import {HomePageManager} from './Components/HomePageManager';
-import HomePageEmployee from './Components/HomePageEmployee';
+import { HomePageManager } from './Components/HomePageManager';
+import {
+  HomePageEmployee,
+  loader as allOpenEventLoader
+} from './Components/HomePageEmployee';
 import { loader as allEventLoader } from './Components/HomePageManager';
-import {EventDetail, loader as eventDetailLoader} from './Components/EventDetail'
+import {
+  EventDetail,
+  loader as eventDetailLoader
+} from './Components/EventDetail'
+
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -22,18 +29,29 @@ const router = createBrowserRouter([
     element: <HomePageManager />
   },
   {
-    path: "/employee/home",
-    element: <HomePageEmployee />
-  },
-  {
-    path: "/employee/event",
-    element: <HomePageEmployee />
+    path: "/manager/event",
+    loader: allEventLoader,
+    element: <HomePageManager />
   },
   {
     path: "/manager/event/:eventID",
     loader: eventDetailLoader,
     element: <EventDetail />
-  }
+  },
+  {
+    path: "/employee/home",
+    element: <HomePageEmployee />
+  },
+  {
+    path: "/employee/event",
+    loader: allOpenEventLoader,
+    element: <HomePageEmployee />
+  },
+  {
+    path: "/team-member/event",
+    loader: allOpenEventLoader,
+    element: <HomePageEmployee />
+  },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

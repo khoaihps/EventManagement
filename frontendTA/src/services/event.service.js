@@ -1,6 +1,6 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-import authHeaderTest from "./auth-header-test"
+import {authHeaderTest, authHeaderTestTeamMember} from "./auth-header-test"
 
 const API_URL = 'http://localhost:4000/';
 
@@ -32,11 +32,25 @@ const getAllEvent = async () => {
         console.log("Error: ", error);
     }
 }
-
+const getAllOpenEvent = async () => {
+    try {
+        const response = await fetch(API_URL + "team-member/event/all", {
+            method: 'GET',
+            headers: authHeaderTestTeamMember(),
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
 
 const EventService = {
     getEventInfo,
-    getAllEvent
+    getAllEvent,
+    getAllOpenEvent
 };
 
 export default EventService;
