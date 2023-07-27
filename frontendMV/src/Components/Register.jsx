@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api";
 import BgImg from "../assets/img/carousel1.png";
 
@@ -22,9 +22,11 @@ const Register = () => {
   const [phoneError, setPhoneError] = useState("");
 
   const [address, setAddress] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [dob, setDoB] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [DOB, setDoB] = useState("");
+  const navigate = useNavigate();
+  let err = "";
 
   const handleUsernameChange = (event) => {
     setUsernameError("");
@@ -66,12 +68,40 @@ const Register = () => {
     setPasswordConfirmation(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      const { success, error } = await register(
+        firstName,
+        lastName,
+        username,
+        password,
+        DOB,
+        email,
+        phone,
+        address
+      );
+
+      if (success) {
+        console.log("Regiter successfully:");
+        navigate("/login/customer");
+      } else {
+        // Register failed
+        console.log("Regiter failed:", error);
+        err = error;
+        // navigate('/register/customer')
+      }
+    } catch (error) {
+      console.error("An error occurred during register:", error);
+    }
 
     // check username
     if (username !== "") {
       //other conditions
+      if (err === "Username already exists.") {
+        setUsernameError(err);
+      }
     } else {
       setUsernameError("Username required");
     }
@@ -79,6 +109,9 @@ const Register = () => {
     //check email
     if (email !== "") {
       //other conditions
+      if (err === "Email already exists.") {
+        setEmailError(err);
+      }
     } else {
       setEmailError("Email required");
     }
@@ -86,6 +119,9 @@ const Register = () => {
     //check phone
     if (phone !== "") {
       //other conditions
+      if (err === "Phone already exists.") {
+        setPhoneError(err);
+      }
     } else {
       setPhoneError("Phone required");
     }
@@ -102,33 +138,6 @@ const Register = () => {
       setPasswordConfirmationError("Password not matched");
     }
   };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const { success, error } = await register(
-  //       firstname,
-  //       lastname,
-  //       username,
-  //       password,
-  //       dob,
-  //       email,
-  //       phone,
-  //       address
-  //     );
-
-  //     if (success) {
-  //       console.log("Regiter successfully:");
-  //     } else {
-  //       // Register failed
-  //       console.log("Regiter failed:", error);
-  //     }
-  //   } catch (error) {
-  //     if (error.status === 409) {
-  //     }
-  //     console.error("An error occurred during register:", error);
-  //   }
-  // };
 
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
@@ -159,7 +168,7 @@ const Register = () => {
               id="FirstName"
               name="first_name"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              value={firstname}
+              value={firstName}
               onChange={handleFirstNameChange}
             />
           </div>
@@ -177,7 +186,7 @@ const Register = () => {
               id="LastName"
               name="last_name"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              value={lastname}
+              value={lastName}
               onChange={handleLastNameChange}
             />
           </div>
@@ -215,7 +224,7 @@ const Register = () => {
               id="dob"
               name="dob"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              value={dob}
+              value={DOB}
               onChange={handleDoBChange}
             />
           </div>
