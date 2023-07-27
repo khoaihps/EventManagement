@@ -114,10 +114,24 @@ router.post('/customer', async (req, res) => {
           address
       } = req.body;
 
-      // Check if the customer already exists
-      const existingCustomer = await Customer.findOne({ $or: [{ username }, { email }, { phone }] });
+      let existingCustomer = null;
+
+      // Check if the username already exists
+      existingCustomer = await Customer.findOne({ username });
       if (existingCustomer) {
-          return res.status(409).json({ message: 'User already exists.' });
+          return res.status(409).json({ message: 'Username already exists.' });
+      }
+
+      // Check if the phone already exists
+      existingCustomer = await Customer.findOne({ phone });
+      if (existingCustomer) {
+          return res.status(409).json({ message: 'Phone already exists.' });
+      }
+
+      // Check if the email already exists
+      existingCustomer = await Customer.findOne({ email });
+      if (existingCustomer) {
+          return res.status(409).json({ message: 'Email already exists.' });
       }
 
       // Generate a salt and hash the password
