@@ -11,7 +11,6 @@ const register = (username, email, password) => {
 
 export const login = async (username, password, role) => {
     try {
-        console.log(username);
         // const response = await axios.post(`${API_URL}/login/${role.toLowerCase()}`, { username, password })
         const response = await fetch(`${API_URL}/login/${role.toLowerCase()}`, {
             method: 'POST',
@@ -24,8 +23,10 @@ export const login = async (username, password, role) => {
         if (response.ok) {
             const data = await response.json();
             if (data.token) {
-                localStorage.setItem("user", JSON.stringify(response.data));
+                console.log(data.token);
+                localStorage.setItem("user", JSON.stringify(data));
             }
+            console.log(response, data);
             return { success: true, name: data.name, sessionToken: data.token };
         } else {
             const errorData = await response.json();

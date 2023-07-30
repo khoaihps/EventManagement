@@ -22,7 +22,7 @@ const getAllEvent = async () => {
     try {
         const response = await fetch(API_URL + "manager/event/all", {
             method: 'GET',
-            headers: authHeaderTest(),
+            headers: authHeader(),
         });
         if (response.ok){
             const data = await response.json();
