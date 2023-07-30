@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './style/sidebar.css'
 
 const Sidebar = () => {
+
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        // Get the user data from localStorage
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user && user.name) {
+            setUserName(user.name);
+        }
+    }, []);
+
     return (
         <div className="sidebar flex flex-col items-center w-40 h-full overflow-hidden text-gray-700 bg-gray-100 rounded">
             <a className="flex items-center w-full px-3 mt-3" href="#">
@@ -99,7 +110,7 @@ const Sidebar = () => {
                               d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <span className="ml-2 text-sm font-medium">Account</span>
+                <span className="ml-2 text-sm font-medium">{userName}</span>
             </a>
         </div>
     )

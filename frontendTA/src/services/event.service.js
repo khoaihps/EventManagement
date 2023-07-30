@@ -8,7 +8,7 @@ const getEventInfo = async (eventID) => {
     try {
         const response = await fetch(API_URL + "manager/event/" + eventID, {
             method: 'GET',
-            headers: authHeaderTest(),
+            headers: authHeader(),
         });
         if (response.ok){
             const data = await response.json();
@@ -36,10 +36,11 @@ const getAllOpenEvent = async () => {
     try {
         const response = await fetch(API_URL + "team-member/event/all", {
             method: 'GET',
-            headers: authHeaderTestTeamMember(),
+            headers: authHeader(),
         });
         if (response.ok){
             const data = await response.json();
+            console.log(data);
             return data;
         }
     } catch (error) {

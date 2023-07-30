@@ -1,8 +1,9 @@
 import React from 'react';
-import {useLoaderData} from 'react-router-dom'
 import Sidebar from "./Sidebar";
-import EventService from '../services/event.service'
-import Table from './table/Table';
+import Table from "./table/Table";
+import Header from "./Header";
+import { useLoaderData } from 'react-router-dom';
+import EventService from '../services/event.service';
 
 export const loader = async () => {
     try {
@@ -13,9 +14,9 @@ export const loader = async () => {
 }
 export const HomePageManager = () => {
     const allEvent = useLoaderData();
-    console.log(allEvent);
     return (
         <div>
+            <Header title={"Events"} />
             <Sidebar/>
             <Table events={allEvent}/>
         </div>

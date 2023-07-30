@@ -14,7 +14,6 @@ export const loader = async () => {
 }
 export const HomePageEmployee = () => {
     const allEvent = useLoaderData();
-    console.log(allEvent);
     return (
         <div>
             <Header title={"Events"} />
@@ -23,3 +22,4 @@ export const HomePageEmployee = () => {
         </div>
     );
 };
+
