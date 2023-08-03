@@ -15,6 +15,8 @@ const eventSchema = new Schema({
     description: { type: String, required: true },
     date_proposed: { type: Date, required: true },
     last_modified: { type: Date, default: Date.now },
+    size: { type: Number, required: true },
+    budget: { type: Number, required: true},
     status: {
         type: String,
         enum: ['pending', 'preparing', 'completed'],

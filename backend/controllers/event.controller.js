@@ -78,11 +78,51 @@ const allEventOfCustomer = async (req, res) => {
     }
 }
 
+const createEvent = async (req, res) => {
+    try {
+        const {
+          name,
+          customer_id,
+          deadline,
+          place,
+          type_of_event,
+          description,
+          date_proposed,
+          size,
+          budget,
+          status
+        } = req.body;
+    
+        // Create a new event
+        const newEvent = new Event({
+            name,
+            customer_id,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            date_proposed,
+            size,
+            budget,
+            status
+        });
+    
+        // Save the event to the database
+        await newEvent.save();
+    
+        res.status(201).json({ message: 'Event created successfully', event: newEvent });
+      } catch (error) {
+        console.error('Error creating event:', error);
+        res.status(500).json({ message: 'An error occurred during event creation' });
+      }
+}
+
 module.exports = {
     allEvents,
     eventDetail,
     allTaskOfEvent,
     allEventOfCustomer,
     allOpenEvents,
-    eventOpenDetail
+    eventOpenDetail,
+    createEvent
 }
