@@ -1,7 +1,6 @@
-const { allEvents, eventDetail, allOpenEvents, eventOpenDetail } = require('../../controllers/event.controller');
+const {allOpenEvents, eventOpenDetail, allTaskOfEvent } = require('../../middlewares/event.middleware');
 const express = require("express");
 const { authenticateEmployee } = require('../../middlewares/auth.middleware');
-const { allTaskOfEvent } = require('../../controllers/event.controller');
 const router = express.Router();
 
 router.use(authenticateEmployee);

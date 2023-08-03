@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import './index.css';
-import LoginForm from './Components/LoginForm';
+import {LoginForm, loader as checkLoginStatus} from './Components/LoginForm';
 import { HomePageManager } from './Components/HomePageManager';
 import {
   HomePageEmployee,
@@ -17,10 +17,22 @@ import {
   loader as eventDetailLoader
 } from './Components/EventDetail'
 import { EventDetail } from './Components/event/EventDetail';
+import Unauthorized from './Components/Unauthorized';
+import Logout from './Components/Logout';
+import NotFound from './Components/NotFound';
 
 const router = createBrowserRouter([
   {
+    path: "/unauthorized",
+    element: <Unauthorized />
+  },
+  {
+    path: "/logout",
+    element: <Logout />
+  },
+  {
     path: "/login",
+    loader: checkLoginStatus,
     element: <LoginForm />
   },
   {
@@ -56,6 +68,10 @@ const router = createBrowserRouter([
     path: "/test/event/:eventID",
     loader: eventDetailLoader,
     element: <EventDetail />
+  },
+  {
+    path: "/:path",
+    element: <NotFound />
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

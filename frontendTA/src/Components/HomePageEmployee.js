@@ -2,10 +2,15 @@ import React from 'react';
 import Sidebar from "./Sidebar";
 import Table from "./table/Table";
 import Header from "./Header";
-import { useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 import EventService from '../services/event.service';
+import AuthService from '../services/auth.service';
 
 export const loader = async () => {
+    const user = AuthService.getCurrentUser();
+    if (!user || user.role != 'team-member') {
+        return redirect('/unauthorized');
+    }
     try {
         return await EventService.getAllOpenEvent();
     } catch (error) {
@@ -14,7 +19,6 @@ export const loader = async () => {
 }
 export const HomePageEmployee = () => {
     const allEvent = useLoaderData();
-    console.log(allEvent);
     return (
         <div>
             <Header title={"Events"} />

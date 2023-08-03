@@ -1,11 +1,18 @@
 import React, {useEffect, useState, useRef} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { login } from '../services/auth.service';
+import { redirect, useNavigate } from 'react-router-dom';
+import AuthService, { login } from '../services/auth.service';
 import Design from './img/download.svg';
 import Design2 from './img/download1.svg';
 import Alert from './environment/Alert'
 
-const LoginForm = () => {
+export const loader = async () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+        return redirect(`/${user.role}/event`);
+    }
+    return null;
+}
+export const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -284,5 +291,3 @@ const LoginForm = () => {
     </div>
     );
 };
-
-export default LoginForm;
