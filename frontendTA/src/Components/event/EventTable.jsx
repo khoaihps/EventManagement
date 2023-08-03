@@ -2,7 +2,7 @@
 const EventTable = ({ event, isEditable, change}) => {
 
     const handleChange = (e) => {
-        event.name = e.target.value;
+        event[e.target.name] = e.target.value;
         change(event);
     }
 
@@ -13,7 +13,7 @@ const EventTable = ({ event, isEditable, change}) => {
                 <div className="rounded-lg shadow-2xl bg-white lg:col-span-3 lg:p-6">
                     <form>
                         <div className="relative z-0 w-full mb-2 group">
-                            <input type="text" name="floating_email" id="floating_email"
+                            <input type="text" name="name" id="floating_email"
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
@@ -25,7 +25,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title</label>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
-                            <input type="text" name="floating_password" id="floating_password"
+                            <input type="text" name="place" id="floating_password"
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
@@ -37,7 +37,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Location</label>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
-                            <input type="text" name="repeat_password" id="floating_repeat_password"
+                            <input type="text" name="status" id="floating_repeat_password"
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
@@ -49,7 +49,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Status</label>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
-                            <input type="text" name="repeat_password" id="floating_repeat_password"
+                            <input type="text" name="typeOfEvent" id="floating_repeat_password"
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
@@ -61,7 +61,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type of Event</label>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
-                            <input type="text" name="repeat_password" id="floating_repeat_password"
+                            <input type="text" name="budget" id="floating_repeat_password"
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
@@ -74,7 +74,7 @@ const EventTable = ({ event, isEditable, change}) => {
                         </div>
                         <div className="grid md:grid-cols-2 md:gap-6">
                             <div className="relative z-0 w-full mb-6 group">
-                                <input type="text" name="floating_first_name" id="floating_first_name"
+                                <input type="text" name="datePropose" id="floating_first_name"
                                        className={`${!isEditable ? 'cursor-not-allowed' : ''}
                                        block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                        placeholder=" " required
@@ -86,7 +86,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Date Proposed</label>
                             </div>
                             <div className="relative z-0 w-full mb-6 group">
-                                <input type="text" name="floating_last_name" id="floating_last_name"
+                                <input type="text" name="deadline" id="floating_last_name"
                                        className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                        block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                        placeholder=" " required
@@ -106,6 +106,7 @@ const EventTable = ({ event, isEditable, change}) => {
                             placeholder="Description..."
                             readOnly={!isEditable}
                             onChange={handleChange}
+                            name="description"
                         >
                           {event.description}
                         </textarea>
