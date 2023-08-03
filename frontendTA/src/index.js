@@ -52,6 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/employee/home",
+    loader: allOpenEventLoader,
     element: <HomePageEmployee />
   },
   {

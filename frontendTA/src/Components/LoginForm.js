@@ -111,38 +111,35 @@ export const LoginForm = () => {
                 setAlertDisplay(false);
             })
         } else {
-            console.log(role.current);
+
             try {
-                const { success, token, error } = await login(
-                username,
-                password,
-                role.current
+                const { success, error } = await login(
+                    username,
+                    password,
+                    role.current
                 );
       
-            if (success) {
-                // Login successful
-                // Set user session or token (e.g., save to local storage or cookies)
-                // Here, we're using a mock session token for simplicity
-                localStorage.setItem('token', token);
-      
-                // Redirect to the protected page based on the user role
-                if (role.current === 'manager') {
-                    navigate('/manager/home');
-                } else if (role.current === 'employee') {
-                    navigate('/employee/home');
+                if (success) {
+                    // Login successful
+        
+                    // Redirect to the protected page based on the user role
+                    if (role.current === 'manager') {
+                        navigate('/manager/home');
+                    } else if (role.current === 'employee') {
+                        navigate('/employee/home');
+                    }
+                } else {
+                    handleAlertDisplay("Please enter the username and password again.",
+                        "Incorrect username and password!");
+                    form.classList.add('disabled-overlay');
+                    document.body.addEventListener('click', () => {
+                        form.classList.remove('disabled-overlay');
+                        setAlertDisplay(false);
+                    })
                 }
-            } else {
-                handleAlertDisplay("Please enter the username and password again.",
-                    "Incorrect username and password!");
-                form.classList.add('disabled-overlay');
-                document.body.addEventListener('click', () => {
-                    form.classList.remove('disabled-overlay');
-                    setAlertDisplay(false);
-                })
+            } catch (error) {
+                console.error('An error occurred during login:', error);
             }
-          } catch (error) {
-            console.error('An error occurred during login:', error);
-          }
         }
     };
 

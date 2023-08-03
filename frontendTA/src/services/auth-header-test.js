@@ -4,6 +4,6 @@ export function authHeaderTest() {
     return { Authorization: 'Bearer ' + token };
 }
 export function authHeaderTestTeamMember() {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZW1wbG95ZWUiLCJ1c2VySWQiOiI2NGI3MmU5ZjlmN2JhZDQ4M2ZmZGFkODMiLCJpYXQiOjE2OTA0NDcxMDcsImV4cCI6MTY5MDUzMzUwN30.KG9PKlbawLEc428KCNRV4IdK4Cobx079VF8S4gSiFb0";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZW1wbG95ZWUiLCJ1c2VySWQiOiI2NGI3MmU5ZjlmN2JhZDQ4M2ZmZGFkODMiLCJpYXQiOjE2OTA3MzUwMDYsImV4cCI6MTY5MDgyMTQwNn0.zZbbCD07xYi_8P1oMkoMl0SMPpWGsoY382XHwOOFyYs";
     return { Authorization: 'Bearer ' + token };
 }
