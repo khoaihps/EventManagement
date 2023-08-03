@@ -181,12 +181,12 @@ const EventTabs = () => {
                     </div>
                   </div>
 
-                  <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
+                  <div className="grid max-w-xl grid-cols-2 gap-2 m-auto">
                     <div className="col-span-2 lg:col-span-1">
                       <div className=" relative ">
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
-                          name="animals"
+                          name="event-type"
                         >
                           <option value>Event type</option>
                           <option value="concert">Concert</option>
@@ -202,7 +202,7 @@ const EventTabs = () => {
                       <div className=" relative ">
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
-                          name="animals"
+                          name="event-size"
                         >
                           <option value>Event size</option>
                           <option value="small">
