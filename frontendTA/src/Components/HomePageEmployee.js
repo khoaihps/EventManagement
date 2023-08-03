@@ -3,7 +3,7 @@ import Sidebar from "./environment/Sidebar";
 import Table from "./table/Table";
 import Header from "./environment/Header";
 
-const HomePageEmployee = () => {
+export const HomePageEmployee = () => {
     return (
         <div>
             <Header title={"Events"} />
@@ -12,5 +12,3 @@ const HomePageEmployee = () => {
         </div>
     );
 };
-
-export default HomePageEmployee;

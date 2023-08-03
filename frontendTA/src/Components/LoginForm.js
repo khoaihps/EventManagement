@@ -5,7 +5,7 @@ import Design from './img/download.svg';
 import Design2 from './img/download1.svg';
 import Alert from './environment/Alert'
 
-const LoginForm = () => {
+export const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -283,5 +283,3 @@ const LoginForm = () => {
     </div>
     );
 };
-
-export default LoginForm;

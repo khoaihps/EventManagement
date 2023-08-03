@@ -4,7 +4,7 @@ import Sidebar from "../environment/Sidebar";
 import EventInfo from "./EventInfo";
 import '../style/eventDetail.css'
 
-const EventDetail = () => {
+export const EventDetail = () => {
     const { id } = useParams();
 
     return (
@@ -15,5 +15,3 @@ const EventDetail = () => {
         </div>
     );
 };
-
-export default EventDetail;

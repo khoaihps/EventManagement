@@ -1,6 +1,6 @@
 // Assuming you have the mongoose library imported and the employeeSchema defined.
 
-const employees = [
+const employeesData = [
     {
         firstName: "John",
         lastName: "Doe",
@@ -60,4 +60,4 @@ const employees = [
 ];
 
 // Now you have an array "employeesData" with 5 objects, each conforming to the "employeeSchema".
-export default employees;
+export default employeesData;

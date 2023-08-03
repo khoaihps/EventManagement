@@ -1,4 +1,4 @@
-const tasks = [
+const tasksData = [
     {
         name: "Task 1",
         deadline: "2023-08-15",
@@ -41,4 +41,4 @@ const tasks = [
     }
 ];
 
-export default tasks;
+export default tasksData;
