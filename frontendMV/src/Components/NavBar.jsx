@@ -35,7 +35,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link to="/event">
+                <Link to="/event/customer">
                   <a
                     className="text-white transition hover:text-gray-500/75"
                     href="/"
