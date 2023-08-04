@@ -1,8 +1,8 @@
-const TaskInfo = ({index, task, setTask, isEditable}) => {
+const TaskInfo = ({task, setTask, isEditable}) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
-        task[name] = value;
-        setTask(index, task);
+        const updatedTask = { ...task, [name]: value };
+        setTask(updatedTask);
     };
 
     return (

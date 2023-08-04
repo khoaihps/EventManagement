@@ -4,12 +4,14 @@ import "../../../style/TaskDetail.css";
 import TaskEmployees from "./taskEmployee/TaskEmployees";
 
 const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEditable }) => {
+    const [currentTask, setCurrentTask] = useState(task);
     const handleClick = () => {
         handleDismiss(false);
     };
 
     const handleTaskChange = () => {
-        updateTaskData(index, task);
+        setTask(index, currentTask);
+        updateTaskData(index, currentTask);
         handleDismiss(false);
     };
 
@@ -19,7 +21,7 @@ const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEdi
     }
 
     const handleDiscardChanges = () => {
-        setTask(index, task);
+        setCurrentTask(task);
     };
 
     return (
@@ -40,7 +42,7 @@ const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEdi
                         </svg>
                     </button>
                     <div className="child">
-                        <TaskInfo index={index} task={task} setTask={setTask} isEditable={isEditable} />
+                        <TaskInfo index={index} task={currentTask} setTask={setCurrentTask} isEditable={isEditable} />
                         {isEditable && (
                             <div className="mt-[40px]">
                                 <button

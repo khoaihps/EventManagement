@@ -46,9 +46,9 @@ const EventInfo = ({initialEvent}) => {
     };
 
     const handleDiscardChanges = () => {
-        setEvent(initialEvent);
-        setTasks(initialTasks);
-        setEmployees(initialEmployees);
+        setPassEvent(initialEvent);
+        setPassTasks(initialTasks);
+        setPassEmployees(initialEmployees);
 
         setIsEditable(!isEditable);
     }
@@ -63,8 +63,8 @@ const EventInfo = ({initialEvent}) => {
                 <div className="mainInfo">
                     <EventTable event={passEvent} change={setPassEvent} isEditable={isEditable} />
                     <div className="tasks">
-                        <Tasks tasks={tasks} change={setPassTasks} isEditable={isEditable} />
-                        <Employees employees={employees} change={setPassEmployees} isEditable={isEditable} />
+                        <Tasks tasks={passTasks} change={setPassTasks} isEditable={isEditable} />
+                        <Employees employees={passEmployees} change={setPassEmployees} isEditable={isEditable} />
                     </div>
                 </div>
                 <div className="flex justify-around items-center">
