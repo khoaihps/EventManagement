@@ -2,8 +2,9 @@
 const EventTable = ({ event, isEditable, change}) => {
 
     const handleChange = (e) => {
-        event[e.target.name] = e.target.value;
-        change(event);
+        const { name, value } = e.target;
+        const updatedEvent = { ...event, [name]: value };
+        change(updatedEvent);
     }
 
     return (
@@ -17,7 +18,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
-                                   defaultValue={event.name}
+                                   value={event.name}
                                    readOnly={!isEditable}
                                    onChange={handleChange}
                             />
@@ -29,7 +30,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
-                                   defaultValue={event.place}
+                                   value={event.place}
                                    readOnly={!isEditable}
                                    onChange={handleChange}
                             />
@@ -41,7 +42,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
-                                   defaultValue={event.status}
+                                   value={event.status}
                                    readOnly={!isEditable}
                                    onChange={handleChange}
                             />
@@ -53,7 +54,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
-                                   defaultValue={event.typeOfEvent}
+                                   value={event.typeOfEvent}
                                    readOnly={!isEditable}
                                    onChange={handleChange}
                             />
@@ -65,7 +66,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                    className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                    block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                    placeholder=" " required
-                                   defaultValue={event.budget}
+                                   value={event.budget}
                                    readOnly={!isEditable}
                                    onChange={handleChange}
                             />
@@ -78,7 +79,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                        className={`${!isEditable ? 'cursor-not-allowed' : ''}
                                        block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                        placeholder=" " required
-                                       defaultValue={event.datePropose}
+                                       value={event.datePropose}
                                        readOnly={!isEditable}
                                        onChange={handleChange}
                                 />
@@ -90,7 +91,7 @@ const EventTable = ({ event, isEditable, change}) => {
                                        className={` ${!isEditable ? 'cursor-not-allowed' : ''}
                                        block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                        placeholder=" " required
-                                       defaultValue={event.deadline}
+                                       value={event.deadline}
                                        readOnly={!isEditable}
                                        onChange={handleChange}
                                 />

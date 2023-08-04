@@ -60,9 +60,9 @@ const EventInfo = () => {
     };
 
     const handleDiscardChanges = () => {
-        setEvent(initialEvent);
-        setTasks(initialTasks);
-        setEmployees(initialEmployees);
+        setPassEvent(initialEvent);
+        setPassTasks(initialTasks);
+        setPassEmployees(initialEmployees);
 
         setIsEditable(!isEditable);
     }
