@@ -4,18 +4,17 @@ import TaskDetail from "./taskDetail/TaskDetail";
 
 const Tasks = ({tasks, change, isEditable}) => {
     const updateTaskData = (taskId, newData) => {
-        if (taskId === tasks.length) {
-            // If taskId is equal to tasks.length, add newData to the end of tasks array
+        if (taskId === taskStates.length) {
             const updatedTasksData = [...tasks, newData];
             change(updatedTasksData);
         }
         else
         {
-            const taskIndex = tasks.findIndex((task) => tasks.indexOf(task) === taskId); // Assuming each task has an 'id' property that uniquely identifies it
+            const taskIndex = taskStates.findIndex((task) => taskStates.indexOf(task) === taskId); // Assuming each task has an 'id' property that uniquely identifies it
 
             if (taskIndex !== -1) {
                 // Create a new array with the updated task data
-                const updatedTasksData = [...tasks];
+                const updatedTasksData = [...taskStates];
 
                 if (newData === null) {
                     // If newData is null, delete the element from updatedTasksData array
@@ -74,6 +73,7 @@ const Tasks = ({tasks, change, isEditable}) => {
             event_id: ""
         });
         setTaskStates((prevStates) => [...prevStates, task]);
+        console.log(taskStates.length);
     }
 
     return (
