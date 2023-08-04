@@ -1,27 +1,15 @@
 import EventTable from "./EventTable";
 import Tasks from "./task/Tasks";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Employees from "../event/employee/Employees";
 import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
 
-const EventInfo = () => {
+const EventInfo = ({initialEvent}) => {
     const navigate = useNavigate();
 
     // api call specific event
-    const initialEvent = {
-        "name": "Gray Mathews",
-        "place": "Tarapacá",
-        "id": "9479",
-        "budget": "$31,024,40",
-        "description": "job join joint joke journal journalist journey joy judge judgment juice jump junior jury just",
-        "deadline": "Dec 5, 2023",
-        "status": "preparing",
-        "datePropose": "Sep 28, 2023",
-        "lastModified": "Jun 12, 2024",
-        "typeOfEvent": "Community"
-    }
 
     // api call specific tasks associated with the event
     const initialTasks = tasksData;
@@ -41,10 +29,8 @@ const EventInfo = () => {
     const [isEditable, setIsEditable] = useState(false);
 
 
-    const handleEditButtonClick = () =>
-    {
-        if (isEditable)
-        {
+    const handleEditButtonClick = () => {
+        if (isEditable) {
             // console.log(passEvent);
             // console.log(passTasks);
             // console.log(passEmployees);
@@ -75,7 +61,7 @@ const EventInfo = () => {
         <div className="info">
             <div className="infoBody">
                 <div className="mainInfo">
-                    <EventTable event={passEvent} change={setPassEvent} isEditable={isEditable}/>
+                    <EventTable event={passEvent} change={setPassEvent} isEditable={isEditable} />
                     <div className="tasks">
                         <Tasks tasks={tasks} change={setPassTasks} isEditable={isEditable} />
                         <Employees employees={employees} change={setPassEmployees} isEditable={isEditable} />
@@ -83,24 +69,24 @@ const EventInfo = () => {
                 </div>
                 <div className="flex justify-around items-center">
                     <button type="submit"
-                            className={`${isEditable ? 'aaa bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' :
-                                'aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                        className={`${isEditable ? 'aaa bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' :
+                            'aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
                             }
                         text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
-                            onClick={handleEditButtonClick}
+                        onClick={handleEditButtonClick}
                     >
                         {isEditable ? 'Save' : 'Edit'}
                     </button>
                     {isEditable ? <button type="submit"
-                                           className=" aaa ml-4
+                        className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                                           onClick={handleDiscardChanges}
+                        onClick={handleDiscardChanges}
                     >
                         Discard Changes
                     </button> : <button type="submit"
-                                        className=" aaa ml-4
+                        className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                                        onClick={comeBack}
+                        onClick={comeBack}
                     >
                         Move Back
                     </button>

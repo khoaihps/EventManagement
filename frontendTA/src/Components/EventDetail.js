@@ -15,7 +15,7 @@ export const loader = async ({ params }) => {
 
 export const EventDetail = () => {
     const event_detail = useLoaderData();
-
+    console.log("HEllo ?")
     return (
     <div>
         {JSON.stringify(event_detail)}

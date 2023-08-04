@@ -25,7 +25,7 @@ export const EventDetail = () => {
         <div>
             <Header title={"Event Detail"} />
             <Sidebar/>
-            <EventInfo/>
+            <EventInfo initialEvent={eventInfo.details}/>
         </div>
     );
 };

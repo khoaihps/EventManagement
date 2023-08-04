@@ -1,6 +1,5 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-import {authHeaderTest, authHeaderTestTeamMember} from "./auth-header-test"
 
 const API_URL = 'http://localhost:4000/';
 
