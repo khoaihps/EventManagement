@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import './index.css';
-import {LoginForm, loader as checkLoginStatus} from './Components/LoginForm';
+import { LoginForm, loader as checkLoginStatus } from './Components/LoginForm';
 import { HomePageManager } from './Components/HomePageManager';
 import {
   HomePageEmployee,
@@ -13,10 +13,9 @@ import {
 } from './Components/HomePageEmployee';
 import { loader as allEventLoader } from './Components/HomePageManager';
 import {
-  EventDetail as ED,
+  EventDetail,
   loader as eventDetailLoader
-} from './Components/EventDetail'
-import { EventDetail } from './Components/event/EventDetail';
+} from './Components/event/EventDetail';
 import Unauthorized from './Components/Unauthorized';
 import Logout from './Components/Logout';
 import NotFound from './Components/NotFound';
@@ -48,7 +47,12 @@ const router = createBrowserRouter([
   {
     path: "/manager/event/:eventID",
     loader: eventDetailLoader,
-    element: <ED />
+    element: <EventDetail />
+  },
+  {
+    path: "/employee/event/:eventID",
+    loader: eventDetailLoader,
+    element: <EventDetail />
   },
   {
     path: "/employee/home",
