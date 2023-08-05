@@ -20,12 +20,13 @@ export const loader = async ({ params }) => {
 export const EventDetail = () => {
     const { id } = useParams();
     const eventInfo = useLoaderData();
+    console.log(eventInfo)
 
     return (
         <div>
             <Header title={"Event Detail"} />
             <Sidebar/>
-            <EventInfo initialEvent={eventInfo.details}/>
+            <EventInfo initialEvent={eventInfo.details} initialTasks={eventInfo.tasks}/>
         </div>
     );
 };
