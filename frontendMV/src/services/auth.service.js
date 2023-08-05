@@ -1,17 +1,12 @@
+import { convertToISODate } from './util';
+
 const API_URL = 'http://localhost:4000';
 const axios = require('axios');
 
-const register = (username, email, password) => {
-    return axios.post(API_URL + "signup", {
-        username,
-        email,
-        password,
-    });
-};
-export async function login(username, password) {
+const login = async (username, password) => {
     try {
         console.log(username);
-        const response = await fetch(`${BASE_URL}/login/customer`, {
+        const response = await fetch(`${API_URL}/login/customer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +35,7 @@ export async function register(firstName, lastName, username, password, DOB, ema
     try {
         const isoDate = convertToISODate(DOB)
         console.log(username);
-        const response = await fetch(`${BASE_URL}/register/customer`, {
+        const response = await fetch(`${API_URL}/register/customer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-function convertToISODate(inputDOB) {
+export function convertToISODate(inputDOB) {
     // Split the input string by "/"
     const [day, month, year] = inputDOB.split("/");
 

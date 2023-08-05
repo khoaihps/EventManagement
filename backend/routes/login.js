@@ -79,7 +79,7 @@ router.post('/customer', async (req, res) => {
                     process.env.JWT_SECRET,
                     { expiresIn: '24h' }
                 );
-                res.json({ name: customer.lastName, role: 'customer', loginStatus: 'success', token });
+                res.json({ name: customer.lastName, role: 'customer', loginStatus: 'success', token, id: customer._id});
             } else {
                 res.status(401).json({ loginStatus: 'failure', message: 'Invalid password.' });
             }
