@@ -181,12 +181,12 @@ const EventTabs = () => {
                     </div>
                   </div>
 
-                  <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
+                  <div className="grid max-w-xl grid-cols-2 gap-2 m-auto">
                     <div className="col-span-2 lg:col-span-1">
                       <div className=" relative ">
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
-                          name="animals"
+                          name="event-type"
                         >
                           <option value>Event type</option>
                           <option value="concert">Concert</option>
@@ -202,7 +202,7 @@ const EventTabs = () => {
                       <div className=" relative ">
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
-                          name="animals"
+                          name="event-size"
                         >
                           <option value>Event size</option>
                           <option value="small">
@@ -333,25 +333,400 @@ const EventTabs = () => {
               className={openTab === 2 ? "block" : "hidden"}
               id="manageevent"
             >
-              <p>
-                Completely synergize resource taxing relationships via premier
-                niche markets. Professionally cultivate one-to-one customer
-                service with robust ideas.
-                <br />
-                <br />
-                Dynamically innovate resource-leveling customer service for
-                state of the art customer service.
-              </p>
+              <div className="container max-w-3xl px-4 mx-auto sm:px-8">
+                <div className="py-8">
+                  <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
+                    <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
+                      <table className="min-w-full leading-normal">
+                        <thead>
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              Name
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              Type
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              Created at
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              status
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            ></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Born Pink
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Concert
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                12/06/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-yellow-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-yellow-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">pending</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Rap Viet
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Concert
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                01/10/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-green-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">active</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Chào cờ
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Academic event
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                01/10/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-green-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">active</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Hello world
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Virtual event
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                23/09/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-green-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">active</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={openTab === 3 ? "block" : "hidden"} id="history">
-              <p>
-                Efficiently unleash cross-media information without cross-media
-                value. Quickly maximize timely deliverables for real-time
-                schemas.
-                <br />
-                <br /> Dramatically maintain clicks-and-mortar solutions without
-                functional solutions.
-              </p>
+              <div className="container max-w-3xl px-4 mx-auto sm:px-8">
+                <div className="py-8">
+                  <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
+                    <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
+                      <table className="min-w-full leading-normal">
+                        <thead>
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              Name
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              Type
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              Created at
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            >
+                              status
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                            ></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Born Pink
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Concert
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                12/06/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-gray-700">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-gray-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">finished</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Rap Viet
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Concert
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                01/10/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-gray-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-gray-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">finished</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Chào cờ
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Academic event
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                01/10/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-red-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">cancelled</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <div className="flex items-center">
+                                <div>
+                                  <p className="text-gray-900 whitespace-no-wrap">
+                                    Hello world
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                Virtual event
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                23/09/2023
+                              </p>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 bg-red-200 rounded-full opacity-50"
+                                ></span>
+                                <span className="relative">cancelled</span>
+                              </span>
+                            </td>
+                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                              <a
+                                href="#"
+                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                              >
+                                View
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               className={openTab === 4 ? "block" : "hidden"}

@@ -45,4 +45,6 @@ app.use('/register', registerRoute);
 const eventManagerRoutes = require('./routes/manager/event.manager.routes');
 app.use('/manager/event', eventManagerRoutes);
 const eventTeamMemeberRoutes = require('./routes/team-member/event.team-member.routes');
-app.use('/team-member/event', eventTeamMemeberRoutes)
+app.use('/team-member/event', eventTeamMemeberRoutes);
+const eventCustomer = require('./routes/customer/event.customer.routes');
+app.use('/customer/event', eventCustomer);
