@@ -20,7 +20,12 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+  const handleContactClick = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <header className="bg-gray-800 sticky top-0 z-50 w-full">
       <div className={`flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8`}>
@@ -43,12 +48,14 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a
-                  className="text-white transition hover:text-gray-500/75"
-                  href="/"
-                >
-                  About
-                </a>
+                <Link to="/customer/about">
+                  <a
+                    className="text-white transition hover:text-gray-500/75"
+                    href="/"
+                  >
+                    About
+                  </a>
+                </Link>
               </li>
 
               <li>
@@ -61,15 +68,17 @@ const Navbar = () => {
                   </a>
                 </Link>
               </li>
-
+              {/* <Link to="/#contact"> */}
               <li>
                 <a
                   className="text-white transition hover:text-gray-500/75"
-                  href="/"
+                  href="#contact"
+                  onClick={handleContactClick}
                 >
                   Contact us
                 </a>
               </li>
+              {/* </Link> */}
             </ul>
           </nav>
         </div>
@@ -132,9 +141,11 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <a className="block text-white px-4 py-2" href="/">
-                About
-              </a>
+              <Link to="/customer/event">
+                <a className="block text-white px-4 py-2" href="/">
+                  About
+                </a>
+              </Link>
             </li>
             <li>
               <Link to="/customer/event">

@@ -4,7 +4,7 @@ import "../App.css";
 import Logo from "../assets/img/white-logo.png";
 import MaleAva from "../assets/img/male-ava.png";
 
-const NavBarEvent = () => {
+const NavBar2 = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -84,4 +84,4 @@ const NavBarEvent = () => {
   );
 };
 
-export default NavBarEvent;
+export default NavBar2;
