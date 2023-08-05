@@ -88,6 +88,7 @@ const createEvent = async (req, res) => {
           type_of_event,
           description,
           date_proposed,
+          last_modified,
           size,
           budget,
           status
@@ -102,6 +103,7 @@ const createEvent = async (req, res) => {
             type_of_event,
             description,
             date_proposed,
+            last_modified,
             size,
             budget,
             status
