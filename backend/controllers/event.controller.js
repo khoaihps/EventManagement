@@ -93,7 +93,21 @@ const createEvent = async (req, res) => {
           budget,
           status
         } = req.body;
-    
+        const event = {
+            name,
+            customer_id,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            date_proposed,
+            last_modified,
+            size,
+            budget,
+            status
+          };
+
+
         // Create a new event
         const newEvent = new Event({
             name,

@@ -6,6 +6,6 @@ const router = express.Router();
 
 // router.use(authenticateCustomer);
 
-router.post('/event/customer', createEvent);
+router.post('/create', createEvent);
 
 module.exports = router;
