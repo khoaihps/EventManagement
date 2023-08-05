@@ -1,7 +1,9 @@
 import "../App.css";
-import MDA from "../assets/img/MaiDucAn.jpeg";
-import TA from "../assets/img/TranAnh.jpeg";
-import DAK from "../assets/img/DoanAnhKhoa.jpeg";
+import MDA from "../assets/img/AnMai.jpg";
+import TA from "../assets/img/AnhTran.jpg";
+import DAK from "../assets/img/KhoaDoan.jpg";
+import DHH from "../assets/img/HaiDo.jpg";
+import VDM from "../assets/img/MinhVu.jpg";
 
 const Team = () => {
   return (
@@ -52,7 +54,7 @@ const Team = () => {
             <a href="#" className="relative block">
               <img
                 alt="profil"
-                src={TA}
+                src={DHH}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
             </a>
@@ -69,7 +71,7 @@ const Team = () => {
             <a href="#" className="relative block">
               <img
                 alt="profil"
-                src={TA}
+                src={VDM}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
             </a>
