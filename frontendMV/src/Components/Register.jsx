@@ -85,7 +85,7 @@ const Register = () => {
 
       if (success) {
         console.log("Regiter successfully:");
-        navigate("/login/customer");
+        navigate("/customer/login");
       } else {
         // Register failed
         console.log("Regiter failed:", error);
@@ -140,7 +140,7 @@ const Register = () => {
   };
 
   return (
-    <section className="relative flex flex-wrap lg:h-screen lg:items-center mb-7">
+    <section className="relative flex flex-wrap lg:h-screen lg:items-center mb-0">
       <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-0">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
@@ -364,7 +364,7 @@ const Register = () => {
           </div>
 
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            {/* <Link to="/login/customer"> */}
+            {/* <Link to="/customer/login"> */}
             <button
               type="submit"
               className="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
@@ -375,7 +375,7 @@ const Register = () => {
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
-              <Link to="/login/customer">
+              <Link to="/customer/login">
                 <a href="#" className="text-gray-700 underline">
                   Log in
                 </a>

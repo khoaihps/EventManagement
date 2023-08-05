@@ -1,4 +1,4 @@
-import React, {  useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api";
@@ -20,17 +20,14 @@ const LogIn = () => {
     event.preventDefault();
 
     try {
-      const { success, token, error } = await login(
-        username,
-        password
-      );
+      const { success, token, error } = await login(username, password);
       console.log(username);
       if (success) {
         // Login successful
         // Set user session or token (e.g., save to local storage or cookies)
         // Here, we're using a mock session token for simplicity
         localStorage.setItem("token", token);
-        navigate('/')
+        navigate("/");
       } else {
         // Login failed
         console.log("Login failed:", error);
@@ -38,7 +35,6 @@ const LogIn = () => {
     } catch (error) {
       console.error("An error occurred during login:", error);
     }
-  
   };
 
   return (
@@ -51,7 +47,7 @@ const LogIn = () => {
         <form
           action=""
           className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
-          onSubmit={ handleSubmit }
+          onSubmit={handleSubmit}
         >
           <p className="text-center text-lg font-medium">
             Sign in to your account
@@ -67,7 +63,8 @@ const LogIn = () => {
                 type="text"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter username"
-                value={username} onChange={handleUsernameChange}
+                value={username}
+                onChange={handleUsernameChange}
                 required
               />
 
@@ -100,7 +97,8 @@ const LogIn = () => {
                 type="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter password"
-                value={password} onChange={handlePasswordChange} 
+                value={password}
+                onChange={handlePasswordChange}
                 required
               />
 
@@ -130,17 +128,17 @@ const LogIn = () => {
           </div>
 
           {/* <Link to="/"> */}
-            <button
-              type="submit"
-              className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
-            >
-              Log in
-            </button>
+          <button
+            type="submit"
+            className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
+          >
+            Log in
+          </button>
           {/* </Link> */}
 
           <p className="text-center text-sm text-gray-500">
             No account?
-            <Link to="/register/customer">
+            <Link to="/customer/register">
               <a className="underline" href="">
                 Sign up
               </a>

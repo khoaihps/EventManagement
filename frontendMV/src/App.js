@@ -19,19 +19,19 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={<Navbar />}></Route>
-        <Route path="/login/customer" element={<></>}></Route>
-        <Route path="/register/customer" element={<></>}></Route>
-        <Route path="/event/customer" element={<NavBarEvent />}></Route>
+        <Route path="/customer/login" element={<></>}></Route>
+        <Route path="/customer/register" element={<></>}></Route>
+        <Route path="/customer/event" element={<NavBarEvent />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<CTASection></CTASection>}></Route>
-        <Route path="/login/customer" element={<LogIn />}></Route>
-        <Route path="/register/customer" element={<Register />}></Route>
-        <Route path="/event/customer" element={<HeadEvent></HeadEvent>}></Route>
+        <Route path="/customer/login" element={<LogIn />}></Route>
+        <Route path="/customer/register" element={<Register />}></Route>
+        <Route path="/customer/event" element={<HeadEvent></HeadEvent>}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<Features></Features>}></Route>
-        <Route path="/event/customer" element={<EventTabs></EventTabs>}></Route>
+        <Route path="/customer/event" element={<EventTabs></EventTabs>}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<Team></Team>}></Route>
