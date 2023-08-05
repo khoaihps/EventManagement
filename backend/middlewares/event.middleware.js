@@ -77,11 +77,26 @@ const allEventOfCustomer = async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch.' });
     }
 }
+
+const eventUpdate = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const updatedEventDetails = req.body;
+
+        const updatedEvent = await Event.findByIdAndUpdate(eventId, updatedEventDetails, { new: true });
+        res.status(200).send(updatedEvent);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating event details' });
+    }
+}
+
 module.exports = {
     allEvents,
     eventDetail,
     allTaskOfEvent,
     allEventOfCustomer,
     allOpenEvents,
-    eventOpenDetail
+    eventOpenDetail,
+    eventUpdate
 }
