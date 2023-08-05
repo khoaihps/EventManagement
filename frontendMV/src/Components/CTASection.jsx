@@ -6,6 +6,7 @@ import LogoImg from "../assets/img/logo-img.png";
 import Wedding from "../assets/img/wedding.webp";
 import Concert from "../assets/img/concert.jpeg";
 import Event1 from "../assets/img/event1.jpeg";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   return (
@@ -20,15 +21,14 @@ const CTASection = () => {
         </p>
         <div className="lg:mt-0 lg:flex-shrink-0">
           <div className="mt-12 inline-flex rounded-md shadow">
-            <a
-              className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-              href="/"
-            >
-              <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
-              <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
-                Get started
-              </span>
-            </a>
+            <Link to="/customer/event">
+              <a className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring">
+                <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
+                <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
+                  Get started
+                </span>
+              </a>
+            </Link>
           </div>
         </div>
       </div>

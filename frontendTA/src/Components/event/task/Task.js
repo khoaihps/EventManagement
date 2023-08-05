@@ -4,6 +4,7 @@ import TaskDetail from "./taskDetail/TaskDetail";
 const Task = ({ index, updateTaskData, task, setStateValue, isEditable }) => {
     const [isTaskInfoVisible, setTaskInfoVisible] = useState(false);
     const handleDisplayTaskInfo = () => {
+        console.log("HAIDOHONG");
         setTaskInfoVisible(true);
     };
 

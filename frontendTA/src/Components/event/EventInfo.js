@@ -6,13 +6,13 @@ import Employees from "../event/employee/Employees";
 import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
 
-const EventInfo = ({initialEvent}) => {
+const EventInfo = ({initialEvent, initialTasks}) => {
     const navigate = useNavigate();
-
+    console.log(initialTasks);
     // api call specific event
 
     // api call specific tasks associated with the event
-    const initialTasks = tasksData;
+    // const initialTasks = tasksData;
     // api call specific employees associated with the event
     const initialEmployees = employeesData;
 

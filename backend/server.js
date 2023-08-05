@@ -45,4 +45,6 @@ app.use('/manager/task', taskManagerRoutes);
 
 // Team member route
 const eventTeamMemeberRoutes = require('./routes/team-member/event.team-member.routes');
-app.use('/team-member/event', eventTeamMemeberRoutes)
+app.use('/team-member/event', eventTeamMemeberRoutes);
+const eventCustomer = require('./routes/customer/event.customer.routes');
+app.use('/customer/event', eventCustomer);
