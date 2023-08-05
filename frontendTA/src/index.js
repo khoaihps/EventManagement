@@ -13,10 +13,6 @@ import {
 } from './Components/HomePageEmployee';
 import { loader as allEventLoader } from './Components/HomePageManager';
 import {
-  EventDetail as ED,
-  loader as eventDetailLoader_
-} from './Components/EventDetail'
-import {
   EventDetail,
   loader as eventDetailLoader
 } from './Components/event/EventDetail';
@@ -50,6 +46,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/manager/event/:eventID",
+    loader: eventDetailLoader,
+    element: <EventDetail />
+  },
+  {
+    path: "/employee/event/:eventID",
     loader: eventDetailLoader,
     element: <EventDetail />
   },

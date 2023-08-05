@@ -1,3 +1,10 @@
 .DS_Store
-.idea
-node_modules
+.idea/
+node_modules/
+backend/.DS_Store
+backend/node_modules/
+backend/.idea/
+frontendTA/.DS_Store
+frontendTA/src/.DS_Store
+frontendTA/node_modules/
+frontendTA/.idea/
