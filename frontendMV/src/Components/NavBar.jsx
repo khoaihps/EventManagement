@@ -52,7 +52,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link to="/event/customer">
+                <Link to="/customer/event">
                   <a
                     className="text-white transition hover:text-gray-500/75"
                     href="/"
@@ -77,7 +77,7 @@ const Navbar = () => {
           <div className="sm:flex sm:gap-4">
             <a
               className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-              href="/login/customer"
+              href="/customer/login"
             >
               <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
               <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -137,7 +137,7 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <Link to="/event/customer">
+              <Link to="/customer/event">
                 <a className="block text-white px-4 py-2" href="/">
                   Your Events
                 </a>
