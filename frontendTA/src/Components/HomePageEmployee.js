@@ -1,15 +1,29 @@
 import React from 'react';
-import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import Table from "./table/Table";
+import Header from "./Header";
+import { redirect, useLoaderData } from 'react-router-dom';
+import EventService from '../services/event.service';
+import AuthService from '../services/auth.service';
 
-const HomePageEmployee = () => {
-    // Check user session or token here
-
+export const loader = async () => {
+    const user = AuthService.getCurrentUser();
+    if (!user || user.role != 'team-member') {
+        return redirect('/unauthorized');
+    }
+    try {
+        return await EventService.getAllOpenEvent();
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
+export const HomePageEmployee = () => {
+    const allEvent = useLoaderData();
     return (
         <div>
-            <Navbar/>
-            <h1>Welcome!</h1>
+            <Header title={"Events"} />
+            <Sidebar/>
+            <Table events={allEvent}/>
         </div>
     );
 };
-
-export default HomePageEmployee;

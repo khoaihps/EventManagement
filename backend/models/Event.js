@@ -22,7 +22,7 @@ const eventSchema = new Schema({
     budget: { type: Number, required: true},
     status: {
         type: String,
-        enum: ['pending', 'preparing', 'completed', 'cancelled'],
+        enum: ['pending', 'open', 'closed', 'rejected'],
         required: true
     }
 });

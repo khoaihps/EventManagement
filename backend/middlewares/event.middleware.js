@@ -78,6 +78,19 @@ const allEventOfCustomer = async (req, res) => {
     }
 }
 
+const eventUpdate = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const updatedEventDetails = req.body;
+
+        const updatedEvent = await Event.findByIdAndUpdate(eventId, updatedEventDetails, { new: true });
+        res.status(200).send(updatedEvent);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating event details' });
+    }
+}
+
 const createEvent = async (req, res) => {
     try {
         const {
@@ -93,7 +106,21 @@ const createEvent = async (req, res) => {
           budget,
           status
         } = req.body;
-    
+        const event = {
+            name,
+            customer_id,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            date_proposed,
+            last_modified,
+            size,
+            budget,
+            status
+          };
+
+
         // Create a new event
         const newEvent = new Event({
             name,
@@ -126,5 +153,6 @@ module.exports = {
     allEventOfCustomer,
     allOpenEvents,
     eventOpenDetail,
+    eventUpdate,
     createEvent
 }

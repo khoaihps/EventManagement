@@ -1,15 +1,29 @@
 import React from 'react';
-import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import Table from "./table/Table";
+import Header from "./Header";
+import { redirect, useLoaderData } from 'react-router-dom';
+import EventService from '../services/event.service';
+import AuthService from '../services/auth.service';
 
-const HomePageManager = () => {
-    // Check user session or token here
-
+export const loader = async () => {
+    const user = AuthService.getCurrentUser();
+    if (!user || user.role != 'manager') {
+        return redirect('/unauthorized');
+    }
+    try {
+        return await EventService.getAllEvent();
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
+export const HomePageManager = () => {
+    const allEvent = useLoaderData();
     return (
         <div>
-            <Navbar/>
-            <h1>Welcome!</h1>
+            <Header title={"Events"} />
+            <Sidebar/>
+            <Table events={allEvent}/>
         </div>
     );
 };
-
-export default HomePageManager;

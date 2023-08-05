@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api";
+import AuthService from "../services/auth.service";
 
 const LogIn = () => {
   const [username, setUsername] = useState("");
@@ -20,14 +21,13 @@ const LogIn = () => {
     event.preventDefault();
 
     try {
-      const { success, token, error } = await login(username, password);
+      const {success, error} = await AuthService.login(
+        username,
+        password
+      );
       console.log(username);
       if (success) {
-        // Login successful
-        // Set user session or token (e.g., save to local storage or cookies)
-        // Here, we're using a mock session token for simplicity
-        localStorage.setItem("token", token);
-        navigate("/");
+        navigate('/')
       } else {
         // Login failed
         console.log("Login failed:", error);

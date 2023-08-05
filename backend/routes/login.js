@@ -6,7 +6,6 @@ require('dotenv').config();
 
 const router = express.Router();
 
-
 // Manager Login route
 router.post('/manager', async (req, res) => {
     try {
@@ -17,7 +16,7 @@ router.post('/manager', async (req, res) => {
             return res.status(401).json({ loginStatus: 'failure', message: 'Username not found' });
         } else {
             const isPasswordValid = await bcrypt.compare(password, manager.password);
-
+            console.log(process.env.JWT_SECRET);
             if (isPasswordValid) {
                 const token = jwt.sign(
                     { role: 'manager', userId: manager._id },
@@ -60,7 +59,7 @@ router.post('/employee', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('An error occurred during employee login.');
+        res.status(500).send('An error occurred during login.');
     }
 });
 
@@ -80,7 +79,7 @@ router.post('/customer', async (req, res) => {
                     process.env.JWT_SECRET,
                     { expiresIn: '24h' }
                 );
-                res.json({ name: customer.lastName, role: 'customer', loginStatus: 'success', token });
+                res.json({ name: customer.lastName, role: 'customer', loginStatus: 'success', token, id: customer._id});
             } else {
                 res.status(401).json({ loginStatus: 'failure', message: 'Invalid password.' });
             }

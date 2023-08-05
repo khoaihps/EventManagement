@@ -1,17 +1,88 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom'
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { LoginForm, loader as checkLoginStatus } from './Components/LoginForm';
+import { HomePageManager } from './Components/HomePageManager';
+import {
+  HomePageEmployee,
+  loader as allOpenEventLoader
+} from './Components/HomePageEmployee';
+import { loader as allEventLoader } from './Components/HomePageManager';
+import {
+  EventDetail,
+  loader as eventDetailLoader
+} from './Components/event/EventDetail';
+import Unauthorized from './Components/Unauthorized';
+import Logout from './Components/Logout';
+import NotFound from './Components/NotFound';
 
+const router = createBrowserRouter([
+  {
+    path: "/unauthorized",
+    element: <Unauthorized />
+  },
+  {
+    path: "/logout",
+    element: <Logout />
+  },
+  {
+    path: "/login",
+    loader: checkLoginStatus,
+    element: <LoginForm />
+  },
+  {
+    path: "/manager/home",
+    loader: allEventLoader,
+    element: <HomePageManager />
+  },
+  {
+    path: "/manager/event",
+    loader: allEventLoader,
+    element: <HomePageManager />
+  },
+  {
+    path: "/manager/event/:eventID",
+    loader: eventDetailLoader,
+    element: <EventDetail />
+  },
+  {
+    path: "/employee/event/:eventID",
+    loader: eventDetailLoader,
+    element: <EventDetail />
+  },
+  {
+    path: "/employee/home",
+    loader: allOpenEventLoader,
+    element: <HomePageEmployee />
+  },
+  {
+    path: "/employee/event",
+    loader: allOpenEventLoader,
+    element: <HomePageEmployee />
+  },
+  {
+    path: "/team-member/event",
+    loader: allOpenEventLoader,
+    element: <HomePageEmployee />
+  },
+  {
+    path: "/test/event/:eventID",
+    loader: eventDetailLoader,
+    element: <EventDetail />
+  },
+  {
+    path: "/:path",
+    element: <NotFound />
+  },
+]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
