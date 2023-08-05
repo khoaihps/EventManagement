@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticateCustomer } = require('../../middlewares/auth.middleware');
-const { createEvent } = require('../../controllers/event.controller');
+const { createEvent } = require('../../middlewares/event.middleware');
 
 const router = express.Router();
 
