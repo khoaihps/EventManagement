@@ -52,9 +52,9 @@ export async function createEvent(
   }
 }
 
-const getManageEvent = async () => {
+const getManageEvent = async (customerID) => {
   try {
-    const response = await fetch(API_URL + "customer/event/manage-event", {
+    const response = await fetch(API_URL + "customer/event/manage-event" + customerID, {
       method: "GET",
       headers: authHeader(),
     });
@@ -67,9 +67,9 @@ const getManageEvent = async () => {
   }
 };
 
-const getHistoryEvent = async () => {
+const getHistoryEvent = async (customerID) => {
   try {
-    const response = await fetch(API_URL + "customer/event/history-event", {
+    const response = await fetch(API_URL + "customer/event/history-event" + customerID, {
       method: "GET",
       headers: authHeader(),
     });

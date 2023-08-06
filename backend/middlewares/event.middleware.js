@@ -82,7 +82,7 @@ const eventUpdate = async (req, res) => {
 const createEvent = async (req, res) => {
     try {
         const {
-          name,
+          name, 
           customer_id,
           deadline,
           place,
@@ -94,20 +94,7 @@ const createEvent = async (req, res) => {
           budget,
           status
         } = req.body;
-        const event = {
-            name,
-            customer_id,
-            deadline,
-            place,
-            type_of_event,
-            description,
-            date_proposed,
-            last_modified,
-            size,
-            budget,
-            status
-          };
-
+    
 
         // Create a new event
         const newEvent = new Event({
@@ -136,8 +123,8 @@ const createEvent = async (req, res) => {
 
 const getManageEvent = async (req, res) => {
     try {
-        const { customerid } = req.params.customerid;
-        const events = await Event.find( {$and: [{ customer_id: customerid }, { $or: [{status: "pending"}, {status: "open"}] }]});
+        const { customerID } = req.params.customerID;
+        const events = await Event.find( {$and: [{ customer_id: customerID }, { $or: [{status: "pending"}, {status: "open"}] }]});
         res.status(200).send(events);  
     } catch (error) {
         console.log("Error", error);
@@ -147,8 +134,8 @@ const getManageEvent = async (req, res) => {
 
 const getHistoryEvent = async (req, res) => {
     try {
-        const { customerid } = req.params.customerid;
-        const events = await Event.find({$and: [{ customer_id: customerid }, { $or: [{status: "closed"}, {status: "rejected"}] }]});
+        const { customerID } = req.params.customerID;
+        const events = await Event.find({$and: [{ customer_id: customerID }, { $or: [{status: "closed"}, {status: "rejected"}] }]});
         res.status(200).send(events);  
     } catch (error) {
         console.log("Error", error);

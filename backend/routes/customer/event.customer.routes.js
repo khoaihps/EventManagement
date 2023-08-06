@@ -8,8 +8,8 @@ const router = express.Router();
 // router.use(authenticateCustomer);
 
 router.post('/create', createEvent);
-router.get('/manage-event', getManageEvent);
-router.get('/history-event', getHistoryEvent);
+router.get('/manage-event/:customerID', getManageEvent);
+router.get('/history-event/:customerID', getHistoryEvent);
 router.get('/:eventID', eventDetail)
 
 module.exports = router;
