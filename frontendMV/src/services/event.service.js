@@ -19,7 +19,7 @@ export async function createEvent(
     const date_proposed = Date.now;
     const last_modified = Date.now;
     const status = "pending";
-    const response = await fetch(`${API_URL}/customer/event`, {
+    const response = await fetch(`${API_URL}/customer/event/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,9 +66,26 @@ const getManageEvent = async () => {
     console.log("Error: ", error);
   }
 };
+
 const getHistoryEvent = async () => {
   try {
-    const response = await fetch(API_URL + "customer/event/history", {
+    const response = await fetch(API_URL + "customer/event/history-event", {
+      method: "GET",
+      headers: authHeader(),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
+const getEventDetail = async (eventID) => {
+  try {
+    const response = await fetch(API_URL + "customer/event/" + eventID , {
       method: "GET",
       headers: authHeader(),
     });
@@ -85,7 +102,8 @@ const getHistoryEvent = async () => {
 const EventService = {
   createEvent,
   getManageEvent,
-  getHistoryEvent
+  getHistoryEvent,
+  getEventDetail,
 };
 
 export default EventService;
