@@ -1,9 +1,11 @@
 import authHeader from "./auth-header";
+import AuthService from "./auth.service";
 
 const API_URL = "http://localhost:4000";
 
-const getCustomerInfo = async (customerID) => {
+const getCustomerInfo = async () => {
   try {
+    const customerID = AuthService.getCurrentUser().customerID;
     const response = await fetch(API_URL + "customer/profile/" + customerID, {
       method: "GET",
       headers: authHeader(),
@@ -42,8 +44,9 @@ const getCustomerInfo = async (customerID) => {
 //     }
 // }
 
-const updateCustomerInfo = async (customerID) => {
+const updateCustomerInfo = async () => {
   try {
+    const customerID = AuthService.getCurrentUser().customerID;
     const response = await fetch(API_URL + "customer/profile/update" + customerID, {
       method: "PUT",
       headers: {
