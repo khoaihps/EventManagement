@@ -90,7 +90,9 @@ const eventUpdate = async (req, res) => {
         res.status(500).json({ message: 'Error updating event details' });
     }
 }
+const createEvent = (res, req) => {
 
+}
 module.exports = {
     allEvents,
     eventDetail,
@@ -98,5 +100,6 @@ module.exports = {
     allEventOfCustomer,
     allOpenEvents,
     eventOpenDetail,
-    eventUpdate
+    eventUpdate,
+    createEvent
 }
