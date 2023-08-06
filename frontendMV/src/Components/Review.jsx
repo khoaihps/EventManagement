@@ -1,7 +1,5 @@
 import "../App.css";
-import MDA from "../assets/img/MaiDucAn.jpeg";
 import TA from "../assets/img/TranAnh.jpeg";
-import DAK from "../assets/img/DoanAnhKhoa.jpeg";
 
 const Review = () => {
   return (

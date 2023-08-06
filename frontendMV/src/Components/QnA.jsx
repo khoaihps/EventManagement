@@ -10,44 +10,50 @@ const QnA = () => {
         <dl className="w-full md:w-2/3">
           <dt className="mb-4">
             <h3 className="text-xl font-semibold">
-              We already have ongoing projects. Will Valohai easily integrate
-              with them?
+              What types of events does EVENTIST specialize in?
             </h3>
           </dt>
           <dd className="mb-16">
             <p>
-              Running existing machine learning projects in Valohai is very
-              simple! Integration only requires adding a valohai.yaml
-              configuration file. Moving projects in and out of Valohai is easy
-              – the integration is only the configuration file.
+              At EVENTIST, we specialize in organizing a wide range of events to
+              cater to diverse needs. Our expertise covers corporate events,
+              conferences, product launches, weddings, private parties, and
+              community gatherings. Whether it's a small intimate gathering or a
+              large-scale event, we have the skills and experience to make it a
+              memorable success.
             </p>
           </dd>
           <dt className="mb-4">
             <h3 className="text-xl font-semibold">
-              How do you compare to other data science platforms?
+              How much does EVENTIST charge for event planning services?
             </h3>
           </dt>
           <dd className="mb-16">
             <p>
-              We don’t. Valohai isn’t a data science platform; it's a Machine
-              Learning Management Platform that handles the whole ML pipeline
-              from feature extraction, to training of your model and to
-              deploying it into production in a reproducible manner. Data
-              science platforms offer hosted notebooks and AutoML solutions.
+              Our event planning services are tailored to suit the unique
+              requirements of each event, so pricing may vary accordingly. We
+              offer personalized quotes based on factors such as event size,
+              complexity, location, and specific services required. Rest
+              assured, our pricing is competitive, transparent, and always
+              aligned with your budget. To get a detailed quote, simply reach
+              out to us through our contact page or give us a call, and we'll be
+              delighted to discuss your event needs.
             </p>
           </dd>
           <dt className="mb-4">
             <h3 className="text-xl font-semibold">
-              Does Valohai charge for computation?
+              Can EVENTIST manage events in multiple locations?
             </h3>
           </dt>
           <dd className="mb-16">
             <p>
-              Depends. Most of our customers use their own cloud and thus pay
-              for usage according to their own agreements. Valohai doesn't
-              charge anything on top of the per-user license fee. If you don't
-              have a cloud provider, you can use our AWS, GCP and Azure
-              accounts, and we'll only charge you for what you use.
+              Absolutely! As a professional event agency, we have a wide network
+              of partners and vendors, which enables us to execute events
+              seamlessly in multiple locations. Whether you need an event
+              organized locally, nationally, or internationally, our dedicated
+              team is fully equipped to handle all logistics, planning, and
+              coordination. We take pride in delivering top-notch event
+              management services, regardless of the event's location.
             </p>
           </dd>
         </dl>
