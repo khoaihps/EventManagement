@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../api";
+import AuthService from "../services/auth.service";
 import BgImg from "../assets/img/carousel1.png";
 
 const Register = () => {
@@ -72,7 +72,7 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const { success, error } = await register(
+      const { success, error } = await AuthService.register(
         firstName,
         lastName,
         username,

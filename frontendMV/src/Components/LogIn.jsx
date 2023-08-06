@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../api";
 import AuthService from "../services/auth.service";
 
 const LogIn = () => {
