@@ -3,7 +3,6 @@ const { Task } = require('../models/Event');
 const taskDetail = async (req, res) => {
     try {
         const taskId = req.params.taskId;
-
         // Tìm task dựa vào taskId trong database
         const taskDetail = await Task.findById(taskId);
 
