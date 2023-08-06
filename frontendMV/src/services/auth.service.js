@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:4000';
 const login = async (username, password) => {
     try {
         console.log(username);
-        const response = await fetch(`${API_URL}/customer/login`, {
+        const response = await fetch(`${API_URL}/login/customer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export async function register(firstName, lastName, username, password, DOB, ema
     try {
         const isoDate = convertToISODate(DOB)
         console.log(username);
-        const response = await fetch(`${API_URL}/customer/register`, {
+        const response = await fetch(`${API_URL}/register/customer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
