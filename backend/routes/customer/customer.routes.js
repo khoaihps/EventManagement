@@ -8,6 +8,6 @@ const router = express.Router();
 // router.use(authenticateCustomer);
 
 router.get('/:customerID', getCustomerInfo);
-router.get('/update', updateCustomerInfo);
+router.get('/update/:customerID', updateCustomerInfo);
 
 module.exports = router;

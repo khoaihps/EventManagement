@@ -123,7 +123,7 @@ const createEvent = async (req, res) => {
 
 const getManageEvent = async (req, res) => {
     try {
-        const { customerID } = req.params.customerID;
+        const customerID  = req.params.customerID;
         const events = await Event.find( {$and: [{ customer_id: customerID }, { $or: [{status: "pending"}, {status: "open"}] }]});
         res.status(200).send(events);  
     } catch (error) {
@@ -134,7 +134,7 @@ const getManageEvent = async (req, res) => {
 
 const getHistoryEvent = async (req, res) => {
     try {
-        const { customerID } = req.params.customerID;
+        const  customerID  = req.params.customerID;
         const events = await Event.find({$and: [{ customer_id: customerID }, { $or: [{status: "closed"}, {status: "rejected"}] }]});
         res.status(200).send(events);  
     } catch (error) {

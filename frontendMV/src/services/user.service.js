@@ -1,27 +1,10 @@
-import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/test/";
-
-const getPublicContent = () => {
-  return axios.get(API_URL + "all");
-};
-
-const getUserBoard = () => {
-  return axios.get(API_URL + "user", { headers: authHeader() });
-};
-
-const getModeratorBoard = () => {
-  return axios.get(API_URL + "mod", { headers: authHeader() });
-};
-
-const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
-};
+const API_URL = "http://localhost:4000";
 
 const getCustomerInfo = async (customerID) => {
   try {
-    const response = await fetch(API_URL + "customer/" + customerID, {
+    const response = await fetch(API_URL + "customer/profile/" + customerID, {
       method: "GET",
       headers: authHeader(),
     });
@@ -59,9 +42,9 @@ const getCustomerInfo = async (customerID) => {
 //     }
 // }
 
-const updateCustomerInfo = async () => {
+const updateCustomerInfo = async (customerID) => {
   try {
-    const response = await fetch(API_URL + "customer/update", {
+    const response = await fetch(API_URL + "customer/profile/update" + customerID, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -87,10 +70,6 @@ const updateCustomerInfo = async () => {
 };
 
 const UserService = {
-  getPublicContent,
-  getUserBoard,
-  getModeratorBoard,
-  getAdminBoard,
   getCustomerInfo,
   updateCustomerInfo,
 };

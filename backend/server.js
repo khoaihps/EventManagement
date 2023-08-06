@@ -49,7 +49,7 @@ app.use('/team-member/event', eventTeamMemeberRoutes);
 
 // Customer
 const customerRoutes = require('./routes/customer/customer.routes');
-app.use('/customer', customerRoutes);
+app.use('/customer/profile', customerRoutes);
 
 const eventCustomerRoutes = require('./routes/customer/event.customer.routes');
 app.use('/customer/event', eventCustomerRoutes);
