@@ -1,9 +1,38 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/white-logo.png";
+import AuthService from "../services/auth.service";
+import MaleAva from "../assets/img/male-ava.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const user = AuthService.getCurrentUser();
+  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleProfileClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleBackClick = () => {
+    navigate(-1); // Navigate back to the previous page
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Function to toggle the menu state
   const toggleMenu = () => {
@@ -20,12 +49,21 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Function to handle logout
+  const handleLogout = () => {
+    AuthService.logout(); // Call your logout logic from the AuthService here
+    localStorage.removeItem("user");
+    navigate("/customer/login"); // Redirect to the login page after logout
+  };
+
   const handleContactClick = () => {
     const contactSection = document.getElementById("contact");
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   return (
     <header className="bg-gray-800 sticky top-0 z-50 w-full">
       <div className={`flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8`}>
@@ -57,7 +95,6 @@ const Navbar = () => {
                   </a>
                 </Link>
               </li>
-
               <li>
                 <Link to="/customer/event">
                   <a
@@ -68,7 +105,6 @@ const Navbar = () => {
                   </a>
                 </Link>
               </li>
-              {/* <Link to="/#contact"> */}
               <li>
                 <a
                   className="text-white transition hover:text-gray-500/75"
@@ -78,23 +114,55 @@ const Navbar = () => {
                   Contact us
                 </a>
               </li>
-              {/* </Link> */}
             </ul>
           </nav>
         </div>
         <div className="flex items-center gap-4 mx-auto justify-end">
-          <div className="sm:flex sm:gap-4">
-            <a
-              className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-              href="/customer/login"
-            >
-              <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
-              <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
-                Log in
-              </span>
-            </a>
-          </div>
-
+          {user ? (
+            // If the user is not null, render the user dropdown
+            <div className="relative" ref={dropdownRef}>
+              <div
+                className="h-10 w-10 rounded-full bg-gray-500 cursor-pointer"
+                onClick={handleProfileClick}
+              >
+                <img
+                  src={MaleAva}
+                  alt="Profile"
+                  className="h-full w-full rounded-full"
+                />
+              </div>
+              {showDropdown && (
+                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                  <a
+                    href="/my-profile"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    My Profile
+                  </a>
+                  <a
+                    href="/customer/login"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={handleLogout}
+                  >
+                    Log out
+                  </a>
+                </div>
+              )}
+            </div>
+          ) : (
+            // If the user is null, render the login button
+            <div className="sm:flex sm:gap-4">
+              <a
+                className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                href="/customer/login"
+              >
+                <span className="absolute rounded-lg inset-0 border border-yellow-500 group-active:border-yellow-500"></span>
+                <span className="block border rounded-lg border-yellow-500 bg-yellow-500 px-5 py-2.5 transition-transform active:border-yellow-500 active:bg-yellow-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
+                  Log in
+                </span>
+              </a>
+            </div>
+          )}
           <button
             onClick={toggleMenu}
             className="block rounded bg-transparent p-2.5 text-white transition hover:text-gray-600/75 md:hidden"
@@ -141,7 +209,7 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <Link to="/customer/event">
+              <Link to="/customer/about">
                 <a className="block text-white px-4 py-2" href="/">
                   About
                 </a>
@@ -167,18 +235,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-const ListItem = ({ children, navItemStyles, NavLink }) => {
-  return (
-    <>
-      <li>
-        <a
-          href={NavLink}
-          className={`flex py-2 text-base font-medium lg:ml-12 lg:inline-flex ${navItemStyles}`}
-        >
-          {children}
-        </a>
-      </li>
-    </>
-  );
-};
