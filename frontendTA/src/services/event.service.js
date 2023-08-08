@@ -46,11 +46,25 @@ const getAllOpenEvent = async () => {
         console.log("Error: ", error);
     }
 }
-
+const getEmployees = async (eventID) => {
+    try {
+        const response = await fetch(API_URL + "manager/event/" + eventID + "/remployees", {
+            method: 'GET',
+            headers: authHeader(),
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data.employees;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
 const EventService = {
     getEventInfo,
     getAllEvent,
-    getAllOpenEvent
+    getAllOpenEvent,
+    getEmployees
 };
 
 export default EventService;

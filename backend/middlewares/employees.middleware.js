@@ -40,6 +40,28 @@ const getRegisteredAndUnregisteredEmployees = async (req, res, next) => {
         next(err);
     }
 };
+const getRegisteredEmployees = async (req, res, next) => {
+    try {
+        const eventId = req.params.eventId;
+
+        // Find all event registers for the given eventId and populate 't_member_id' field
+        const eventRegisters = await EventRegister.find({ event_id: eventId }).populate('t_member_id');
+
+        // Get an array of registered employee IDs
+
+        const registeredEmployees = eventRegisters.map((eventRegister) => ({
+            name: `${eventRegister.t_member_id.firstName} ${eventRegister.t_member_id.lastName}`,
+            email: eventRegister.t_member_id.email,
+            phone: eventRegister.t_member_id.phone,
+            department: eventRegister.t_member_id.department,
+        }));
+
+        res.json({ employees: registeredEmployees });
+    } catch (err) {
+        next(err);
+    }
+};
 module.exports = {
-    getRegisteredAndUnregisteredEmployees
+    getRegisteredAndUnregisteredEmployees,
+    getRegisteredEmployees
 }

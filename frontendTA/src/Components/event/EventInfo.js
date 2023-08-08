@@ -6,7 +6,7 @@ import Employees from "../event/employee/Employees";
 import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
 
-const EventInfo = ({initialEvent, initialTasks}) => {
+const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
     const navigate = useNavigate();
     console.log(initialTasks);
     // api call specific event
@@ -14,7 +14,6 @@ const EventInfo = ({initialEvent, initialTasks}) => {
     // api call specific tasks associated with the event
     // const initialTasks = tasksData;
     // api call specific employees associated with the event
-    const initialEmployees = employeesData;
 
 
     const [event, setEvent] = useState(initialEvent);
