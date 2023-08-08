@@ -82,7 +82,6 @@ const eventUpdate = async (req, res) => {
     try {
         const eventId = req.params.eventId;
         const updatedEventDetails = req.body;
-
         const updatedEvent = await Event.findByIdAndUpdate(eventId, updatedEventDetails, { new: true });
         res.status(200).send(updatedEvent);
     } catch (error) {

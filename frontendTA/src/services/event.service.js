@@ -60,11 +60,35 @@ const getEmployees = async (eventID) => {
         console.log("Error: ", error);
     }
 }
+
+const updateEvent = async (eventId, updatedEventDetails) => {
+    try {
+        console.log(updatedEventDetails);
+        const response = await fetch(API_URL + "manager/event/"+ eventId + "/update", {
+            method: 'PUT', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify(updatedEventDetails) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
+
 const EventService = {
     getEventInfo,
     getAllEvent,
     getAllOpenEvent,
-    getEmployees
+    getEmployees,
+    updateEvent
 };
 
 export default EventService;
