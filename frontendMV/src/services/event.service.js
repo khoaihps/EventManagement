@@ -16,8 +16,8 @@ export async function createEvent(
   try {
     console.log(name);
     const customer_id = AuthService.getCurrentUser().id;
-    const date_proposed = convertToISODate(Date.now);
-    const last_modified = convertToISODate(Date.now);
+    const date_proposed = new Date().toJSON().slice(0, 10);
+    const last_modified = new Date().toJSON().slice(0, 10);
     const deadlineISO = convertToISODate(deadline);
     const status = "pending";
     const response = await fetch(`${API_URL}/customer/event/create`, {

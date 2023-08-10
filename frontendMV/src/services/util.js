@@ -1,6 +1,6 @@
-export function convertToISODate(inputDOB) {
+export function convertToISODate(input) {
     // Split the input string by "/"
-    const [day, month, year] = inputDOB.split("/");
+    const [day, month, year] = input.split("/");
 
     // Create a new Date object with the components in "yyyy-mm-dd" format
     const dateObject = new Date(`${year}-${month}-${day}`);
