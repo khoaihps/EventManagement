@@ -3,8 +3,7 @@ import AuthService from "./auth.service";
 
 const API_URL = "http://localhost:4000/";
 
-// Create event
-export async function createEvent(
+const createEvent = async(
   name,
   deadline,
   place,
@@ -12,7 +11,7 @@ export async function createEvent(
   description,
   size,
   budget
-) {
+) => {
   try {
     console.log(name);
     const customer_id = AuthService.getCurrentUser().id;
