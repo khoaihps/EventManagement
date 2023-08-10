@@ -1,7 +1,7 @@
 import authHeader from "./auth-header";
 import AuthService from "./auth.service";
 
-const API_URL = "http://localhost:4000/";
+const API_URL = "http://localhost:4000";
 
 const createEvent = async(
   name,
@@ -54,10 +54,13 @@ const createEvent = async(
 const getManageEvent = async () => {
   try {
     const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/event/manage-event" + customerID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const response = await fetch(
+      API_URL + "customer/event/manage-event" + customerID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -70,10 +73,13 @@ const getManageEvent = async () => {
 const getHistoryEvent = async () => {
   try {
     const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/event/history-event" + customerID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const response = await fetch(
+      API_URL + "customer/event/history-event" + customerID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       console.log(data);
@@ -86,7 +92,7 @@ const getHistoryEvent = async () => {
 
 const getEventDetail = async (eventID) => {
   try {
-    const response = await fetch(API_URL + "customer/event/" + eventID , {
+    const response = await fetch(API_URL + "customer/event/" + eventID, {
       method: "GET",
       headers: authHeader(),
     });

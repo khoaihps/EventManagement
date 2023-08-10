@@ -1,7 +1,135 @@
-import React from "react";
+import React, { useState } from "react";
+import AuthService from "../services/auth.service";
+import EventService from "../services/event.service";
+import "../services/event.service";
+import { useNavigate } from "react-router-dom";
 
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(1);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
+
+  const [type_of_event, setTypeOfEvent] = useState("");
+  const [type_of_eventError, setTypeOfEventError] = useState("");
+
+  const [size, setSize] = useState("");
+  const [sizeError, setSizeError] = useState("");
+
+  const [place, setPlace] = useState("");
+  const [placeError, setPlaceError] = useState("");
+
+  const [deadline, setDeadline] = useState("");
+  const [deadlineError, setDeadlineError] = useState("");
+
+  const [budget, setBudget] = useState("");
+  const [budgetError, setBudgetError] = useState("");
+
+  const [description, setDescription] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleEventNameChange = (event) => {
+    const eventName = event.target.value;
+    setName(eventName);
+
+    if (eventName === "") {
+      setNameError("Event name required");
+    } else {
+      setNameError(""); // Clear the error if the field is not empty
+    }
+  };
+
+  const handleEventTypeChange = (event) => {
+    setTypeOfEventError("");
+    setTypeOfEvent(event.target.value);
+  };
+
+  const handleEventSizeChange = (event) => {
+    setSizeError("");
+    setSize(event.target.value);
+  };
+
+  const handleEventPlaceChange = (event) => {
+    setPlaceError("");
+    setPlace(event.target.value);
+  };
+
+  const handleEventDeadlineChange = (event) => {
+    setDeadlineError("");
+    setDeadline(event.target.value);
+  };
+
+  const handleEventDescriptionChange = (event) => {
+    setDescriptionError("");
+    setDescription(event.target.value);
+  };
+
+  const handleEventBudgetChange = (event) => {
+    setBudgetError("");
+    setBudget(event.target.value);
+  };
+
+  const handleSubmitEvent = async (event) => {
+    event.preventDefault();
+    try {
+      const { success, error } = await EventService.createEvent(
+        name,
+        deadline,
+        place,
+        type_of_event,
+        description,
+        size,
+        budget
+      );
+
+      if (success) {
+        console.log("Event proposed successfully:");
+        navigate("/");
+      } else {
+        console.log("Event create failed:", error);
+      }
+    } catch (error) {
+      console.error("An error occurred during event creation:", error);
+    }
+
+    if (type_of_event === "") {
+      setTypeOfEventError("Event type required");
+    }
+    if (size === "") {
+      setSizeError("Event size required");
+    }
+    if (place === "") {
+      setPlaceError("Address required");
+    }
+    if (deadline === "") {
+      setDeadlineError("Event day required");
+    } else {
+      const currentDateTime = new Date();
+      const sevenDaysAfterCurrentTime = new Date();
+      sevenDaysAfterCurrentTime.setDate(
+        sevenDaysAfterCurrentTime.getDate() + 7
+      );
+
+      if (
+        new Date(deadline) <= currentDateTime ||
+        new Date(deadline) <= sevenDaysAfterCurrentTime
+      ) {
+        setDeadlineError(
+          "The event must be booked at least 7 days before it starts"
+        );
+      }
+    }
+    if (budget === "") {
+      setBudgetError("Budget required");
+    }
+    if (description === "") {
+      setDescriptionError("Type 'No' if no additional requirements needed");
+    }
+  };
+
   return (
     <nav aria-label="Tabs">
       <ul className="flex border-b border-gray-100">
@@ -165,19 +293,35 @@ const EventTabs = () => {
               className={openTab === 1 ? "block" : "hidden"}
               id="createevent"
             >
-              <form className="flex w-full space-x-3">
+              <form
+                action="#"
+                className="flex w-full space-x-3"
+                onSubmit={handleSubmitEvent}
+              >
                 <div className="w-full max-w-2xl px-5 py-10 m-auto mt-10 bg-gray-800 rounded-lg shadow dark:bg-gray-800">
                   <div className="mb-6 text-3xl font-light text-center text-gray-800 dark:text-white">
                     Create event
                   </div>
                   <div className="flex flex-col mb-2 max-w-xl m-auto">
                     <div className=" relative ">
+                      {name && (
+                        <p className="absolute text-sm text-red-500">
+                          {nameError}
+                        </p>
+                      )}
                       <input
                         type="text"
                         id="event-name"
                         className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                         placeholder="Event name"
+                        value={name}
+                        onChange={handleEventNameChange}
                       />
+                      {name && (
+                        <p className="absolute text-sm text-red-500">
+                          {nameError}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -186,16 +330,25 @@ const EventTabs = () => {
                       <div className=" relative ">
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
-                          name="event-type"
+                          id="type-of-event"
+                          name="type-of-event"
+                          value={type_of_event}
+                          onChange={handleEventTypeChange}
                         >
-                          <option value>Event type</option>
+                          <option value="">Event type</option>
                           <option value="concert">Concert</option>
                           <option value="wedding">Wedding</option>
                           <option value="exhibition">Exhibition</option>
                           <option value="academic-event">Academic event</option>
                           <option value="workshop">Workshop</option>
                           <option value="virtual-event">Virtual event</option>
+                          <option value="other">Other</option>
                         </select>
+                        {type_of_event && (
+                          <p className="absolute text-sm text-red-500">
+                            {type_of_eventError}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="col-span-2 lg:col-span-1">
@@ -203,8 +356,11 @@ const EventTabs = () => {
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
                           name="event-size"
+                          id="size"
+                          value={size}
+                          onChange={handleEventSizeChange}
                         >
-                          <option value>Event size</option>
+                          <option value="">Event size</option>
                           <option value="small">
                             Small &#40; &lt; 50&#41;
                           </option>
@@ -214,10 +370,15 @@ const EventTabs = () => {
                           <option value="large">
                             Large &#40;250 - 10000&#41;
                           </option>
-                          <option value="Mega">
+                          <option value="mega">
                             Mega &#40; &gt; 10000&#41;
                           </option>
                         </select>
+                        {size && (
+                          <p className="absolute text-sm text-red-500">
+                            {sizeError}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -225,83 +386,58 @@ const EventTabs = () => {
                     <div className=" relative ">
                       <input
                         type="text"
-                        id="event-name"
+                        id="event-address"
                         className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                         placeholder="Address"
+                        value={place}
+                        onChange={handleEventPlaceChange}
                       />
-                    </div>
-                  </div>
-                  <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
-                    <div className="col-span-2 lg:col-span-1">
-                      <div className=" relative ">
-                        <label
-                          htmlFor="start-time"
-                          className="block text-sm font-medium text-white"
-                        >
-                          Start
-                        </label>
-                        <label className="text-gray-700" htmlFor="time">
-                          <input
-                            type="datetime-local"
-                            className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-                          />
-                        </label>
-                      </div>
-                    </div>
-                    <div className="col-span-2 lg:col-span-1">
-                      <div className=" relative ">
-                        <label
-                          htmlFor="end-time"
-                          className="block text-sm font-medium text-white"
-                        >
-                          End
-                        </label>
-
-                        <label className="text-gray-700" htmlFor="time">
-                          <input
-                            type="datetime-local"
-                            className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-                          />
-                        </label>
-                      </div>
+                      {place && (
+                        <p className="absolute text-sm text-red-500">
+                          {placeError}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
                     <div className=" relative ">
-                      <div>
-                        <label
-                          htmlFor="budget"
-                          className="block text-sm font-medium text-white"
-                        >
-                          Budget
-                        </label>
-                        <div className="relative mt-1 rounded-md shadow-sm">
-                          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <span className="text-gray-500 sm:text-sm">$</span>
-                          </div>
-                          <input
-                            type="text"
-                            name="budget"
-                            id="budget"
-                            className="block w-full px-4 py-2 pr-12 border-t border-b border-l border-yellow-400 rounded-md focus:ring-yellow-400 focus:border-yellow-400 pl-7 sm:text-sm"
-                            placeholder={0.0}
-                          />
-                          <div className="absolute inset-y-0 right-0 flex items-center">
-                            <label htmlFor="currency" className="sr-only">
-                              Currency
-                            </label>
-                            <select
-                              id="Currency"
-                              name="currency"
-                              className="h-full px-4 py-2 pl-2 text-gray-500 bg-transparent border-t border-b border-r border-transparent border-yellow-400 focus:ring-yellow-400 bo focus:border-yellow-400 pr-7 sm:text-sm rounded-r-md"
-                            >
-                              <option>USD</option>
-                              <option>VND</option>
-                              <option>EUR</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
+                      <label
+                        htmlFor="start-time"
+                        className="block text-sm font-medium text-white"
+                      >
+                        Start
+                      </label>
+                      <label className="text-gray-700" htmlFor="time">
+                        <input
+                          id="event-time"
+                          type="date"
+                          className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                          value={deadline}
+                          onChange={handleEventDeadlineChange}
+                        />
+                        {deadline && (
+                          <p className="absolute text-sm text-red-500">
+                            {deadlineError}
+                          </p>
+                        )}
+                      </label>
+                    </div>
+                  </div>
+                  <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
+                    <div className=" relative ">
+                      <input
+                        type="number"
+                        id="budget"
+                        className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                        placeholder="Budget (.000.000 VND)"
+                        value={budget}
+                        onChange={handleEventBudgetChange}
+                      />
+                      {budget && (
+                        <p className="absolute text-sm text-red-500">
+                          {budgetError}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
@@ -310,11 +446,18 @@ const EventTabs = () => {
                         <textarea
                           className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                           id="comment"
-                          placeholder="Additional information"
+                          placeholder="Tell us more about your event"
                           name="addition"
                           rows={5}
                           cols={40}
+                          value={description}
+                          onChange={handleEventDescriptionChange}
                         />
+                        {description && (
+                          <p className="absolute text-sm text-red-500">
+                            {descriptionError}
+                          </p>
+                        )}
                       </label>
                     </div>
                   </div>
