@@ -28,7 +28,7 @@ export async function createEvent(
       body: JSON.stringify({
         name,
         customer_id,
-        deadline : deadlineISO,
+        deadline: deadlineISO,
         place,
         type_of_event,
         description,
@@ -49,17 +49,21 @@ export async function createEvent(
     }
   } catch (error) {
     console.error("An error occurred during create event:", error);
-    return { success: false, error};
+    return { success: false, error };
   }
 }
 
-const getManageEvent = async () => {
+export const getManageEvent = async () => {
   try {
-    const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/event/manage-event" + customerID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const customerID = AuthService.getCurrentUser().id;
+    console.log(customerID);
+    const response = await fetch(
+      API_URL + "/customer/event/manage-event/" + customerID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -69,13 +73,16 @@ const getManageEvent = async () => {
   }
 };
 
-const getHistoryEvent = async () => {
+export const getHistoryEvent = async () => {
   try {
     const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/event/history-event" + customerID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const response = await fetch(
+      API_URL + "customer/event/history-event" + customerID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       console.log(data);
@@ -86,9 +93,9 @@ const getHistoryEvent = async () => {
   }
 };
 
-const getEventDetail = async (eventID) => {
+export const getEventDetail = async (eventID) => {
   try {
-    const response = await fetch(API_URL + "customer/event/" + eventID , {
+    const response = await fetch(API_URL + "/customer/event/" + eventID, {
       method: "GET",
       headers: authHeader(),
     });
