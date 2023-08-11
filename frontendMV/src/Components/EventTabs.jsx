@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import EventService from "../services/event.service";
+import EventService, { getHistoryEvent } from "../services/event.service";
 import "../services/event.service";
 import { getManageEvent } from "../services/event.service";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import ViewEvent from "./ViewEvent";
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(2);
   const [eventData, setEventData] = useState([]);
+  const [historyData, setHistoryData] = useState([]);
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
@@ -135,7 +136,7 @@ const EventTabs = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getManageEvent();
-      console.log("Data from API:", data); // Add this line to check the retrieved data
+      console.log("Data from API:", data);
       if (data) {
         setEventData(data);
       }
@@ -143,7 +144,17 @@ const EventTabs = () => {
 
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await getHistoryEvent();
+      console.log("History from API:", data);
+      if (data) {
+        setHistoryData(data);
+      }
+    };
 
+    fetchHistory();
+  }, []);
   const openPopup = (event) => {
     setSelectedEvent(event);
     setButtonView(true);
@@ -586,7 +597,11 @@ const EventTabs = () => {
                             ))
                           ) : (
                             <tr>
-                              <td colSpan="5">No events available</td>
+                              <td colSpan="5">
+                                <p className="text-gray-500">
+                                  No events available
+                                </p>
+                              </td>
                             </tr>
                           )}
                         </tbody>
@@ -628,6 +643,7 @@ const EventTabs = () => {
                         <span className="relative">{selectedEvent.status}</span>
                       </span>
                     </div>
+                    <p className="font-italic">id: {selectedEvent._id}</p>
                     <br></br>
                     <div className="flow-root">
                       <dl className="-my-3 divide-y divide-gray-100 text-sm">
@@ -731,163 +747,169 @@ const EventTabs = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <div className="flex items-center">
-                                <div>
+                          {historyData.length > 0 ? (
+                            historyData.map((event) => (
+                              <tr>
+                                <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                  <div className="flex items-center">
+                                    <div>
+                                      <p className="text-gray-900 whitespace-no-wrap">
+                                        {event.name}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                   <p className="text-gray-900 whitespace-no-wrap">
-                                    Born Pink
+                                    {event.type_of_event}
                                   </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                Concert
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                12/06/2023
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-gray-700">
-                                <span
-                                  aria-hidden="true"
-                                  className="absolute inset-0 bg-gray-200 rounded-full opacity-50"
-                                ></span>
-                                <span className="relative">finished</span>
-                              </span>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <a
-                                href="#"
-                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
-                              >
-                                View
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <div className="flex items-center">
-                                <div>
+                                </td>
+                                <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                   <p className="text-gray-900 whitespace-no-wrap">
-                                    Rap Viet
+                                    {formatDate(event.date_proposed)}
                                   </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                Concert
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                01/10/2023
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-gray-900">
-                                <span
-                                  aria-hidden="true"
-                                  className="absolute inset-0 bg-gray-200 rounded-full opacity-50"
-                                ></span>
-                                <span className="relative">finished</span>
-                              </span>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <a
-                                href="#"
-                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
-                              >
-                                View
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <div className="flex items-center">
-                                <div>
-                                  <p className="text-gray-900 whitespace-no-wrap">
-                                    Chào cờ
-                                  </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                Academic event
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                01/10/2023
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
-                                <span
-                                  aria-hidden="true"
-                                  className="absolute inset-0 bg-red-200 rounded-full opacity-50"
-                                ></span>
-                                <span className="relative">cancelled</span>
-                              </span>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <a
-                                href="#"
-                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
-                              >
-                                View
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <div className="flex items-center">
-                                <div>
-                                  <p className="text-gray-900 whitespace-no-wrap">
-                                    Hello world
-                                  </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                Virtual event
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <p className="text-gray-900 whitespace-no-wrap">
-                                23/09/2023
-                              </p>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
-                                <span
-                                  aria-hidden="true"
-                                  className="absolute inset-0 bg-red-200 rounded-full opacity-50"
-                                ></span>
-                                <span className="relative">cancelled</span>
-                              </span>
-                            </td>
-                            <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                              <a
-                                href="#"
-                                className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
-                              >
-                                View
-                              </a>
-                            </td>
-                          </tr>
+                                </td>
+                                <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                  <span
+                                    className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
+                                      event.status === "closed"
+                                        ? "text-blue-900"
+                                        : event.status === "rejected"
+                                        ? "text-red-900"
+                                        : ""
+                                    }`}
+                                  >
+                                    <span
+                                      aria-hidden="true"
+                                      className={`absolute inset-0 ${
+                                        event.status === "closed"
+                                          ? "bg-blue-200"
+                                          : event.status === "rejected"
+                                          ? "bg-red-200"
+                                          : ""
+                                      } rounded-full opacity-50`}
+                                    ></span>
+                                    <span className="relative">
+                                      {event.status}
+                                    </span>
+                                  </span>
+                                </td>
+                                <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                  <button
+                                    href="#"
+                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                                    onClick={() => openPopup(event)}
+                                  >
+                                    View
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <p className="text-gray-500">No events available</p>
+                          )}
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+                {selectedEvent && (
+                  <ViewEvent trigger={buttonView} setTrigger={closePopup}>
+                    <div>
+                      <h1 className="font-bold inline mr-2">Event Details</h1>
+                      <span
+                        className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
+                          selectedEvent.status === "pending"
+                            ? "text-yellow-900"
+                            : selectedEvent.status === "open"
+                            ? "text-green-900"
+                            : selectedEvent.status === "closed"
+                            ? "text-blue-900"
+                            : selectedEvent.status === "rejected"
+                            ? "text-red-900"
+                            : ""
+                        }`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`absolute inset-0 ${
+                            selectedEvent.status === "pending"
+                              ? "bg-yellow-200"
+                              : selectedEvent.status === "open"
+                              ? "bg-green-200"
+                              : selectedEvent.status === "closed"
+                              ? "bg-blue-200"
+                              : selectedEvent.status === "rejected"
+                              ? "bg-red-200"
+                              : ""
+                          } rounded-full opacity-50`}
+                        ></span>
+                        <span className="relative">{selectedEvent.status}</span>
+                      </span>
+                    </div>
+                    <p className="font-italic">id: {selectedEvent._id}</p>
+                    <br></br>
+                    <div className="flow-root">
+                      <dl className="-my-3 divide-y divide-gray-100 text-sm">
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">Name</dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {selectedEvent.name}
+                          </dd>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">Type</dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {selectedEvent.type_of_event}
+                          </dd>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">Date</dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {formatDate(selectedEvent.deadline)}
+                          </dd>
+                        </div>
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">
+                            Proposed date
+                          </dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {formatDate(selectedEvent.date_proposed)}
+                          </dd>
+                        </div>
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">Address</dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {selectedEvent.place}
+                          </dd>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">Size</dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {selectedEvent.size}
+                          </dd>
+                        </div>
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">Budget</dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {selectedEvent.budget}.000.000 VND
+                          </dd>
+                        </div>
+                        <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-gray-900">
+                            Description
+                          </dt>
+                          <dd className="text-gray-700 sm:col-span-2">
+                            {selectedEvent.description}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </ViewEvent>
+                )}
               </div>
             </div>
             <div
