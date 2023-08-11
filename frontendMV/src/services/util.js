@@ -10,10 +10,3 @@ export function convertToISODate(input) {
 
   return isoDate;
 }
-export function formatDate(inputDate) {
-  const date = new Date(inputDate);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
