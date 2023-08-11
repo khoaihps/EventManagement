@@ -55,8 +55,8 @@ export async function createEvent(
 
 const getManageEvent = async () => {
   try {
-    const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/event/manage-event" + customerID, {
+    const customerID = AuthService.getCurrentUser().id;
+    const response = await fetch(API_URL + "/customer/event/manage-event/" + customerID, {
       method: "GET",
       headers: authHeader(),
     });
@@ -71,8 +71,8 @@ const getManageEvent = async () => {
 
 const getHistoryEvent = async () => {
   try {
-    const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/event/history-event" + customerID, {
+    const customerID = AuthService.getCurrentUser().id;
+    const response = await fetch(API_URL + "/customer/event/history-event/" + customerID, {
       method: "GET",
       headers: authHeader(),
     });
