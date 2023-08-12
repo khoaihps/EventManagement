@@ -7,7 +7,7 @@ const API_URL = "http://localhost:4000";
 const getCustomerInfo = async () => {
   try {
     const customerID = AuthService.getCurrentUser().customerID;
-    const response = await fetch(API_URL + "customer/profile/" + customerID, {
+    const response = await fetch(API_URL + "/customer/profile/" + customerID, {
       method: "GET",
       headers: authHeader(),
     });
@@ -32,7 +32,7 @@ const updateCustomerInfo = async (
     const customerID = AuthService.getCurrentUser().customerID;
     const isoDate = convertToISODate(DOB);
     const response = await fetch(
-      API_URL + "customer/profile/update" + customerID,
+      API_URL + "/customer/profile/update" + customerID,
       {
         method: "PUT",
         headers: {
