@@ -57,7 +57,7 @@ export const getManageEvent = async () => {
   try {
     const customerID = AuthService.getCurrentUser().customerID;
     const response = await fetch(
-      API_URL + "customer/event/manage-event" + customerID,
+      API_URL + "/customer/event/manage-event/" + customerID,
       {
         method: "GET",
         headers: authHeader(),
@@ -76,7 +76,7 @@ export const getHistoryEvent = async () => {
   try {
     const customerID = AuthService.getCurrentUser().customerID;
     const response = await fetch(
-      API_URL + "customer/event/history-event" + customerID,
+      API_URL + "/customer/event/history-event/" + customerID,
       {
         method: "GET",
         headers: authHeader(),
@@ -108,11 +108,29 @@ export const getEventDetail = async (eventID) => {
   }
 };
 
+
+export const deleteEvent = async (eventID) => {
+  try {
+    const response = await fetch(API_URL + "/customer/event/" + eventID, {
+      method: "DELETE",
+      headers: authHeader(),
+    });
+    if (response.ok) {
+      console.log("Event deleted successfully.");
+    } else {
+      console.log("Event deletion failed.");
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
 const EventService = {
   createEvent,
   getManageEvent,
   getHistoryEvent,
   getEventDetail,
+  deleteEvent
 };
 
 export default EventService;

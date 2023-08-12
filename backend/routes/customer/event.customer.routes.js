@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticateCustomer } = require('../../middlewares/auth.middleware');
-const { createEvent, getManageEvent, getHistoryEvent, eventDetail } = require('../../middlewares/event.middleware');
+const { createEvent, getManageEvent, getHistoryEvent, eventDetail, deleteEvent } = require('../../middlewares/event.middleware');
 
 
 const router = express.Router();
@@ -10,6 +10,7 @@ const router = express.Router();
 router.post('/create', createEvent);
 router.get('/manage-event/:customerID', getManageEvent);
 router.get('/history-event/:customerID', getHistoryEvent);
-router.get('/:eventID', eventDetail)
+router.get('/delete/:eventId', deleteEvent)
+router.get('/:eventId', eventDetail)
 
 module.exports = router;
