@@ -109,11 +109,29 @@ export const getEventDetail = async (eventID) => {
   }
 };
 
+
+export const deleteEvent = async (eventID) => {
+  try {
+    const response = await fetch(API_URL + "/customer/event/" + eventID, {
+      method: "DELETE",
+      headers: authHeader(),
+    });
+    if (response.ok) {
+      console.log("Event deleted successfully.");
+    } else {
+      console.log("Event deletion failed.");
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
 const EventService = {
   createEvent,
   getManageEvent,
   getHistoryEvent,
   getEventDetail,
+  deleteEvent
 };
 
 export default EventService;
