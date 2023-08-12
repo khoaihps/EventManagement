@@ -5,7 +5,7 @@ import Logo from "../assets/img/white-logo.png";
 import MaleAva from "../assets/img/male-ava.png";
 import AuthService from "../services/auth.service";
 
-const NavBar2 = () => {
+const NavBarProfile = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -38,7 +38,7 @@ const NavBar2 = () => {
   };
 
   return (
-    <header className="bg-gray-800 sticky top-0 z-50 w-full">
+    <header className="bg-gray-800  top-0 z-50 w-full">
       <div
         className={`flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8`}
       >
@@ -91,4 +91,4 @@ const NavBar2 = () => {
   );
 };
 
-export default NavBar2;
+export default NavBarProfile;

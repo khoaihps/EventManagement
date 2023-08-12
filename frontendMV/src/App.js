@@ -18,6 +18,8 @@ import NavBar2 from "./Components/NavBar2";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
 import AuthService from "./services/auth.service";
+import Profile from "./Components/Profile";
+import NavBarProfile from "./Components/NavBarProfile";
 
 const App = () => {
   const contactRef = useRef(null);
@@ -43,6 +45,7 @@ const App = () => {
           element={user ? <></> : <NavBar2 />}
         ></Route>
         <Route path="/customer/about" element={<NavBar2 />}></Route>
+        <Route path="/customer/profile" element={<NavBarProfile />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<CTASection></CTASection>}></Route>
@@ -53,6 +56,7 @@ const App = () => {
           element={user ? <LogIn /> : <HeadEvent />}
         ></Route>
         <Route path="/customer/about" element={<About />}></Route>
+        <Route path="/customer/profile" element={<Profile />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<Features></Features>}></Route>

@@ -4,9 +4,9 @@ import { convertToISODate } from "./util";
 
 const API_URL = "http://localhost:4000";
 
-const getCustomerInfo = async () => {
+export const getCustomerInfo = async () => {
   try {
-    const customerID = AuthService.getCurrentUser().customerID;
+    const customerID = AuthService.getCurrentUser().id;
     const response = await fetch(API_URL + "/customer/profile/" + customerID, {
       method: "GET",
       headers: authHeader(),
@@ -20,7 +20,7 @@ const getCustomerInfo = async () => {
   }
 };
 
-const updateCustomerInfo = async (
+export const updateCustomerInfo = async (
   firstName,
   lastName,
   DOB,
@@ -44,7 +44,7 @@ const updateCustomerInfo = async (
           DOB: isoDate,
           email,
           phone,
-          address
+          address,
         }),
       }
     );

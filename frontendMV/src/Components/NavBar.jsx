@@ -86,24 +86,20 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <Link to="/customer/about">
-                  <a
-                    className="text-white transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    About
-                  </a>
-                </Link>
+                <a
+                  className="text-white transition hover:text-gray-500/75"
+                  href="/customer/about"
+                >
+                  About
+                </a>
               </li>
               <li>
-                <Link to="/customer/event">
-                  <a
-                    className="text-white transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Your Events
-                  </a>
-                </Link>
+                <a
+                  className="text-white transition hover:text-gray-500/75"
+                  href="/customer/event"
+                >
+                  Your Events
+                </a>
               </li>
               <li>
                 <a
@@ -134,7 +130,7 @@ const Navbar = () => {
               {showDropdown && (
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
                   <a
-                    href="/my-profile"
+                    href="/customer/profile"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     My Profile
