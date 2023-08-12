@@ -17,10 +17,12 @@ import EventTabs from "./Components/EventTabs";
 import NavBar2 from "./Components/NavBar2";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
+import AuthService from "./services/auth.service";
 
 const App = () => {
   const contactRef = useRef(null);
   const navigate = useNavigate();
+  const user = !AuthService.getCurrentUser();
 
   const handleContactClick = () => {
     if (contactRef.current) {
@@ -36,19 +38,28 @@ const App = () => {
         ></Route>
         <Route path="/customer/login" element={<></>}></Route>
         <Route path="/customer/register" element={<></>}></Route>
-        <Route path="/customer/event" element={<NavBar2 />}></Route>
+        <Route
+          path="/customer/event"
+          element={user ? <></> : <NavBar2 />}
+        ></Route>
         <Route path="/customer/about" element={<NavBar2 />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<CTASection></CTASection>}></Route>
         <Route path="/customer/login" element={<LogIn />}></Route>
         <Route path="/customer/register" element={<Register />}></Route>
-        <Route path="/customer/event" element={<HeadEvent></HeadEvent>}></Route>
+        <Route
+          path="/customer/event"
+          element={user ? <LogIn /> : <HeadEvent />}
+        ></Route>
         <Route path="/customer/about" element={<About />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<Features></Features>}></Route>
-        <Route path="/customer/event" element={<EventTabs></EventTabs>}></Route>
+        <Route
+          path="/customer/event"
+          element={user ? <></> : <EventTabs />}
+        ></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<Team></Team>}></Route>
