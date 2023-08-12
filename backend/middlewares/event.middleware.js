@@ -171,5 +171,5 @@ module.exports = {
     createEvent,
     getManageEvent,
     getHistoryEvent,
-    deleteEvent
+    deleteEvent,
 }
