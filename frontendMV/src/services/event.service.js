@@ -112,16 +112,17 @@ export const getEventDetail = async (eventID) => {
 
 export const deleteEvent = async (eventID) => {
   try {
-    const response = await fetch(API_URL + "/customer/event/" + eventID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const response = await fetch(
+      API_URL + "/customer/event/delete/" + eventID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       console.log("Event deleted successfully." + eventID);
-      return { success: true };
     } else {
       console.log("Event deletion failed.");
-      return { success: false };
     }
   } catch (error) {
     console.log("Error: ", error);

@@ -75,10 +75,8 @@ const EventTabs = () => {
 
   const handleDeleteEvent = async (eventID) => {
     try {
-      const { success } = await EventService.deleteEvent(eventID);
-      if (success) {
-        alert("xoa thanh cong");
-      }
+      await EventService.deleteEvent(eventID);
+      window.location.reload();
     } catch (error) {
       console.error("An error occurred during event deleting:", error);
     }
@@ -99,7 +97,6 @@ const EventTabs = () => {
 
       if (success) {
         console.log("Event proposed successfully:");
-        alert("Event proposed successfully!");
         window.location.reload(); // Refresh the page
       } else {
         console.log("Event create failed:", error);
@@ -276,44 +273,6 @@ const EventTabs = () => {
               </svg>
 
               <span className="text-sm font-medium"> History </span>
-            </div>
-          </a>
-        </li>
-
-        <li className="flex-1">
-          <a
-            className="relative block p-4"
-            onClick={(e) => {
-              e.preventDefault();
-              setOpenTab(4);
-            }}
-            href="#notification"
-          >
-            <span
-              className={`absolute inset-x-0 -bottom-px h-px w-full
-                ${openTab === 4 ? "bg-yellow-500" : "bg-white"}`}
-            ></span>
-            <div
-              className={`flex items-center justify-center gap-4 ${
-                openTab === 4 ? "text-yellow-600" : "text-gray-400"
-              }`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
-
-              <span className="text-sm font-medium"> Notifications </span>
             </div>
           </a>
         </li>
