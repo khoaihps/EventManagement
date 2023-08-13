@@ -113,7 +113,7 @@ export const getEventDetail = async (eventID) => {
 
 export const deleteEvent = async (eventID) => {
   try {
-    const response = await fetch(API_URL + "/customer/event/" + eventID, {
+    const response = await fetch(API_URL + "/customer/event/delete/" + eventID, {
       method: "GET",
       headers: authHeader(),
     });

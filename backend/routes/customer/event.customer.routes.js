@@ -5,7 +5,7 @@ const { createEvent, getManageEvent, getHistoryEvent, eventDetail, deleteEvent }
 
 const router = express.Router();
 
-router.use(authenticateCustomer);
+// router.use(authenticateCustomer);
 
 router.post('/create', createEvent);
 router.get('/manage-event/:customerID', getManageEvent);

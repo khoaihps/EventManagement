@@ -20,7 +20,7 @@ const updateCustomerInfo = async (req, res) => {
         res.status(200).send(updateCustomer);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error updating event details' });
+        res.status(500).json({ message: 'Error updating customer details'});
     }
 }
 
