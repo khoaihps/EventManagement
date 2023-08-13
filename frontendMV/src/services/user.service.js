@@ -62,8 +62,9 @@ export const updateCustomerInfo = async (
   }
 };
 
-export const deleteCustomerAccount = async (customerID) => {
+export const deleteCustomerAccount = async () => {
   try {
+    const customerID = AuthService.getCurrentUser().id;
     const response = await fetch(
       API_URL + "/customer/profile/delete/" + customerID,
       {
