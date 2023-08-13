@@ -24,6 +24,7 @@ export async function createEvent(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...authHeader()
       },
       body: JSON.stringify({
         name,
