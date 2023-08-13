@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Task from "./Task";
 
 const TaskBody = ({ tasksData, updateStateValue, updateTaskData, isEditable }) => {
