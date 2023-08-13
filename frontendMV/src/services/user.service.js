@@ -32,7 +32,7 @@ export const updateCustomerInfo = async (
     const customerID = AuthService.getCurrentUser().customerID;
     const isoDate = convertToISODate(DOB);
     const response = await fetch(
-      API_URL + "/customer/profile/update" + customerID,
+      API_URL + "/customer/profile/update/" + customerID,
       {
         method: "PUT",
         headers: {
