@@ -1,15 +1,65 @@
 import "../App.css";
 import MaleAva from "../assets/img/male-ava.png";
 import AuthService from "../services/auth.service";
-import { getCustomerInfo } from "../services/user.service";
+import { getCustomerInfo, updateCustomerInfo } from "../services/user.service";
 import { useEffect, useState } from "react";
 import { formatDate } from "../services/util";
 import BGIMG from "../assets/img/male-ava.png";
 import PopUp from "./PopUp";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [DOB, setDoB] = useState("");
   const [customerData, setCustomerData] = useState([]);
   const [buttonEdit, setButtonEdit] = useState(false);
+  const navigate = useNavigate();
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+  const handleDOBChange = (event) => {
+    setDoB(event.target.value);
+  };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
+  };
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { success, error } = await updateCustomerInfo(
+        firstName,
+        lastName,
+        DOB,
+        email,
+        phone,
+        address
+      );
+
+      if (success) {
+        console.log("Update successfully:");
+        navigate("/customer/profile");
+      } else {
+        console.log("Update failed:", error);
+      }
+    } catch (error) {
+      console.error("An error occurred during update:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +67,13 @@ const Profile = () => {
       console.log("Data from API:", data);
       if (data) {
         setCustomerData(data);
+        const dateofbirt = new Date(data.DOB).toISOString().split("T")[0];
+        setDoB(dateofbirt);
+        setAddress(data.address);
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
+        setEmail(data.email);
+        setPhone(data.phone);
       }
     };
     fetchData();
@@ -126,8 +183,6 @@ const Profile = () => {
             </span>
           </button>
 
-          {/* Base - Left */}
-
           <a
             className="group relative inline-flex items-center overflow-hidden rounded bg-red-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-500"
             href="/download"
@@ -154,7 +209,94 @@ const Profile = () => {
           </a>
         </div>
         {customerData && (
-          <PopUp trigger={buttonEdit} setTrigger={closePopup}></PopUp>
+          <PopUp trigger={buttonEdit} setTrigger={closePopup}>
+            <p className="font-bold">Edit Profile</p>
+            <form
+              action=""
+              className="mb-0 mt-6 space-y-4"
+              onClick={handleUpdate}
+            >
+              <div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter first name"
+                    onChange={handleFirstNameChange}
+                    defaultValue={customerData.firstName}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter last name"
+                    defaultValue={customerData.lastName}
+                    onChange={handleLastNameChange}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="relative">
+                  <input
+                    type="date"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter date of birth"
+                    defaultValue={DOB}
+                    onChange={handleDOBChange}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="relative">
+                  <input
+                    type="email"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter email"
+                    onChange={handleEmailChange}
+                    defaultValue={email}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="relative">
+                  <input
+                    type="number"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter phone number"
+                    onChange={handlePhoneChange}
+                    defaultValue={phone}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="">
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter address"
+                    required
+                    onChange={handleAddressChange}
+                    defaultValue={address}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
+              >
+                Update
+              </button>
+            </form>
+          </PopUp>
         )}
       </div>
     </div>

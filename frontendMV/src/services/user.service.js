@@ -29,7 +29,7 @@ export const updateCustomerInfo = async (
   address
 ) => {
   try {
-    const customerID = AuthService.getCurrentUser().customerID;
+    const customerID = AuthService.getCurrentUser().id;
     const isoDate = convertToISODate(DOB);
     const response = await fetch(
       API_URL + "/customer/profile/update/" + customerID,
@@ -37,7 +37,7 @@ export const updateCustomerInfo = async (
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          ...authHeader()
+          ...authHeader(),
         },
         body: JSON.stringify({
           firstName,
@@ -51,19 +51,26 @@ export const updateCustomerInfo = async (
     );
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return { success: true, name: data.name };
+    } else {
+      const errorData = await response.json();
+      return { success: false, error: errorData.message };
     }
   } catch (error) {
-    console.log("Error: ", error);
+    console.error("An error occurred during update profile:", error);
+    return { success: false, error };
   }
 };
 
 export const deleteCustomerAccount = async (customerID) => {
   try {
-    const response = await fetch(API_URL + "/customer/profile/delete/" + customerID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const response = await fetch(
+      API_URL + "/customer/profile/delete/" + customerID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       console.log("Customer deleted successfully.");
     } else {
