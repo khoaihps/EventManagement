@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TaskInfo from "./TaskInfo";
 import "../../../style/TaskDetail.css";
 import TaskEmployees from "./taskEmployee/TaskEmployees";
 
 const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEditable }) => {
-    useEffect(() => {
-        console.log(task);
-    }, [])
     const [currentTask, setCurrentTask] = useState(task);
     const handleClick = () => {
         handleDismiss(false);
