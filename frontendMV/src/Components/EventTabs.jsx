@@ -4,6 +4,7 @@ import "../services/event.service";
 import { getManageEvent } from "../services/event.service";
 import { formatDate } from "../services/util";
 import PopUp from "./PopUp";
+import { useNavigate } from "react-router-dom";
 
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(2);
@@ -33,6 +34,9 @@ const EventTabs = () => {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [buttonView, setButtonView] = useState(false);
+  const [confirmView, setConfirmView] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleEventNameChange = (event) => {
     setNameError("");
@@ -67,6 +71,17 @@ const EventTabs = () => {
   const handleEventBudgetChange = (event) => {
     setBudgetError("");
     setBudget(event.target.value);
+  };
+
+  const handleDeleteEvent = async (eventID) => {
+    try {
+      const { success } = await EventService.deleteEvent(eventID);
+      if (success) {
+        alert("xoa thanh cong");
+      }
+    } catch (error) {
+      console.error("An error occurred during event deleting:", error);
+    }
   };
 
   const handleSubmitEvent = async (event) => {
@@ -136,11 +151,17 @@ const EventTabs = () => {
     setSelectedEvent(event);
     setButtonView(true);
   };
-
+  const openConfirmPopup = (event) => {
+    setConfirmView(true);
+  };
+  const closeConfirmPopup = () => {
+    setConfirmView(false);
+  };
   const closePopup = () => {
     setSelectedEvent(null);
     setButtonView(false);
   };
+
   return (
     <nav aria-label="Tabs" className="">
       <ul className="flex border-b border-gray-100">
@@ -687,6 +708,97 @@ const EventTabs = () => {
                           </dd>
                         </div>
                       </dl>
+                      {selectedEvent.status !== "open" ? (
+                        <div>
+                          <button
+                            className="mt-4 group relative inline-flex items-center overflow-hidden rounded bg-red-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-500"
+                            onClick={() => openConfirmPopup(selectedEvent)}
+                          >
+                            <span className="absolute -end-full transition-all group-hover:end-4">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                              >
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                              </svg>
+                            </span>
+
+                            <span className="text-sm font-medium transition-all group-hover:me-4">
+                              Delete event
+                            </span>
+                          </button>
+                          {selectedEvent ? (
+                            <PopUp
+                              trigger={confirmView}
+                              setTrigger={closeConfirmPopup}
+                            >
+                              <div>
+                                <div className="font-bold flex items-center justify-center mb-3">
+                                  Delete this event?
+                                </div>
+                                <div className="flex items-center justify-center">
+                                  <button
+                                    className="mr-2 group relative inline-flex items-center overflow-hidden rounded bg-red-500 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-400"
+                                    onClick={() =>
+                                      handleDeleteEvent(selectedEvent._id)
+                                    }
+                                  >
+                                    <span className="absolute -start-full transition-all group-hover:start-4 text-white">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                      >
+                                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                      </svg>
+                                    </span>
+
+                                    <span className="text-sm font-medium transition-all group-hover:ms-4">
+                                      Yes
+                                    </span>
+                                  </button>
+
+                                  <button
+                                    className="group relative inline-flex items-center overflow-hidden rounded bg-gray-400 px-8 py-3 text-gray-800 focus:outline-none focus:ring active:bg-gray-200"
+                                    onClick={closeConfirmPopup}
+                                  >
+                                    <span className="absolute -end-full transition-all group-hover:end-4">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                      >
+                                        <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                                      </svg>
+                                    </span>
+
+                                    <span className="text-sm font-medium transition-all group-hover:me-4">
+                                      No
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                            </PopUp>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </PopUp>
                 )}
@@ -891,6 +1003,97 @@ const EventTabs = () => {
                           </dd>
                         </div>
                       </dl>
+                      {selectedEvent.status !== "open" ? (
+                        <div>
+                          <button
+                            className="mt-4 group relative inline-flex items-center overflow-hidden rounded bg-red-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-500"
+                            onClick={() => openConfirmPopup(selectedEvent)}
+                          >
+                            <span className="absolute -end-full transition-all group-hover:end-4">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                              >
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                              </svg>
+                            </span>
+
+                            <span className="text-sm font-medium transition-all group-hover:me-4">
+                              Delete event
+                            </span>
+                          </button>
+                          {selectedEvent ? (
+                            <PopUp
+                              trigger={confirmView}
+                              setTrigger={closeConfirmPopup}
+                            >
+                              <div>
+                                <div className="font-bold flex items-center justify-center mb-3">
+                                  Delete this event?
+                                </div>
+                                <div className="flex items-center justify-center">
+                                  <button
+                                    className="mr-2 group relative inline-flex items-center overflow-hidden rounded bg-red-500 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-400"
+                                    onClick={() =>
+                                      handleDeleteEvent(selectedEvent._id)
+                                    }
+                                  >
+                                    <span className="absolute -start-full transition-all group-hover:start-4 text-white">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                      >
+                                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                      </svg>
+                                    </span>
+
+                                    <span className="text-sm font-medium transition-all group-hover:ms-4">
+                                      Yes
+                                    </span>
+                                  </button>
+
+                                  <button
+                                    className="group relative inline-flex items-center overflow-hidden rounded bg-gray-400 px-8 py-3 text-gray-800 focus:outline-none focus:ring active:bg-gray-200"
+                                    onClick={closeConfirmPopup}
+                                  >
+                                    <span className="absolute -end-full transition-all group-hover:end-4">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                      >
+                                        <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                                      </svg>
+                                    </span>
+
+                                    <span className="text-sm font-medium transition-all group-hover:me-4">
+                                      No
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                            </PopUp>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </PopUp>
                 )}

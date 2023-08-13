@@ -183,7 +183,7 @@ const Profile = () => {
             </span>
           </button>
 
-          <a
+          <button
             className="group relative inline-flex items-center overflow-hidden rounded bg-red-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-500"
             href="/download"
           >
@@ -206,7 +206,7 @@ const Profile = () => {
             <span className="text-sm font-medium transition-all group-hover:me-4">
               Delete account
             </span>
-          </a>
+          </button>
         </div>
         {customerData && (
           <PopUp trigger={buttonEdit} setTrigger={closePopup}>

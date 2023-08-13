@@ -24,7 +24,7 @@ export async function createEvent(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...authHeader()
+        ...authHeader(),
       },
       body: JSON.stringify({
         name,
@@ -110,7 +110,6 @@ export const getEventDetail = async (eventID) => {
   }
 };
 
-
 export const deleteEvent = async (eventID) => {
   try {
     const response = await fetch(API_URL + "/customer/event/" + eventID, {
@@ -118,9 +117,11 @@ export const deleteEvent = async (eventID) => {
       headers: authHeader(),
     });
     if (response.ok) {
-      console.log("Event deleted successfully.");
+      console.log("Event deleted successfully." + eventID);
+      return { success: true };
     } else {
       console.log("Event deletion failed.");
+      return { success: false };
     }
   } catch (error) {
     console.log("Error: ", error);
@@ -132,7 +133,7 @@ const EventService = {
   getManageEvent,
   getHistoryEvent,
   getEventDetail,
-  deleteEvent
+  deleteEvent,
 };
 
 export default EventService;
