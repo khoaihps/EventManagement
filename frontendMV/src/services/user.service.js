@@ -35,9 +35,7 @@ export const updateCustomerInfo = async (
       API_URL + "/customer/profile/update/" + customerID,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: authHeader(),
         body: JSON.stringify({
           firstName,
           lastName,
@@ -57,9 +55,26 @@ export const updateCustomerInfo = async (
   }
 };
 
+export const deleteCustomerAccount = async (customerID) => {
+  try {
+    const response = await fetch(API_URL + "/customer/profile/delete/" + customerID, {
+      method: "GET",
+      headers: authHeader(),
+    });
+    if (response.ok) {
+      console.log("Customer deleted successfully.");
+    } else {
+      console.log("Customer deletion failed.");
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
 const UserService = {
   getCustomerInfo,
   updateCustomerInfo,
+  deleteCustomerAccount,
 };
 
 export default UserService;

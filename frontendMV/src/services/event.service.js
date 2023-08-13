@@ -22,9 +22,7 @@ export async function createEvent(
     const status = "pending";
     const response = await fetch(`${API_URL}/customer/event/create`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: authHeader(),
       body: JSON.stringify({
         name,
         customer_id,
