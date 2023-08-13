@@ -95,7 +95,6 @@ const createEvent = async (req, res) => {
           status
         } = req.body;
     
-
         // Create a new event
         const newEvent = new Event({
             name,
@@ -117,7 +116,7 @@ const createEvent = async (req, res) => {
         res.status(201).json({ message: 'Event created successfully', event: newEvent });
       } catch (error) {
         console.error('Error creating event:', error);
-        res.status(500).json({ message: 'An error occurred during event creation' });
+        res.status(500).json({ message: 'An error occurred during event creation' + error});
       }
 }
 

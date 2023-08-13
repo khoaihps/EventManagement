@@ -35,7 +35,10 @@ export const updateCustomerInfo = async (
       API_URL + "/customer/profile/update/" + customerID,
       {
         method: "PUT",
-        headers: authHeader(),
+        headers: {
+          "Content-Type": "application/json",
+          ...authHeader()
+        },
         body: JSON.stringify({
           firstName,
           lastName,
