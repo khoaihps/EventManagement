@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/img/white-logo.png";
 import AuthService from "../services/auth.service";
 import MaleAva from "../assets/img/male-ava.png";
+import { getCustomerInfo } from "../services/user.service";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,13 +12,21 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const [customerData, setCustomerData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCustomerInfo();
+      console.log("Data from API:", data);
+      if (data) {
+        setCustomerData(data);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleProfileClick = () => {
     setShowDropdown(!showDropdown);
-  };
-
-  const handleBackClick = () => {
-    navigate(-1); // Navigate back to the previous page
   };
 
   const handleClickOutside = (event) => {
@@ -113,37 +122,48 @@ const Navbar = () => {
             </ul>
           </nav>
         </div>
+        {user ? (
+          <a
+            className="text-white flex items-center gap-4 mx-auto justify-end transition hover:text-gray-500/75"
+            href="/customer/profile"
+          >
+            Hi, {customerData.username}
+          </a>
+        ) : (
+          <></>
+        )}
         <div className="flex items-center gap-4 mx-auto justify-end">
           {user ? (
-            // If the user is not null, render the user dropdown
-            <div className="relative" ref={dropdownRef}>
-              <div
-                className="h-10 w-10 rounded-full bg-gray-500 cursor-pointer"
-                onClick={handleProfileClick}
-              >
-                <img
-                  src={MaleAva}
-                  alt="Profile"
-                  className="h-full w-full rounded-full"
-                />
-              </div>
-              {showDropdown && (
-                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
-                  <a
-                    href="/customer/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    My Profile
-                  </a>
-                  <a
-                    href="/customer/login"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={handleLogout}
-                  >
-                    Log out
-                  </a>
+            <div>
+              <div className="relative" ref={dropdownRef}>
+                <div
+                  className="h-10 w-10 rounded-full bg-gray-500 cursor-pointer"
+                  onClick={handleProfileClick}
+                >
+                  <img
+                    src={MaleAva}
+                    alt="Profile"
+                    className="h-full w-full rounded-full"
+                  />
                 </div>
-              )}
+                {showDropdown && (
+                  <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                    <a
+                      href="/customer/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      My Profile
+                    </a>
+                    <a
+                      href="/customer/login"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             // If the user is null, render the login button

@@ -1,7 +1,7 @@
 import "../App.css";
-import "../assets/css/ViewEvent.css";
+import "../assets/css/PopUp.css";
 
-const ViewEvent = (props) => {
+const PopUp = (props) => {
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
@@ -33,4 +33,4 @@ const ViewEvent = (props) => {
     ""
   );
 };
-export default ViewEvent;
+export default PopUp;

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import EventService, { getHistoryEvent } from "../services/event.service";
 import "../services/event.service";
 import { getManageEvent } from "../services/event.service";
-import { useNavigate } from "react-router-dom";
 import { formatDate } from "../services/util";
-import ViewEvent from "./ViewEvent";
+import PopUp from "./PopUp";
 
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(2);
@@ -34,8 +33,6 @@ const EventTabs = () => {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [buttonView, setButtonView] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleEventNameChange = (event) => {
     setNameError("");
@@ -95,21 +92,7 @@ const EventTabs = () => {
     } catch (error) {
       console.error("An error occurred during event creation:", error);
     }
-
-    if (name.length == 0) {
-      setNameError("Event name required");
-    }
-    if (type_of_event === "") {
-      setTypeOfEventError("Event type required");
-    }
-    if (size === "") {
-      setSizeError("Event size required");
-    }
-    if (place === "") {
-      setPlaceError("Address required");
-    }
     if (deadline === "") {
-      setDeadlineError("Event day required");
     } else {
       const currentDateTime = new Date();
       const sevenDaysAfterCurrentTime = new Date();
@@ -125,12 +108,6 @@ const EventTabs = () => {
           "The event must be booked at least 7 days before it starts"
         );
       }
-    }
-    if (budget === "") {
-      setBudgetError("Budget required");
-    }
-    if (description === "") {
-      setDescriptionError("Type 'No' if no additional requirements needed");
     }
   };
   useEffect(() => {
@@ -165,7 +142,7 @@ const EventTabs = () => {
     setButtonView(false);
   };
   return (
-    <nav aria-label="Tabs">
+    <nav aria-label="Tabs" className="">
       <ul className="flex border-b border-gray-100">
         <li className="flex-1">
           <a
@@ -320,7 +297,7 @@ const EventTabs = () => {
           </a>
         </li>
       </ul>
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded h-auto">
         <div className="px-4 py-5 flex-auto">
           <div className="tab-content tab-space">
             <div
@@ -351,6 +328,7 @@ const EventTabs = () => {
                         placeholder="Event name"
                         value={name}
                         onChange={handleEventNameChange}
+                        required
                       />
                     </div>
                   </div>
@@ -369,6 +347,7 @@ const EventTabs = () => {
                           name="type_of_event"
                           value={type_of_event}
                           onChange={handleEventTypeChange}
+                          required
                         >
                           <option value="">Event type</option>
                           <option value="Social">Social</option>
@@ -391,6 +370,7 @@ const EventTabs = () => {
                           id="size"
                           value={size}
                           onChange={handleEventSizeChange}
+                          required
                         >
                           <option value="">Event size</option>
                           <option value="Small">
@@ -423,6 +403,7 @@ const EventTabs = () => {
                         placeholder="Address"
                         value={place}
                         onChange={handleEventPlaceChange}
+                        required
                       />
                     </div>
                   </div>
@@ -446,6 +427,7 @@ const EventTabs = () => {
                           className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                           value={deadline}
                           onChange={handleEventDeadlineChange}
+                          required
                         />
                       </label>
                     </div>
@@ -464,6 +446,7 @@ const EventTabs = () => {
                         placeholder="Budget (.000.000 VND)"
                         value={budget}
                         onChange={handleEventBudgetChange}
+                        required
                       />
                     </div>
                   </div>
@@ -484,6 +467,7 @@ const EventTabs = () => {
                           cols={40}
                           value={description}
                           onChange={handleEventDescriptionChange}
+                          required
                         />
                       </label>
                     </div>
@@ -610,7 +594,7 @@ const EventTabs = () => {
                   </div>
                 </div>
                 {selectedEvent && (
-                  <ViewEvent trigger={buttonView} setTrigger={closePopup}>
+                  <PopUp trigger={buttonView} setTrigger={closePopup}>
                     <div>
                       <h1 className="font-bold inline mr-2">Event Details</h1>
                       <span
@@ -704,7 +688,7 @@ const EventTabs = () => {
                         </div>
                       </dl>
                     </div>
-                  </ViewEvent>
+                  </PopUp>
                 )}
               </div>
             </div>
@@ -814,7 +798,7 @@ const EventTabs = () => {
                   </div>
                 </div>
                 {selectedEvent && (
-                  <ViewEvent trigger={buttonView} setTrigger={closePopup}>
+                  <PopUp trigger={buttonView} setTrigger={closePopup}>
                     <div>
                       <h1 className="font-bold inline mr-2">Event Details</h1>
                       <span
@@ -908,7 +892,7 @@ const EventTabs = () => {
                         </div>
                       </dl>
                     </div>
-                  </ViewEvent>
+                  </PopUp>
                 )}
               </div>
             </div>
