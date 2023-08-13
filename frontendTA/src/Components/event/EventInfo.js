@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 import Employees from "../event/employee/Employees";
 import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
+import EventService from "../../services/event.service";
 
-const EventInfo = ({initialEvent}) => {
+const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
     const navigate = useNavigate();
-
+    console.log(initialTasks);
     // api call specific event
 
     // api call specific tasks associated with the event
-    const initialTasks = tasksData;
+    // const initialTasks = tasksData;
     // api call specific employees associated with the event
-    const initialEmployees = employeesData;
 
 
     const [event, setEvent] = useState(initialEvent);
@@ -29,7 +29,7 @@ const EventInfo = ({initialEvent}) => {
     const [isEditable, setIsEditable] = useState(false);
 
 
-    const handleEditButtonClick = () => {
+    const handleEditButtonClick = async () => {
         if (isEditable) {
             // console.log(passEvent);
             // console.log(passTasks);
@@ -38,8 +38,12 @@ const EventInfo = ({initialEvent}) => {
             setEvent(passEvent);
             setTasks(passTasks);
             setEmployees(passEmployees);
-
-            // api sends things to database
+            try {
+                // Call the updateEvent API function
+                await EventService.updateEvent(passEvent._id, passEvent);
+            } catch (error) {
+                console.log("Error updating event:", error);
+            }
         }
 
         setIsEditable(!isEditable);

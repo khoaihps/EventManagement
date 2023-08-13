@@ -1,6 +1,41 @@
+import React, { useState, useRef } from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthService from "../services/auth.service";
+
 const LogIn = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const {success, error} = await AuthService.login(
+        username,
+        password
+      );
+      console.log(username);
+      if (success) {
+        navigate('/')
+      } else {
+        // Login failed
+        console.log("Login failed:", error);
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
@@ -11,21 +46,25 @@ const LogIn = () => {
         <form
           action=""
           className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+          onSubmit={handleSubmit}
         >
           <p className="text-center text-lg font-medium">
             Sign in to your account
           </p>
 
           <div>
-            <label htmlFor="email" className="sr-only">
-              Email
+            <label htmlFor="username" className="sr-only">
+              Username
             </label>
 
             <div className="relative">
               <input
-                type="email"
+                type="text"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                placeholder="Enter username"
+                value={username}
+                onChange={handleUsernameChange}
+                required
               />
 
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -57,6 +96,9 @@ const LogIn = () => {
                 type="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter password"
+                value={password}
+                onChange={handlePasswordChange}
+                required
               />
 
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -84,16 +126,18 @@ const LogIn = () => {
             </div>
           </div>
 
+          {/* <Link to="/"> */}
           <button
             type="submit"
             className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
           >
             Log in
           </button>
+          {/* </Link> */}
 
           <p className="text-center text-sm text-gray-500">
             No account?
-            <Link to="/register">
+            <Link to="/customer/register">
               <a className="underline" href="">
                 Sign up
               </a>

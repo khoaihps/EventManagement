@@ -77,11 +77,80 @@ const allEventOfCustomer = async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch.' });
     }
 }
+
+const eventUpdate = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const updatedEventDetails = req.body;
+        const updatedEvent = await Event.findByIdAndUpdate(eventId, updatedEventDetails, { new: true });
+        res.status(200).send(updatedEvent);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating event details' });
+    }
+}
+const createEvent = async (req, res) => {
+    try {
+        const {
+          name,
+          customer_id,
+          deadline,
+          place,
+          type_of_event,
+          description,
+          date_proposed,
+          last_modified,
+          size,
+          budget,
+          status
+        } = req.body;
+        const event = {
+            name,
+            customer_id,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            date_proposed,
+            last_modified,
+            size,
+            budget,
+            status
+          };
+
+
+        // Create a new event
+        const newEvent = new Event({
+            name,
+            customer_id,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            date_proposed,
+            last_modified,
+            size,
+            budget,
+            status
+        });
+    
+        // Save the event to the database
+        await newEvent.save();
+    
+        res.status(201).json({ message: 'Event created successfully', event: newEvent });
+      } catch (error) {
+        console.error('Error creating event:', error);
+        res.status(500).json({ message: 'An error occurred during event creation' });
+      }
+}
+
 module.exports = {
     allEvents,
     eventDetail,
     allTaskOfEvent,
     allEventOfCustomer,
     allOpenEvents,
-    eventOpenDetail
+    eventOpenDetail,
+    eventUpdate,
+    createEvent
 }
