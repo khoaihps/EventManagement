@@ -1,4 +1,3 @@
-
 const EventTable = ({ event, isEditable, change}) => {
 
     const handleChange = (e) => {

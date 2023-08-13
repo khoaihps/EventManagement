@@ -10,9 +10,9 @@ const TaskEmployees = ({isEditable, enrolled}) => {
                     <th scope="col" className="px-6 py-3">
                         Employee name
                     </th>
-                    <th scope="col" className="px-6 py-3">
-                        Email
-                    </th>
+                    {/*<th scope="col" className="px-6 py-3">*/}
+                    {/*    Email*/}
+                    {/*</th>*/}
                     <th scope="col" className="px-6 py-3">
                         Phone
                     </th>

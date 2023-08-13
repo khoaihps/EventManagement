@@ -10,8 +10,7 @@ export const loader = async ({ params }) => {
     try {
         const details = await EventService.getEventInfo(params.eventID);
         const tasks = await TaskService.getAllTaskEvent(params.eventID);
-        const employees = await EventService.getEmployees(params.eventID);
-        return {details, tasks, employees};
+        return {details, tasks};
     } catch (error) {
         console.log("Error: ", error);
     }
@@ -21,13 +20,12 @@ export const loader = async ({ params }) => {
 export const EventDetail = () => {
     const { id } = useParams();
     const eventInfo = useLoaderData();
-    console.log(eventInfo)
 
     return (
         <div>
             <Header title={"Event Detail"} />
             <Sidebar/>
-            <EventInfo initialEvent={eventInfo.details} initialTasks={eventInfo.tasks} initialEmployees={eventInfo.employees}/>
+            <EventInfo initialEvent={eventInfo.details}/>
         </div>
     );
 };
