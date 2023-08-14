@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskInfo from "./TaskInfo";
 import "../../../style/TaskDetail.css";
 import TaskEmployees from "./taskEmployee/TaskEmployees";
 
-const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEditable }) => {
+const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, isEditable }) => {
     const [currentTask, setCurrentTask] = useState(task);
     const handleClick = () => {
+        if (add)
+        {
+            updateTaskData(index, null);
+        }
         handleDismiss(false);
     };
 
@@ -25,9 +29,9 @@ const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEdi
     };
 
     return (
-        <div className="taskDetail fixed inset-0 z-10">
+        <div className="taskDetaill fixed inset-0 z-10">
             <div role="alert" className="rounded-xl border border-gray-100 bg-white p-4 shadow-xl absolute">
-                <div className="taskDetailInner flex items-start gap-4">
+                <div className={`w-[1300px] taskDetailInnerr flex items-start gap-4`}>
                     <button className="text-gray-500 transition hover:text-gray-600 absolute top-[0px] right-[-0px]" onClick={handleClick}>
                         <span className="sr-only">Dismiss popup</span>
                         <svg
@@ -41,10 +45,10 @@ const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEdi
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <div className="child">
+                    <div className="child11">
                         <TaskInfo index={index} task={currentTask} setTask={setCurrentTask} isEditable={isEditable} />
                         {isEditable && (
-                            <div className="mt-[40px]">
+                            <div className="mt-[40px] flex">
                                 <button
                                     type="submit"
                                     className="aaa bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
@@ -69,11 +73,17 @@ const TaskDetail = ({ task, setTask, index, updateTaskData, handleDismiss, isEdi
                             </div>
                         )}
                     </div>
-                    <div className="child">
+                    <div className="child22">
                         <h3>Enrolled</h3>
-                        <TaskEmployees isEditable={isEditable} enrolled={true} />
+                        <TaskEmployees
+                            isEditable={isEditable}
+                            enrolled={true}
+                        />
                         <h3>Not Enrolled</h3>
-                        <TaskEmployees isEditable={isEditable} enrolled={false} />
+                        <TaskEmployees
+                            isEditable={isEditable}
+                            enrolled={false}
+                        />
                     </div>
                 </div>
             </div>
