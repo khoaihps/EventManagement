@@ -370,7 +370,7 @@ const Profile = () => {
                   type="text"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter last name"
-                  value={customerData.lastName}
+                  defaultValue={customerData.lastName}
                   onChange={handleLastNameChange}
                   required
                 />
@@ -382,7 +382,7 @@ const Profile = () => {
                   type="date"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter date of birth"
-                  value={DOB}
+                  defaultValue={DOB}
                   onChange={handleDOBChange}
                   required
                 />
@@ -395,7 +395,7 @@ const Profile = () => {
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter email"
                   onChange={handleEmailChange}
-                  value={email}
+                  defaultValue={email}
                   required
                 />
               </div>
@@ -407,7 +407,7 @@ const Profile = () => {
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter phone number"
                   onChange={handlePhoneChange}
-                  value={phone}
+                  defaultValue={phone}
                   required
                 />
               </div>
@@ -420,7 +420,7 @@ const Profile = () => {
                   placeholder="Enter address"
                   required
                   onChange={handleAddressChange}
-                  value={address}
+                  defaultValue={address}
                 />
               </div>
             </div>

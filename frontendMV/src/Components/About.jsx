@@ -39,7 +39,7 @@ const About = () => {
                         </svg>
                       </span>
                       <p className="mt-4 mb-2 text-3xl font-bold text-gray-700 dark:text-gray-400">
-                        2097
+                        131
                       </p>
                       <h2 className="text-sm text-gray-700 dark:text-gray-400">
                         Projects and Plans
@@ -66,10 +66,10 @@ const About = () => {
                         </svg>
                       </span>
                       <p className="mt-4 mb-2 text-3xl font-bold text-gray-700 dark:text-gray-400">
-                        3,590
+                        1311
                       </p>
                       <h2 className="text-sm text-gray-700 dark:text-gray-400">
-                        Helped people
+                        Employees
                       </h2>
                     </div>
                   </div>
