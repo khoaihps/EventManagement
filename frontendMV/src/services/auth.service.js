@@ -1,7 +1,6 @@
 import { convertToISODate } from './util';
 
 const API_URL = 'http://localhost:4000';
-const axios = require('axios');
 
 const login = async (username, password) => {
     try {

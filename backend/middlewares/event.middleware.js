@@ -67,17 +67,6 @@ const allOpenEvents = async (req, res) => {
     }
 }
 
-const allEventOfCustomer = async (req, res) => {
-    try {
-        const { customerid } = req.params.customerid;
-        const events = await Event.find({ customer_id: customerid });
-        res.status(200).send(events);  
-    } catch (error) {
-        console.log("Error", error);
-        res.status(500).json({ message: 'Failed to fetch.' });
-    }
-}
-
 const eventUpdate = async (req, res) => {
     try {
         const eventId = req.params.eventId;
@@ -92,7 +81,7 @@ const eventUpdate = async (req, res) => {
 const createEvent = async (req, res) => {
     try {
         const {
-          name,
+          name, 
           customer_id,
           deadline,
           place,
@@ -104,21 +93,7 @@ const createEvent = async (req, res) => {
           budget,
           status
         } = req.body;
-        const event = {
-            name,
-            customer_id,
-            deadline,
-            place,
-            type_of_event,
-            description,
-            date_proposed,
-            last_modified,
-            size,
-            budget,
-            status
-          };
-
-
+    
         // Create a new event
         const newEvent = new Event({
             name,
@@ -140,17 +115,59 @@ const createEvent = async (req, res) => {
         res.status(201).json({ message: 'Event created successfully', event: newEvent });
       } catch (error) {
         console.error('Error creating event:', error);
-        res.status(500).json({ message: 'An error occurred during event creation' });
+        res.status(500).json({ message: 'An error occurred during event creation' + error});
       }
+}
+
+const getManageEvent = async (req, res) => {
+    try {
+        const customerID  = req.params.customerID;
+        const events = await Event.find( {$and: [{ customer_id: customerID }, { $or: [{status: "pending"}, {status: "open"}] }]});
+        res.status(200).send(events);  
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ message: 'Failed to fetch.' });
+    }
+}
+
+const getHistoryEvent = async (req, res) => {
+    try {
+        const customerID  = req.params.customerID;
+        const events = await Event.find({$and: [{ customer_id: customerID }, { $or: [{status: "closed"}, {status: "rejected"}] }]});
+        res.status(200).send(events);  
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ message: 'Failed to fetch.' });
+    }
+}
+
+const deleteEvent = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+
+        // Delete the event based on eventId in the database
+        const deletedEvent = await Event.findByIdAndDelete(eventId);
+
+        if (!deletedEvent) {
+            return res.status(404).json({ message: 'Event not found.' });
+        }
+
+        res.status(200).json({ message: 'Event deleted successfully.' });
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ message: 'Failed to delete event.' });
+    }
 }
 
 module.exports = {
     allEvents,
     eventDetail,
     allTaskOfEvent,
-    allEventOfCustomer,
     allOpenEvents,
     eventOpenDetail,
     eventUpdate,
-    createEvent
+    createEvent,
+    getManageEvent,
+    getHistoryEvent,
+    deleteEvent,
 }

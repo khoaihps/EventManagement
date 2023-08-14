@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../api";
+import AuthService from "../services/auth.service";
 import BgImg from "../assets/img/carousel1.png";
 
 const Register = () => {
@@ -72,7 +72,7 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const { success, error } = await register(
+      const { success, error } = await AuthService.register(
         firstName,
         lastName,
         username,
@@ -140,7 +140,7 @@ const Register = () => {
   };
 
   return (
-    <section className="relative flex flex-wrap lg:h-screen lg:items-center mb-0">
+    <section className="relative flex flex-wrap lg:h-screen lg:items-center">
       <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-0">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>

@@ -12,16 +12,16 @@ const Footer = () => {
               </h2>
               <ul>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Elements</a>
+                  <div>Elements</div>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Forms</a>
+                  <div>Forms</div>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Commerces</a>
+                  <div>Commerces</div>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Navigation</a>
+                  <div>Navigation</div>
                 </li>
               </ul>
             </div>

@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 import Logo from "../assets/img/white-logo.png";
 import MaleAva from "../assets/img/male-ava.png";
+import AuthService from "../services/auth.service";
 
-const NavBarEvent = () => {
+const NavBar2 = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -30,6 +31,11 @@ const NavBarEvent = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  const handleLogout = () => {
+    AuthService.logout(); // Call your logout logic from the AuthService here
+    localStorage.removeItem("user");
+    navigate("/customer/login"); // Redirect to the login page after logout
+  };
 
   return (
     <header className="bg-gray-800 sticky top-0 z-50 w-full">
@@ -65,14 +71,15 @@ const NavBarEvent = () => {
           {showDropdown && (
             <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
               <a
-                href="/my-profile"
+                href="/customer/profile"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 My Profile
               </a>
               <a
-                href="/logout"
+                href="/customer/login"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={handleLogout}
               >
                 Log out
               </a>
@@ -84,4 +91,4 @@ const NavBarEvent = () => {
   );
 };
 
-export default NavBarEvent;
+export default NavBar2;
