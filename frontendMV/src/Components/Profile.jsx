@@ -1,11 +1,17 @@
 import "../App.css";
 import MaleAva from "../assets/img/male-ava.png";
 import AuthService from "../services/auth.service";
-import { getCustomerInfo, updateCustomerInfo } from "../services/user.service";
+import {
+  getCustomerInfo,
+  updateCustomerInfo,
+  deleteCustomerAccount,
+} from "../services/user.service";
 import { useEffect, useState } from "react";
 import { formatDate } from "../services/util";
 import BGIMG from "../assets/img/male-ava.png";
 import PopUp from "./PopUp";
+import { useNavigate } from "react-router-dom";
+import { eventCount } from "../services/event.service";
 
 const Profile = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +22,13 @@ const Profile = () => {
   const [DOB, setDoB] = useState("");
   const [customerData, setCustomerData] = useState([]);
   const [buttonEdit, setButtonEdit] = useState(false);
+  const [buttonDelete, setButtonDelete] = useState(false);
+  const [buttonRetry, setButtonRetry] = useState(false);
+  const [pending, setPending] = useState("");
+  const [open, setOpen] = useState("");
+  const [closed, setClosed] = useState("");
+  const [rejected, setRejected] = useState("");
+  const navigate = useNavigate();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -34,6 +47,19 @@ const Profile = () => {
   };
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
+  };
+  const handleDeleteAccount = async () => {
+    try {
+      const { success } = await deleteCustomerAccount();
+      if (success) {
+        alert("Account deleted!");
+        navigate("/customer/login");
+      } else {
+        openRetry();
+      }
+    } catch (error) {
+      openRetry();
+    }
   };
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -75,12 +101,40 @@ const Profile = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await eventCount();
+      console.log("Data from API:", data);
+      if (data) {
+        setPending(data.pending);
+        setOpen(data.open);
+        setClosed(data.closed);
+        setRejected(data.rejected);
+      }
+    };
+    fetchData();
+  }, []);
+
   const openPopup = (event) => {
     setButtonEdit(true);
   };
-
   const closePopup = () => {
     setButtonEdit(false);
+  };
+
+  const openDelete = () => {
+    setButtonDelete(true);
+  };
+  const closeDelete = () => {
+    setButtonDelete(false);
+  };
+
+  const openRetry = () => {
+    setButtonRetry(true);
+  };
+  const closeRetry = () => {
+    setButtonRetry(false);
   };
   const divStyle = {
     backgroundImage: `url(${BGIMG})`,
@@ -182,7 +236,7 @@ const Profile = () => {
 
           <button
             className="group relative inline-flex items-center overflow-hidden rounded bg-red-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-500"
-            href="/download"
+            onClick={() => openDelete()}
           >
             <span className="absolute -end-full transition-all group-hover:end-4">
               <svg
@@ -205,96 +259,181 @@ const Profile = () => {
             </span>
           </button>
         </div>
-        {customerData && (
-          <PopUp trigger={buttonEdit} setTrigger={closePopup}>
-            <p className="font-bold">Edit Profile</p>
-            <form
-              action="#"
-              className="mb-0 mt-6 space-y-4"
-              onSubmit={handleUpdate}
-            >
-              <div>
-                <div className="relative">
-                  <input
-                    type="text"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter first name"
-                    onChange={handleFirstNameChange}
-                    defaultValue={customerData.firstName}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="relative">
-                  <input
-                    type="text"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter last name"
-                    value={customerData.lastName}
-                    onChange={handleLastNameChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="relative">
-                  <input
-                    type="date"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter date of birth"
-                    value={DOB}
-                    onChange={handleDOBChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="relative">
-                  <input
-                    type="email"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter email"
-                    onChange={handleEmailChange}
-                    value={email}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="relative">
-                  <input
-                    type="number"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter phone number"
-                    onChange={handlePhoneChange}
-                    value={phone}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="">
-                <div className="relative">
-                  <input
-                    type="text"
-                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter address"
-                    required
-                    onChange={handleAddressChange}
-                    value={address}
-                  />
-                </div>
-              </div>
+        <PopUp trigger={buttonDelete} setTrigger={closeDelete}>
+          <div>
+            <div className="font-bold flex items-center justify-center mb-3">
+              Permanantly delete your account?
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                className="mr-2 group relative inline-flex items-center overflow-hidden rounded bg-red-500 px-8 py-3 text-white focus:outline-none focus:ring active:bg-red-400"
+                onClick={handleDeleteAccount}
+              >
+                <span className="absolute -start-full transition-all group-hover:start-4 text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                  </svg>
+                </span>
+
+                <span className="text-sm font-medium transition-all group-hover:ms-4">
+                  Yes
+                </span>
+              </button>
 
               <button
-                type="submit"
-                className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
+                className="group relative inline-flex items-center overflow-hidden rounded bg-gray-400 px-8 py-3 text-gray-800 focus:outline-none focus:ring active:bg-gray-200"
+                onClick={closeDelete}
               >
-                Update
+                <span className="absolute -end-full transition-all group-hover:end-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                  </svg>
+                </span>
+
+                <span className="text-sm font-medium transition-all group-hover:me-4">
+                  No
+                </span>
               </button>
-            </form>
+            </div>
+          </div>
+        </PopUp>
+        {buttonRetry ? (
+          <PopUp trigger={openRetry} setTrigger={closeRetry}>
+            <div>
+              <div className="font-bold flex items-center justify-center mb-3">
+                ERROR
+              </div>
+              <div className="flex items-center justify-center">
+                <button
+                  className="mr-2 group relative inline-flex items-center overflow-hidden rounded bg-yellow-500 px-8 py-3 text-white focus:outline-none focus:ring active:bg-yellow-400"
+                  onClick={closeRetry}
+                >
+                  <span className="absolute -start-full transition-all group-hover:start-4 text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                    </svg>
+                  </span>
+
+                  <span className="text-sm font-medium transition-all group-hover:ms-4">
+                    Ok
+                  </span>
+                </button>
+              </div>
+            </div>
           </PopUp>
+        ) : (
+          <></>
         )}
+        <PopUp trigger={buttonEdit} setTrigger={closePopup}>
+          <p className="font-bold">Edit Profile</p>
+          <form
+            action="#"
+            className="mb-0 mt-6 space-y-4"
+            onSubmit={handleUpdate}
+          >
+            <div>
+              <div className="relative">
+                <input
+                  type="text"
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter first name"
+                  onChange={handleFirstNameChange}
+                  defaultValue={customerData.firstName}
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <div className="relative">
+                <input
+                  type="text"
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter last name"
+                  value={customerData.lastName}
+                  onChange={handleLastNameChange}
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <div className="relative">
+                <input
+                  type="date"
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter date of birth"
+                  value={DOB}
+                  onChange={handleDOBChange}
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <div className="relative">
+                <input
+                  type="email"
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter email"
+                  onChange={handleEmailChange}
+                  value={email}
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <div className="relative">
+                <input
+                  type="number"
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter phone number"
+                  onChange={handlePhoneChange}
+                  value={phone}
+                  required
+                />
+              </div>
+            </div>
+            <div className="">
+              <div className="relative">
+                <input
+                  type="text"
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter address"
+                  required
+                  onChange={handleAddressChange}
+                  value={address}
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="block w-full rounded-lg bg-yellow-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring active:text-yellow-400"
+            >
+              Update
+            </button>
+          </form>
+        </PopUp>
+
         <section className="">
           <div className="max-w-screen-xl px-4 py-12 sm:px-4 md:py-8 lg:px-4">
             <div className="mt-5">
@@ -305,7 +444,7 @@ const Profile = () => {
                   </dt>
 
                   <dd className="text-4xl font-extrabold text-yellow-500 md:text-5xl">
-                    5
+                    {pending}
                   </dd>
                 </div>
                 <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
@@ -314,7 +453,7 @@ const Profile = () => {
                   </dt>
 
                   <dd className="text-4xl font-extrabold text-green-500 md:text-5xl">
-                    5
+                    {open}
                   </dd>
                 </div>
 
@@ -324,7 +463,7 @@ const Profile = () => {
                   </dt>
 
                   <dd className="text-4xl font-extrabold text-blue-500 md:text-5xl">
-                    5
+                    {closed}
                   </dd>
                 </div>
 
@@ -334,7 +473,7 @@ const Profile = () => {
                   </dt>
 
                   <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
-                    5
+                    {rejected}
                   </dd>
                 </div>
               </dl>

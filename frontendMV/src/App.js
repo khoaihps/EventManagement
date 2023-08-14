@@ -20,6 +20,7 @@ import Contact from "./Components/Contact";
 import AuthService from "./services/auth.service";
 import Profile from "./Components/Profile";
 import NavBarProfile from "./Components/NavBarProfile";
+import ChangePass from "./Components/ChangePassword";
 
 const App = () => {
   const contactRef = useRef(null);
@@ -45,12 +46,23 @@ const App = () => {
           element={user ? <></> : <NavBar2 />}
         ></Route>
         <Route path="/customer/about" element={<NavBar2 />}></Route>
+        <Route path="/customer/password" element={<NavBar2 />}></Route>
         <Route path="/customer/profile" element={<NavBarProfile />}></Route>
       </Routes>
       <Routes>
         <Route path="/" element={<CTASection></CTASection>}></Route>
-        <Route path="/customer/login" element={<LogIn />}></Route>
-        <Route path="/customer/register" element={<Register />}></Route>
+        <Route
+          path="/customer/password"
+          element={user ? <></> : <ChangePass />}
+        ></Route>
+        <Route
+          path="/customer/login"
+          element={user ? <LogIn /> : <></>}
+        ></Route>
+        <Route
+          path="/customer/register"
+          element={user ? <Register></Register> : <></>}
+        ></Route>
         <Route
           path="/customer/event"
           element={user ? <LogIn /> : <HeadEvent />}

@@ -74,11 +74,14 @@ export const deleteCustomerAccount = async () => {
     );
     if (response.ok) {
       console.log("Customer deleted successfully.");
+      return { success: true };
     } else {
       console.log("Customer deletion failed.");
+      return { success: false };
     }
   } catch (error) {
     console.log("Error: ", error);
+    return { success: false };
   }
 };
 

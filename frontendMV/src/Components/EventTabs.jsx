@@ -5,6 +5,7 @@ import { getManageEvent } from "../services/event.service";
 import { formatDate } from "../services/util";
 import PopUp from "./PopUp";
 import { useNavigate } from "react-router-dom";
+import { eventCount } from "../services/event.service";
 
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(2);
@@ -35,6 +36,10 @@ const EventTabs = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [buttonView, setButtonView] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
+  const [pending, setPending] = useState("");
+  const [open, setOpen] = useState("");
+  const [closed, setClosed] = useState("");
+  const [rejected, setRejected] = useState("");
 
   const navigate = useNavigate();
 
@@ -122,6 +127,7 @@ const EventTabs = () => {
       }
     }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getManageEvent();
@@ -133,6 +139,7 @@ const EventTabs = () => {
 
     fetchData();
   }, []);
+
   useEffect(() => {
     const fetchHistory = async () => {
       const data = await getHistoryEvent();
@@ -141,9 +148,23 @@ const EventTabs = () => {
         setHistoryData(data);
       }
     };
-
     fetchHistory();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await eventCount();
+      console.log("Data from API:", data);
+      if (data) {
+        setPending(data.pending);
+        setOpen(data.open);
+        setClosed(data.closed);
+        setRejected(data.rejected);
+      }
+    };
+    fetchData();
+  }, []);
+
   const openPopup = (event) => {
     setSelectedEvent(event);
     setButtonView(true);
@@ -455,7 +476,7 @@ const EventTabs = () => {
                   <div className="flex flex-col mb-2 max-w-xl m-auto mt-3">
                     <button
                       type="submit"
-                      className="py-2 px-4  bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-700 focus:ring-offset-yellow-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                      className="py-2 px-4  bg-yellow-500 hover:bg-black hover:text-yellow-500 focus:ring-yellow-700 focus:ring-offset-yellow-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                     >
                       Send
                     </button>
@@ -551,7 +572,7 @@ const EventTabs = () => {
                                 <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                   <button
                                     href="#"
-                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-black hover:text-yellow-500"
                                     onClick={() => openPopup(event)}
                                   >
                                     View
@@ -771,7 +792,7 @@ const EventTabs = () => {
                           </dt>
 
                           <dd className="text-4xl font-extrabold text-yellow-500 md:text-5xl">
-                            5
+                            {pending}
                           </dd>
                         </div>
                         <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
@@ -780,7 +801,7 @@ const EventTabs = () => {
                           </dt>
 
                           <dd className="text-4xl font-extrabold text-green-500 md:text-5xl">
-                            5
+                            {open}
                           </dd>
                         </div>
                       </dl>
@@ -878,7 +899,7 @@ const EventTabs = () => {
                                 <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                   <button
                                     href="#"
-                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-black hover:text-yellow-500"
                                     onClick={() => openPopup(event)}
                                   >
                                     View
@@ -1092,7 +1113,7 @@ const EventTabs = () => {
                           </dt>
 
                           <dd className="text-4xl font-extrabold text-blue-500 md:text-5xl">
-                            5
+                            {closed}
                           </dd>
                         </div>
                         <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
@@ -1101,7 +1122,7 @@ const EventTabs = () => {
                           </dt>
 
                           <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
-                            5
+                            {rejected}
                           </dd>
                         </div>
                       </dl>
