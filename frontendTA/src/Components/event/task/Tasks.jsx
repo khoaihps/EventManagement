@@ -87,17 +87,17 @@ const Tasks = ({tasks, change, isEditable}) => {
                     <th scope="col" className="px-6 py-3">
                         Deadline
                     </th>
-                    <th scope="col" className="px-6 py-3">
-                        Budget
-                    </th>
-                    <th scope="col" className="px-6 py-3">
+                    {/*<th scope="col" className="px-6 py-3">*/}
+                    {/*    Budget*/}
+                    {/*</th>*/}
+                    <th scope="col" className="px-6 py-3 whitespace-nowrap">
                         Department involved
                     </th>
                     <th scope="col" className="px-6 py-3">
                         <span
                             className={`${
                                 isEditable ? "" : "hidden"
-                            } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-2 py-1 absolute top-2`}
+                            } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-2 py-1 absolute right-2 top-2`}
                             onClick={handleDisplay}
                         >
                           Add new Task
@@ -105,8 +105,23 @@ const Tasks = ({tasks, change, isEditable}) => {
                     </th>
                 </tr>
                 </thead>
-                <TaskBody updateStateValue={updateStateValue} tasksData={taskStates} updateTaskData={updateTaskData} isEditable={isEditable}/>
-                {isTaskInfoVisible && <TaskDetail index={index} task={task} setTask={updateStateValue} updateTaskData={updateTaskData} isEditable={isEditable} handleDismiss={setIsTaskInfoVisible}/>}
+                <TaskBody
+                    updateStateValue={updateStateValue}
+                    tasksData={taskStates}
+                    updateTaskData={updateTaskData}
+                    isEditable={isEditable}
+                />
+                {isTaskInfoVisible &&
+                    <TaskDetail
+                        add={true}
+                        index={index}
+                        task={task}
+                        setTask={updateStateValue}
+                        updateTaskData={updateTaskData}
+                        isEditable={isEditable}
+                        handleDismiss={setIsTaskInfoVisible}
+                    />
+                }
             </table>
         </div>
     );

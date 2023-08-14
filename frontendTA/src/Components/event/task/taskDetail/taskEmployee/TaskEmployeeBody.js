@@ -6,7 +6,11 @@ const TaskEmployeeBody = ({tasksData, isEditable, enrolled}) => {
         <tbody>
         {
             tasksData.map((t) => (
-                <TaskEmployee enrolled={enrolled} isEditable={isEditable} task={t}/>
+                <TaskEmployee
+                    enrolled={enrolled}
+                    isEditable={isEditable}
+                    task={t}
+                />
             ))
         }
         </tbody>

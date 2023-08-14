@@ -19,7 +19,7 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable }) => {
                     {task.name}
                 </th>
                 <td className="px-6 py-4">{task.deadline}</td>
-                <td className="px-6 py-4">{task.budget}</td>
+                {/*<td className="px-6 py-4">{task.budget}</td>*/}
                 <td className="px-6 py-4">{task.department_involved}</td>
                 <td className="px-6 py-4 text-right">
                     <div
@@ -30,7 +30,17 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable }) => {
                         {isEditable ? "Edit" : "Show"}
                     </div>
                 </td>
-                {isTaskInfoVisible && <TaskDetail index={index} updateTaskData={updateTaskData} isEditable={isEditable} task={task} setTask={setStateValue} handleDismiss={setTaskInfoVisible}/>}
+                {isTaskInfoVisible &&
+                    <TaskDetail
+                        add={false}
+                        index={index}
+                        updateTaskData={updateTaskData}
+                        isEditable={isEditable}
+                        task={task}
+                        setTask={setStateValue}
+                        handleDismiss={setTaskInfoVisible}
+                    />
+                }
             </tr>
         </>
     );

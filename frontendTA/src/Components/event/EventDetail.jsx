@@ -25,9 +25,15 @@ export const EventDetail = () => {
 
     return (
         <div>
-            <Header title={"Event Detail"} />
+            <Header
+                title={"Event Detail"}
+            />
             <Sidebar/>
-            <EventInfo initialEvent={eventInfo.details} initialTasks={eventInfo.tasks} initialEmployees={eventInfo.employees}/>
+            <EventInfo
+                initialEvent={eventInfo.details}
+                initialTasks={eventInfo.tasks}
+                initialEmployees={eventInfo.employees}
+            />
         </div>
     );
 };
