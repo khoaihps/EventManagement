@@ -34,7 +34,7 @@ export const updateCustomerInfo = async (
     const response = await fetch(
       API_URL + "/customer/profile/update/" + customerID,
       {
-        method: "GET",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           ...authHeader(),
