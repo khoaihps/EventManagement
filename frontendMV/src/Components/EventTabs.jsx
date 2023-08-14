@@ -761,6 +761,32 @@ const EventTabs = () => {
                     </div>
                   </PopUp>
                 )}
+                <section className="">
+                  <div className="max-w-screen-xl px-4 py-12 sm:px-4 md:py-8 lg:px-4">
+                    <div className="mt-0 mb-8">
+                      <dl className="grid grid-cols-1 gap-4 grid-cols-2">
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Pending
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-yellow-500 md:text-5xl">
+                            5
+                          </dd>
+                        </div>
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Open
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-green-500 md:text-5xl">
+                            5
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
             <div className={openTab === 3 ? "block" : "hidden"} id="history">
@@ -1056,6 +1082,32 @@ const EventTabs = () => {
                     </div>
                   </PopUp>
                 )}
+                <section className="">
+                  <div className="max-w-screen-xl px-4 py-12 sm:px-4 md:py-8 lg:px-4">
+                    <div className="mt-0 mb-8">
+                      <dl className="grid grid-cols-1 gap-4 grid-cols-2">
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Closed
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-blue-500 md:text-5xl">
+                            5
+                          </dd>
+                        </div>
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Rejected
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+                            5
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
             <div

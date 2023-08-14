@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { formatDate } from "../services/util";
 import BGIMG from "../assets/img/male-ava.png";
 import PopUp from "./PopUp";
-import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +16,6 @@ const Profile = () => {
   const [DOB, setDoB] = useState("");
   const [customerData, setCustomerData] = useState([]);
   const [buttonEdit, setButtonEdit] = useState(false);
-  const navigate = useNavigate();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -39,7 +37,6 @@ const Profile = () => {
   };
   const handleUpdate = async (event) => {
     event.preventDefault();
-
     try {
       const { success, error } = await updateCustomerInfo(
         firstName,
@@ -52,7 +49,7 @@ const Profile = () => {
 
       if (success) {
         console.log("Update successfully:");
-        navigate("/customer/profile");
+        window.location.reload();
       } else {
         console.log("Update failed:", error);
       }
@@ -95,7 +92,7 @@ const Profile = () => {
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
       <div
-        className="h-64 bg-gray-200 lg:h-screen xl:h-screen h-1/2"
+        className="h-64 bg-gray-200 lg:h-screen xl:h-screen h-1/2 sm:h-1/2"
         style={divStyle}
       >
         <div className="relative block mt-5 mb-2">
@@ -159,7 +156,7 @@ const Profile = () => {
             </div>
           </dl>
         </div>
-        <div className="mt-4">
+        <div className="mt-7">
           <button
             className="mr-2 group relative inline-flex items-center overflow-hidden rounded bg-yellow-500 px-8 py-3 text-white focus:outline-none focus:ring active:bg-yellow-400"
             href="#"
@@ -212,9 +209,9 @@ const Profile = () => {
           <PopUp trigger={buttonEdit} setTrigger={closePopup}>
             <p className="font-bold">Edit Profile</p>
             <form
-              action=""
+              action="#"
               className="mb-0 mt-6 space-y-4"
-              onClick={handleUpdate}
+              onSubmit={handleUpdate}
             >
               <div>
                 <div className="relative">
@@ -234,7 +231,7 @@ const Profile = () => {
                     type="text"
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter last name"
-                    defaultValue={customerData.lastName}
+                    value={customerData.lastName}
                     onChange={handleLastNameChange}
                     required
                   />
@@ -246,7 +243,7 @@ const Profile = () => {
                     type="date"
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter date of birth"
-                    defaultValue={DOB}
+                    value={DOB}
                     onChange={handleDOBChange}
                     required
                   />
@@ -259,7 +256,7 @@ const Profile = () => {
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter email"
                     onChange={handleEmailChange}
-                    defaultValue={email}
+                    value={email}
                     required
                   />
                 </div>
@@ -271,7 +268,7 @@ const Profile = () => {
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter phone number"
                     onChange={handlePhoneChange}
-                    defaultValue={phone}
+                    value={phone}
                     required
                   />
                 </div>
@@ -284,7 +281,7 @@ const Profile = () => {
                     placeholder="Enter address"
                     required
                     onChange={handleAddressChange}
-                    defaultValue={address}
+                    value={address}
                   />
                 </div>
               </div>
@@ -298,6 +295,52 @@ const Profile = () => {
             </form>
           </PopUp>
         )}
+        <section className="">
+          <div className="max-w-screen-xl px-4 py-12 sm:px-4 md:py-8 lg:px-4">
+            <div className="mt-5">
+              <dl className="grid grid-cols-1 gap-4 grid-cols-2">
+                <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                  <dt className="order-last text-lg font-medium text-gray-500">
+                    Pending
+                  </dt>
+
+                  <dd className="text-4xl font-extrabold text-yellow-500 md:text-5xl">
+                    5
+                  </dd>
+                </div>
+                <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                  <dt className="order-last text-lg font-medium text-gray-500">
+                    Open
+                  </dt>
+
+                  <dd className="text-4xl font-extrabold text-green-500 md:text-5xl">
+                    5
+                  </dd>
+                </div>
+
+                <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                  <dt className="order-last text-lg font-medium text-gray-500">
+                    Closed
+                  </dt>
+
+                  <dd className="text-4xl font-extrabold text-blue-500 md:text-5xl">
+                    5
+                  </dd>
+                </div>
+
+                <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                  <dt className="order-last text-lg font-medium text-gray-500">
+                    Rejected
+                  </dt>
+
+                  <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+                    5
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
