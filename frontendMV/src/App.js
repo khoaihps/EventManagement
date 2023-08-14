@@ -55,13 +55,10 @@ const App = () => {
           path="/customer/password"
           element={user ? <></> : <ChangePass />}
         ></Route>
-        <Route
-          path="/customer/login"
-          element={user ? <LogIn /> : <></>}
-        ></Route>
+        <Route path="/customer/login" element={<LogIn />}></Route>
         <Route
           path="/customer/register"
-          element={user ? <Register></Register> : <></>}
+          element={<Register></Register>}
         ></Route>
         <Route
           path="/customer/event"
