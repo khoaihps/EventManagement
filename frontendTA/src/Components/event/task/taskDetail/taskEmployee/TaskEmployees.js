@@ -20,13 +20,17 @@ const TaskEmployees = ({isEditable, enrolled}) => {
                         Department
                     </th>
                     {
-                        <th scope="col" className="px-6 py-3">
+                        isEditable && <th scope="col" className="px-6 py-3">
                             <span className="sr-only"></span>
                         </th>
                     }
                 </tr>
                 </thead>
-                <TaskEmployeeBody enrolled={enrolled} isEditable={isEditable} tasksData={employees}/>
+                <TaskEmployeeBody
+                    enrolled={enrolled}
+                    isEditable={isEditable}
+                    tasksData={employees}
+                />
             </table>
         </div>
     );

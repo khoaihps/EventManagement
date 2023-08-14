@@ -5,16 +5,17 @@ import { useNavigate } from "react-router-dom";
 import Employees from "../event/employee/Employees";
 import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
+import registeredEmployeesData from "../database/registeredEmployeesData";
+import EventService from "../../services/event.service";
 
-const EventInfo = ({initialEvent, initialTasks}) => {
+const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
     const navigate = useNavigate();
-    console.log(initialTasks);
     // api call specific event
 
     // api call specific tasks associated with the event
     // const initialTasks = tasksData;
     // api call specific employees associated with the event
-    const initialEmployees = employeesData;
+    const initialRegisteredEmployees = registeredEmployeesData;
 
 
     const [event, setEvent] = useState(initialEvent);
@@ -26,10 +27,13 @@ const EventInfo = ({initialEvent, initialTasks}) => {
     const [passEmployees, setPassEmployees] = useState(initialEmployees);
     const [employees, setEmployees] = useState(initialEmployees);
 
+    const [passRegisteredEmployees, setPassRegisteredEmployees] = useState(initialRegisteredEmployees);
+    const [registeredEmployees, setRegisteredEmployees] = useState(initialRegisteredEmployees);
+
     const [isEditable, setIsEditable] = useState(false);
 
 
-    const handleEditButtonClick = () => {
+    const handleEditButtonClick = async () => {
         if (isEditable) {
             // console.log(passEvent);
             // console.log(passTasks);
@@ -38,8 +42,14 @@ const EventInfo = ({initialEvent, initialTasks}) => {
             setEvent(passEvent);
             setTasks(passTasks);
             setEmployees(passEmployees);
+            setRegisteredEmployees(passRegisteredEmployees);
 
-            // api sends things to database
+            try {
+                // Call the updateEvent API function
+                await EventService.updateEvent(passEvent._id, passEvent);
+            } catch (error) {
+                console.log("Error updating event:", error);
+            }
         }
 
         setIsEditable(!isEditable);
@@ -49,6 +59,7 @@ const EventInfo = ({initialEvent, initialTasks}) => {
         setPassEvent(initialEvent);
         setPassTasks(initialTasks);
         setPassEmployees(initialEmployees);
+        setRegisteredEmployees(initialRegisteredEmployees);
 
         setIsEditable(!isEditable);
     }
@@ -61,10 +72,24 @@ const EventInfo = ({initialEvent, initialTasks}) => {
         <div className="info">
             <div className="infoBody">
                 <div className="mainInfo">
-                    <EventTable event={passEvent} change={setPassEvent} isEditable={isEditable} />
+                    <EventTable
+                        event={passEvent}
+                        change={setPassEvent}
+                        isEditable={isEditable}
+                    />
                     <div className="tasks">
-                        <Tasks tasks={passTasks} change={setPassTasks} isEditable={isEditable} />
-                        <Employees employees={passEmployees} change={setPassEmployees} isEditable={isEditable} />
+                        <Tasks
+                            tasks={passTasks}
+                            change={setPassTasks}
+                            isEditable={isEditable}
+                        />
+                        <Employees
+                            employees={passEmployees}
+                            changeEmployees={setPassEmployees}
+                            registeredEmployees={passRegisteredEmployees}
+                            changeRegisteredEmployees={setPassRegisteredEmployees}
+                            isEditable={isEditable}
+                        />
                     </div>
                 </div>
                 <div className="flex justify-around items-center">
