@@ -41,8 +41,6 @@ const EventTabs = () => {
   const [closed, setClosed] = useState("");
   const [rejected, setRejected] = useState("");
 
-  const navigate = useNavigate();
-
   const handleEventNameChange = (event) => {
     setNameError("");
     setName(event.target.value);
@@ -90,33 +88,11 @@ const EventTabs = () => {
   const handleSubmitEvent = async (event) => {
     event.preventDefault();
     try {
-      const { success, error } = await EventService.createEvent(
-        name,
-        deadline,
-        place,
-        type_of_event,
-        description,
-        size,
-        budget
-      );
-
-      if (success) {
-        console.log("Event proposed successfully:");
-        window.location.reload(); // Refresh the page
-      } else {
-        console.log("Event create failed:", error);
-      }
-    } catch (error) {
-      console.error("An error occurred during event creation:", error);
-    }
-    if (deadline === "") {
-    } else {
       const currentDateTime = new Date();
       const sevenDaysAfterCurrentTime = new Date();
       sevenDaysAfterCurrentTime.setDate(
         sevenDaysAfterCurrentTime.getDate() + 7
       );
-
       if (
         new Date(deadline) <= currentDateTime ||
         new Date(deadline) <= sevenDaysAfterCurrentTime
@@ -124,7 +100,25 @@ const EventTabs = () => {
         setDeadlineError(
           "The event must be booked at least 7 days before it starts"
         );
+      } else {
+        const { success, error } = await EventService.createEvent(
+          name,
+          deadline,
+          place,
+          type_of_event,
+          description,
+          size,
+          budget
+        );
+        if (success) {
+          console.log("Event proposed successfully:");
+          window.location.reload(); // Refresh the page
+        } else {
+          console.log("Event create failed:", error);
+        }
       }
+    } catch (error) {
+      console.error("An error occurred during event creation:", error);
     }
   };
 
