@@ -160,6 +160,41 @@ const deleteEvent = async (req, res) => {
     }
 }
 
+const eventCount = async(req, res) => {
+    const customerID = req.params.customerID;
+    try {
+         // Find events for the specified customer ID
+        const customerEventsCursor = Event.find({ customerID: customerID });
+
+        // Initialize an array to hold the results
+        const customerEvents = [];
+
+        // Iterate through the cursor and collect results into the array
+        await customerEventsCursor.forEach(event => {
+        customerEvents.push(event);
+        });
+        // Count each status
+        const statusCount = {
+            open: 0,
+            closed: 0,
+            pending: 0,
+            rejected: 0,
+        };
+
+        for await (const event of customerEvents) {
+            const status = event.status;
+            if (statusCount.hasOwnProperty(status)) {
+              statusCount[status]++;
+            }
+          }
+
+        res.json(statusCount);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'An error occurred' + error });
+    }
+}
+
 module.exports = {
     allEvents,
     eventDetail,
@@ -171,4 +206,5 @@ module.exports = {
     getManageEvent,
     getHistoryEvent,
     deleteEvent,
+    eventCount
 }

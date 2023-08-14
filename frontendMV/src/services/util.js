@@ -2,14 +2,20 @@ export function convertToISODate(input) {
   // Split the input string by "/"
   const [day, month, year] = input.split("/");
 
-  // Create a new Date object with the components in "yyyy-mm-dd" format
+  // Create a new Date object with the components
   const dateObject = new Date(`${year}-${month}-${day}`);
 
-  // Use toISOString() to get the date in "yyyy-mm-dd" format
-  const isoDate = dateObject.toISOString().slice(0, 10);
+  // Get the year, month, and day from the date object
+  const isoYear = dateObject.getFullYear();
+  const isoMonth = String(dateObject.getMonth() + 1).padStart(2, '0');
+  const isoDay = String(dateObject.getDate()).padStart(2, '0');
+
+  // Combine the components to create the ISO date format "yyyy-mm-dd"
+  const isoDate = `${isoYear}-${isoMonth}-${isoDay}`;
 
   return isoDate;
 }
+
 export function formatDate(inputDate) {
   const date = new Date(inputDate);
   const day = date.getDate();

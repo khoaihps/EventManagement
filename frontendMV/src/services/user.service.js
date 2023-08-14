@@ -30,7 +30,9 @@ export const updateCustomerInfo = async (
 ) => {
   try {
     const customerID = AuthService.getCurrentUser().id;
+    console.log(DOB)
     const isoDate = convertToISODate(DOB);
+    console.log(isoDate)
     const response = await fetch(
       API_URL + "/customer/profile/update/" + customerID,
       {

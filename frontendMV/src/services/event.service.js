@@ -127,6 +127,10 @@ export const deleteEvent = async (eventID) => {
   }
 };
 
+export const eventCount = async () => {
+  
+}
+
 const EventService = {
   createEvent,
   getManageEvent,
