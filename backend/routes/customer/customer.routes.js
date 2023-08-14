@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticateCustomer } = require('../../middlewares/auth.middleware');
-const { getCustomerInfo, updateCustomerInfo, deleteCustomerAccount, changePassword } = require('../../middlewares/user.middleware');
+const { getCustomerInfo, updateCustomerInfo, deleteCustomerAccount, changePassword } = require('../../middlewares/customer.middleware');
 
 
 const router = express.Router();
