@@ -128,7 +128,23 @@ export const deleteEvent = async (eventID) => {
 };
 
 export const eventCount = async () => {
-  
+  try {
+    const customerID = AuthService.getCurrentUser().id;
+    const response = await fetch(
+      API_URL + "/customer/event/count/" + customerID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+  }
 }
 
 const EventService = {
@@ -136,7 +152,8 @@ const EventService = {
   getManageEvent,
   getHistoryEvent,
   getEventDetail,
-  deleteEvent
+  deleteEvent, 
+  eventCount
 };
 
 export default EventService;

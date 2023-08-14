@@ -1,3 +1,4 @@
+const { Event } = require('../models/Event')
 const { Customer } = require('../models/User');
 
 const getCustomerInfo = async (req, res) => {
@@ -29,14 +30,14 @@ const deleteCustomerAccount = async (req, res) => {
         const customerID = req.params.customerID;
 
         // Check if customer is associated with open events
-        const openEvents = await Event.find({ customerID: customerID, status: 'open' });
+        const openEvents = await Event.find({ customer_id: customerID, status: 'open' });
 
         if (openEvents.length > 0) {
             return res.status(400).json({ message: 'Customer has open events. Cannot delete account.' });
         }
 
-        // Delete all events with the customerID and status not 'open'
-        await Event.deleteMany({ customerID: customerID, status: { $ne: 'open' } });
+        // Delete all events with the customerID 
+        await Event.deleteMany({ customer_id: customerID });
 
         // Delete customer account
         const deletedCustomer = await Customer.findByIdAndDelete(customerID);
