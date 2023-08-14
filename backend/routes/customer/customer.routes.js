@@ -5,7 +5,7 @@ const { getCustomerInfo, updateCustomerInfo, deleteCustomerAccount, changePasswo
 
 const router = express.Router();
 
-// router.use(authenticateCustomer);
+router.use(authenticateCustomer);
 
 router.get('/:customerID', getCustomerInfo);
 router.put('/update/:customerID', updateCustomerInfo);
