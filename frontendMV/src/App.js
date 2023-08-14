@@ -1,7 +1,5 @@
-import { Container } from "postcss";
 import "./App.css";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./Components/NavBar";
 import Register from "./Components/Register";
 import LogIn from "./Components/LogIn";
@@ -24,7 +22,6 @@ import ChangePass from "./Components/ChangePassword";
 
 const App = () => {
   const contactRef = useRef(null);
-  const navigate = useNavigate();
   const user = !AuthService.getCurrentUser();
 
   const handleContactClick = () => {
@@ -55,10 +52,13 @@ const App = () => {
           path="/customer/password"
           element={user ? <></> : <ChangePass />}
         ></Route>
-        <Route path="/customer/login" element={<LogIn />}></Route>
+        <Route
+          path="/customer/login"
+          element={user ? <LogIn /> : <></>}
+        ></Route>
         <Route
           path="/customer/register"
-          element={<Register></Register>}
+          element={user ? <Register></Register> : <></>}
         ></Route>
         <Route
           path="/customer/event"

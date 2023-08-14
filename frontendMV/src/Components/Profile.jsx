@@ -53,7 +53,9 @@ const Profile = () => {
       const { success } = await deleteCustomerAccount();
       if (success) {
         alert("Account deleted!");
-        navigate("/customer/login");
+        AuthService.logout();
+        localStorage.removeItem("user");
+        navigate("/");
       } else {
         openRetry();
       }
