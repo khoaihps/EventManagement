@@ -139,84 +139,93 @@ const About = () => {
               alt
             />
           </div>
-          <div className="mx-auto md:max-w-3xl">
-            <p className="pb-10 mb-8 text-lg text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 md:text-xl">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
-            </p>
-            <h2 className="mb-4 text-2xl font-semibold text-gray-800 md:text-3xl dark:text-gray-300">
-              {" "}
-              lorem ipsum et dolore magna aliqua. Ut enim ad minim veniam
-            </h2>
-            <p className="mb-4 text-base text-gray-500 md:text-lg dark:text-gray-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
-            </p>
-            <div className="p-6 mb-4 bg-gray-100 border-l-2 border-yellow-500 dark:border-yellow-400 dark:bg-gray-900">
-              <p className="mb-4 text-xl leading-tight text-gray-800 dark:text-gray-300 md:text-2xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam
+          <div className="mx-auto md:max-w-3xl text-white">
+            <section id="story">
+              <h2 className="font-bold text-yellow-500">Our Story</h2>
+              <p>
+                Founded with a deep-rooted love for celebrations, EVENTIST was
+                born out of a desire to transform ordinary events into
+                extraordinary celebrations. Our journey began with a simple
+                idea: to craft moments that matter. Over the years, we've
+                evolved, honed our skills, and fine-tuned our craft to become a
+                leading event planning and organizing company.
               </p>
-              <span className="text-base text-gray-400 dark:text-gray-400 md:text-lg">
-                — John Doe, CEO &amp; Founder
-              </span>
-            </div>
-            <p className="mb-6 text-base text-gray-500 dark:text-gray-400 md:text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
-            </p>
-            <h2 className="mb-4 text-2xl font-semibold text-gray-800 dark:text-gray-300 md:text-3xl">
-              {" "}
-              lorem ipsum et dolore magna aliqua. Ut enim ad minim veniam{" "}
-            </h2>
-            <p className="mb-10 text-base text-gray-500 dark:text-gray-400 md:text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
-            </p>
-            <p className="mb-4 text-base text-gray-500 dark:text-gray-400 md:text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
-            </p>
-            <ol className="mb-10 text-base text-gray-500 list-decimal list-inside md:px-5 md:text-lg dark:text-gray-400">
-              <li>
-                {" "}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor
-              </li>
-              <li>
-                {" "}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor
-              </li>
-              <li>
-                {" "}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor
-              </li>
-            </ol>
-            <p className="pb-10 mb-10 text-base text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 md:text-lg">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam
-              </span>
-              <a
-                className="text-yellow-500 underline dark:text-yellow-400 dark:hover:text-yellow-300 hover:text-yellow-600"
-                href="#"
-              >
-                many photographers
-              </a>
-              <span>
-                . Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-              </span>
-            </p>
+            </section>
+            <br></br>
+            <section id="sets-apart">
+              <h2 className="font-bold text-yellow-500">What Sets Us Apart</h2>
+              <ul className="">
+                <li>
+                  <strong>Creativity:</strong> We thrive on creativity,
+                  embracing the unique and the extraordinary...
+                </li>
+                <li>
+                  <strong>Precision:</strong> We understand that meticulous
+                  planning is the backbone of a successful event...
+                </li>
+                <li>
+                  <strong>Personalization:</strong> Your story is at the heart
+                  of everything we do...
+                </li>
+                <li>
+                  <strong>Collaboration:</strong> We consider ourselves an
+                  extension of your vision...
+                </li>
+              </ul>
+            </section>
+            <br></br>
+            <section id="services">
+              <h2 className="font-bold text-yellow-500">Services We Offer</h2>
+              <ul>
+                <li>
+                  <strong>Weddings:</strong> From intimate ceremonies to grand
+                  celebrations...
+                </li>
+                <li>
+                  <strong>Corporate Events:</strong> Whether it's a product
+                  launch, a conference, or a team-building retreat...
+                </li>
+                <li>
+                  <strong>Social Gatherings:</strong> Birthdays, anniversaries,
+                  and special milestones deserve to be celebrated in style...
+                </li>
+                <li>
+                  <strong>Themed Parties:</strong> Let your imagination run
+                  wild, and we'll bring your themed party to life...
+                </li>
+              </ul>
+            </section>
+            <br></br>
+            <section id="team">
+              <h2 className="font-bold text-yellow-500">Meet the Team</h2>
+              <p>
+                Our team is a passionate blend of creative minds, meticulous
+                planners, and logistical wizards...
+              </p>
+            </section>
+            <br></br>
+            <section id="contact">
+              <h2 className="font-bold text-yellow-500">
+                Join Us in Creating Memories
+              </h2>
+              <p>
+                Whether you're planning a wedding, a corporate event, or a
+                social soirée, EVENTIST is here to transform your ideas into
+                awe-inspiring realities...
+              </p>
+              <p>
+                Get in touch with us today to start planning your next
+                unforgettable event.
+              </p>
+            </section>
+            <br></br>
+            <footer>
+              <p className="italic font-bold">
+                Welcome to the world of EVENTIST – where imagination knows no
+                bounds, and every occasion is a masterpiece waiting to be
+                unveiled.
+              </p>
+            </footer>
           </div>
         </div>
       </section>
