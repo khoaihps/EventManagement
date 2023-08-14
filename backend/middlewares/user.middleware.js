@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { Event } = require('../models/Event')
 const { Customer } = require('../models/User');
 
@@ -46,15 +47,38 @@ const deleteCustomerAccount = async (req, res) => {
             return res.status(404).json({ message: 'Customer not found.' });
         }
 
-        res.status(200).json({ message: 'Customer account deleted successfully.' });
+        res.status(201).json({ message: 'Customer account deleted successfully.' });
     } catch (error) {
         console.log("Error", error);
         res.status(500).json({ message: 'Failed to delete customer account.' });
     }
 };
 
+const changePassword = async(req, res) => {
+    try {
+        const customerID  = req.params.customerID;
+        const customer = await Customer.findById( customerID );
+        const { oldPassword, newPassword } = req.body
+        const isPasswordValid = await bcrypt.compare(oldPassword, customer.password);
+
+        if (isPasswordValid) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(newPassword, salt)
+            await Customer.findByIdAndUpdate({_id: customerID}, {password: hashedPassword}, { new: true })
+        } else {
+            return res.status(500).json({message: 'Wrong password'})
+        }
+
+        res.status(200).json({message: 'Change password successfully'})
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ message: 'Failed to fetch.' + error});
+    }
+}
+
 module.exports = {
     getCustomerInfo,
     updateCustomerInfo,
-    deleteCustomerAccount
+    deleteCustomerAccount,
+    changePassword
 }

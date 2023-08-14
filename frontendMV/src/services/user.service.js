@@ -30,9 +30,7 @@ export const updateCustomerInfo = async (
 ) => {
   try {
     const customerID = AuthService.getCurrentUser().id;
-    console.log(DOB)
     const isoDate = convertToISODate(DOB);
-    console.log(isoDate)
     const response = await fetch(
       API_URL + "/customer/profile/update/" + customerID,
       {
@@ -83,6 +81,33 @@ export const deleteCustomerAccount = async () => {
     console.log("Error: ", error);
   }
 };
+
+export const changePassword = async(oldPassword, newPassword) => {
+  try {
+    const customerID = AuthService.getCurrentUser().id;
+    const response = await fetch(
+      API_URL + "/customer/profile/change-password/" + customerID,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...authHeader(),
+        },
+        body: JSON.stringify({ oldPassword, newPassword }),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return { success: true, name: data.name };
+    } else {
+      const errorData = await response.json();
+      return { success: false, error: errorData.message };
+    }
+  } catch (error) {
+    console.error("An error occurred during update profile:", error);
+    return { success: false, error };
+  }
+}
 
 const UserService = {
   getCustomerInfo,

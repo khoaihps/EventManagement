@@ -13,6 +13,6 @@ router.get('/manage-event/:customerID', getManageEvent);
 router.get('/history-event/:customerID', getHistoryEvent);
 router.get('/delete/:eventId', deleteEvent);
 router.get('/:eventId', eventDetail);
-router.get('/count/:customerID', eventCount)
+router.get('/count/:customerID', eventCount);
 
 module.exports = router;
