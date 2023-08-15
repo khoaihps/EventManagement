@@ -46,7 +46,7 @@ const getAllOpenEvent = async () => {
         console.log("Error: ", error);
     }
 }
-const getEmployees = async (eventID) => {
+const getRegisteredEmployees = async (eventID) => {
     try {
         const response = await fetch(API_URL + "manager/event/" + eventID + "/remployees", {
             method: 'GET',
@@ -54,7 +54,21 @@ const getEmployees = async (eventID) => {
         });
         if (response.ok){
             const data = await response.json();
-            return data.employees;
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
+const getUnregisteredEmployees = async (eventID) => {
+    try {
+        const response = await fetch(API_URL + "manager/event/" + eventID + "/uremployees", {
+            method: 'GET',
+            headers: authHeader(),
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
         }
     } catch (error) {
         console.log("Error: ", error);
@@ -87,7 +101,8 @@ const EventService = {
     getEventInfo,
     getAllEvent,
     getAllOpenEvent,
-    getEmployees,
+    getRegisteredEmployees,
+    getUnregisteredEmployees,
     updateEvent
 };
 

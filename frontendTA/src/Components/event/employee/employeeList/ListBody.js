@@ -1,7 +1,7 @@
 import React from "react";
 import ListElement from "./ListElement";
 
-const ListBody = ({employeesData, isEditable, updateRegisteredEmployeeData, updateEmployeeData}) => {
+const ListBody = ({employeesData, isEditable, updateUnregisteredEmployeeData, updateEmployeeData}) => {
     return (
         <div className="mt-2 taskss employee shadow-2xl rounded-lg relative overflow-x-auto">
             <table className="w-[600px] h-[300px] text-sm text-left text-gray-500 dark:text-gray-400">
@@ -42,7 +42,7 @@ const ListBody = ({employeesData, isEditable, updateRegisteredEmployeeData, upda
                             key={index}
                             index={index}
                             isEditable={isEditable}
-                            updateRegisteredEmployeeData={updateRegisteredEmployeeData}
+                            updateUnregisteredEmployeeData={updateUnregisteredEmployeeData}
                             updateEmployeeData={updateEmployeeData}
                             employee={{ ...e}}
                         />
