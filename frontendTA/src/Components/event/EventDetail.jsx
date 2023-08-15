@@ -21,7 +21,6 @@ export const loader = async ({ params }) => {
 export const EventDetail = () => {
     const { id } = useParams();
     const eventInfo = useLoaderData();
-    console.log(eventInfo)
 
     return (
         <div>

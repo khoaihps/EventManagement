@@ -1,7 +1,6 @@
 import TaskEmployeeBody from "./TaskEmployeeBody";
-import employees from '../../../../database/employeesData';
 
-const TaskEmployees = ({isEditable, enrolled}) => {
+const TaskEmployees = ({isEditable, handleChangeEnrolled, handleChangeNotEnrolled, employees, enrolled}) => {
     return (
         <div className="mt-2 taskss employee shadow-2xl rounded-lg relative overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -30,6 +29,8 @@ const TaskEmployees = ({isEditable, enrolled}) => {
                     enrolled={enrolled}
                     isEditable={isEditable}
                     tasksData={employees}
+                    handleChangeEnrolled={handleChangeEnrolled}
+                    handleChangeNotEnrolled={handleChangeNotEnrolled}
                 />
             </table>
         </div>

@@ -2,7 +2,7 @@ import TaskBody from "./TaskBody";
 import React, {useEffect, useState} from "react";
 import TaskDetail from "./taskDetail/TaskDetail";
 
-const Tasks = ({tasks, change, isEditable}) => {
+const Tasks = ({tasks, change, isEditable, order}) => {
     const updateTaskData = (taskId, newData) => {
         if (taskId === taskStates.length) {
             const updatedTasksData = [...tasks, newData];
@@ -110,18 +110,20 @@ const Tasks = ({tasks, change, isEditable}) => {
                     tasksData={taskStates}
                     updateTaskData={updateTaskData}
                     isEditable={isEditable}
+                    order={order}
                 />
-                {isTaskInfoVisible &&
-                    <TaskDetail
-                        add={true}
-                        index={index}
-                        task={task}
-                        setTask={updateStateValue}
-                        updateTaskData={updateTaskData}
-                        isEditable={isEditable}
-                        handleDismiss={setIsTaskInfoVisible}
-                    />
-                }
+                {/*{isTaskInfoVisible &&*/}
+                {/*    <TaskDetail*/}
+                {/*        add={true}*/}
+                {/*        index={index}*/}
+                {/*        task={task}*/}
+                {/*        setTask={updateStateValue}*/}
+                {/*        updateTaskData={updateTaskData}*/}
+                {/*        isEditable={isEditable}*/}
+                {/*        handleDismiss={setIsTaskInfoVisible}*/}
+                {/*        order={order}*/}
+                {/*    />*/}
+                {/*}*/}
             </table>
         </div>
     );

@@ -3,7 +3,6 @@ import {useState} from "react";
 import ListTable from "./employeeList/ListTable";
 
 const Employees = ({employees, changeEmployees, registeredEmployees, changeRegisteredEmployees, isEditable}) => {
-    console.log(employees);
     const updateEmployeeData = (option, employeeIndex, newEmployee) => {
         let updatedEmployeeData;
         if (option === "add") {
