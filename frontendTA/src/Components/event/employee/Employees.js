@@ -2,8 +2,7 @@ import EmployeeBody from "./EmployeeBody";
 import {useState} from "react";
 import ListTable from "./employeeList/ListTable";
 
-const Employees = ({employees, changeEmployees, registeredEmployees, changeRegisteredEmployees, isEditable}) => {
-    console.log(employees);
+const Employees = ({employees, changeEmployees, unregisteredEmployees, changeUnregisteredEmployees, isEditable}) => {
     const updateEmployeeData = (option, employeeIndex, newEmployee) => {
         let updatedEmployeeData;
         if (option === "add") {
@@ -23,23 +22,23 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
         changeEmployees(updatedEmployeeData);
     }
 
-    const updateRegisteredEmployeeData = (employeeIndex, newEmployee) => {
+    const updateUnregisteredEmployeeData = (employeeIndex, newEmployee) => {
         let updatedEmployeeData;
-        if (employeeIndex === registeredEmployees.length) {
-            updatedEmployeeData = [...registeredEmployees, newEmployee];
+        if (employeeIndex === unregisteredEmployees.length) {
+            updatedEmployeeData = [...unregisteredEmployees, newEmployee];
         }
         else
         {
-            const foundEmployeeIndex = registeredEmployees.findIndex((employee) => registeredEmployees.indexOf(employee) === employeeIndex);
+            const foundEmployeeIndex = unregisteredEmployees.findIndex((employee) => unregisteredEmployees.indexOf(employee) === employeeIndex);
 
             if (foundEmployeeIndex !== -1 && newEmployee === null)
             {
-                updatedEmployeeData = [...registeredEmployees]
+                updatedEmployeeData = [...unregisteredEmployees]
                 updatedEmployeeData.splice(employeeIndex, 1);
             }
         }
 
-        changeRegisteredEmployees(updatedEmployeeData);
+        changeUnregisteredEmployees(updatedEmployeeData);
     }
 
     const [visibleList, setVisibleList] = useState(false);
@@ -50,7 +49,7 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
 
     return (
         <div className="mt-2 taskss employee shadow-2xl rounded-lg relative overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table className="w-full h-[300px] text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" className="px-6 py-3 whitespace-nowrap">
@@ -70,7 +69,7 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
                             className={`${
                                 isEditable ? "" : "hidden"
                             } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-2 py-1
-                            whitespace-nowrap absolute top-2 right-2
+                            whitespace-nowrap
                             `}
                             onClick={handleClick}
                         >
@@ -87,8 +86,8 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
                 />
                 {visibleList &&
                     <ListTable
-                        registeredEmployees={registeredEmployees}
-                        updateRegisteredEmployeeData={updateRegisteredEmployeeData}
+                        unregisteredEmployees={unregisteredEmployees}
+                        updateUnregisteredEmployeeData={updateUnregisteredEmployeeData}
                         updateEmployeeData={updateEmployeeData}
                         handleDismiss={setVisibleList}
                     />

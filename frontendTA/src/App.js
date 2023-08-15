@@ -1,4 +1,4 @@
-import './App.css';
+import './Components/style/App.css';
 import { LoginForm } from "./Components/LoginForm";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React from "react";

@@ -1,15 +1,18 @@
 import TaskEmployee from './TaskEmployee';
 import React from "react";
 
-const TaskEmployeeBody = ({tasksData, isEditable, enrolled}) => {
+const TaskEmployeeBody = ({tasksData, handleChangeEnrolled, handleChangeNotEnrolled, isEditable, enrolled}) => {
     return (
         <tbody>
         {
-            tasksData.map((t) => (
+            tasksData.map((t, index) => (
                 <TaskEmployee
                     enrolled={enrolled}
                     isEditable={isEditable}
-                    task={t}
+                    task={{ ...t}}
+                    index={index}
+                    handleChangeEnrolled={handleChangeEnrolled}
+                    handleChangeNotEnrolled={handleChangeNotEnrolled}
                 />
             ))
         }
