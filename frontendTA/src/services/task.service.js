@@ -1,53 +1,61 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import AuthService from "./auth.service";
 
-const API_URL = 'http://localhost:4000/';
+const API_URL = "http://localhost:4000/";
+const role = AuthService.getCurrentUser().role;
 const getAllTaskEvent = async (eventID) => {
-    // const response = await axios.get(API_URL + "manager/event/" + eventID + "/task", { headers: authHeader() });
-    try {
-        const response = await fetch(API_URL + "manager/event/" + eventID + "/task", {
-            method: 'GET',
-            headers: authHeader(),
-        });
-        if (response.ok){
-            const data = await response.json();
-            return data.tasks;
-        }
-    } catch (error) {
-        console.log("Error: ", error);
+  // const response = await axios.get(API_URL + "manager/event/" + eventID + "/task", { headers: authHeader() });
+  try {
+    const response = await fetch(
+      API_URL + `${role}` + "/event/" + eventID + "/task",
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data.tasks;
     }
-    // return response.data;
-}
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+  // return response.data;
+};
 const getTaskInfo = async (taskId) => {
-    return axios.get(
-        `${API_URL}/${taskId}`, 
-        { 
-            headers: authHeader()
-        });
-}
+  return axios.get(`${API_URL}/${taskId}`, {
+    headers: authHeader(),
+  });
+};
 const updateTask = async (eventId, updatedTaskDetails) => {
-    try {
-        const response = await fetch(API_URL + "manager/task/"+ eventId + "/update", {
-            method: 'PUT', 
-            headers: {
-                ...authHeader(),
-                'Content-Type': 'application/json' // Set the Content-Type header
-            },
-            body: JSON.stringify(updatedTaskDetails) 
-        });
-        if (response.ok){
-            const data = await response.json();
-            return data;
-        }
-    } catch (error) {
-        console.log("Error: ", error);
-        throw error;
+  try {
+    console.log(updatedTaskDetails);
+    const response = await fetch(
+      API_URL + "manager/task/" + eventId + "/update",
+      {
+        method: "PUT",
+        headers: {
+          ...authHeader(),
+          "Content-Type": "application/json", // Set the Content-Type header
+        },
+        body: JSON.stringify(updatedTaskDetails),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
     }
-}
+  } catch (error) {
+    console.log("Error: ", error);
+    throw error;
+  }
+};
 const TaskService = {
-    getAllTaskEvent,
-    getTaskInfo,
-    updateTask
+  getAllTaskEvent,
+  getTaskInfo,
+  updateTask,
 };
 
 export default TaskService;
