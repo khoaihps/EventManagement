@@ -105,7 +105,7 @@ const Tasks = ({tasks, change, isEditable, order}) => {
                         <span
                             className={`${
                                 isEditable ? "" : "hidden"
-                            } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-2 py-1 absolute right-2 top-2`}
+                            } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-2 py-1`}
                             onClick={handleDisplay}
                         >
                           Add new Task

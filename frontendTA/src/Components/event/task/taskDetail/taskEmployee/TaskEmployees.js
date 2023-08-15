@@ -1,8 +1,9 @@
 import TaskEmployeeBody from "./TaskEmployeeBody";
+import "../../../../style/td3.css"
 
 const TaskEmployees = ({isEditable, handleChangeEnrolled, handleChangeNotEnrolled, employees, enrolled}) => {
     return (
-        <div className="mt-2 taskss employee shadow-2xl rounded-lg relative overflow-x-auto">
+        <div className="listBody1 mt-2 taskss employee shadow-2xl rounded-lg relative overflow-x-auto">
             <table className="w-full h-[300px] text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

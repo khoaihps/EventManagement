@@ -1,0 +1,22 @@
+.listBody tr {
+    height: 53px !important;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.listBody tr td, .listBody tr th {
+    width: 145px !important;
+    text-align: left;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+.listBody thead {
+    background-color: lightgray !important;
+}
+
+.listBody thead th {
+    background-color: lightgray;
+}

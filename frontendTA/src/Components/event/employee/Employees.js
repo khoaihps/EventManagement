@@ -69,7 +69,7 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
                             className={`${
                                 isEditable ? "" : "hidden"
                             } bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-2 py-1
-                            whitespace-nowrap absolute top-2 right-2
+                            whitespace-nowrap
                             `}
                             onClick={handleClick}
                         >
