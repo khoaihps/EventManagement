@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import male from "../img/male-ava.png";
 import "../style/huhu.css"
-// import managerData from "../database/manager"
 import ProfileService from "../../services/profile.service";
 import AuthService from "../../services/auth.service";
+import logout from "../img/image.png"
 
-const Account = ({handleDismiss}) => {
+const Account = ({ handleDismiss }) => {
+    const navigate = useNavigate();
     const [managerData, setManagerData] = useState({});
-    const updateManagerInfor = async() => {
-const userID = AuthService.getCurrentUser().id;
+    const updateManagerInfor = async () => {
+        const userID = AuthService.getCurrentUser().id;
         setManagerData(await ProfileService.getManagerInfor(userID));
+    }
+    const logoutSystem = () => {
+        AuthService.logout();
+        navigate('/login');
     }
     useEffect(() => {
         updateManagerInfor();
-        
+
     }, []);
     const handleClick = () => {
         handleDismiss(false);
@@ -37,11 +43,11 @@ const userID = AuthService.getCurrentUser().id;
                             </svg>
                         </button>
                         <div className="huhu w-[500px] md:w-3/12 md:mx-2">
-                            <div className="bg-white p-3 border-t-4 border-green-400">
+                            <div className="bg-white p-3 border-t-4 border-blue-600">
                                 <div className="image overflow-hidden">
                                     <img className="h-auto w-full mx-auto"
-                                         src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                                         alt=""/>
+                                        src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+                                        alt="" />
                                 </div>
                                 <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">{managerData.firstName + " " + managerData.lastName}</h1>
                                 <ul
@@ -49,7 +55,7 @@ const userID = AuthService.getCurrentUser().id;
                                     <li className="flex items-center py-3">
                                         <span>Status</span>
                                         <span className="ml-auto"><span
-                                            className="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</span></span>
+                                            className="bg-blue-600 py-1 px-2 rounded text-white text-sm">Active</span></span>
                                     </li>
                                     <li className="flex items-center py-3">
                                         <span>Member since</span>
@@ -61,7 +67,7 @@ const userID = AuthService.getCurrentUser().id;
                             <div className="bg-white p-3 hover:shadow">
                                 <div className="flex flex-col items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
                                     <div>
-                                        <img src={male} alt="pic"/>
+                                        <img src={male} alt="pic" />
                                     </div>
                                 </div>
 
@@ -69,11 +75,11 @@ const userID = AuthService.getCurrentUser().id;
                         </div>
                         <div className="bg-white w-[500px] p-3 shadow-sm rounded-sm">
                             <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                                <span clas="text-green-500">
+                                <span className="text-blue-600">
                                     <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke="currentColor">
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </span>
                                 <span className="tracking-wide">About</span>
@@ -104,6 +110,21 @@ const userID = AuthService.getCurrentUser().id;
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div onClick={logoutSystem}
+                            className="absolute bottom-4 right-4 cursor-pointer group inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
+                        >
+                            <span className="text-white absolute -start-full transition-all group-hover:start-4">
+                                <img
+                                    className="h-5 w-5 rtl:rotate-180 text-white"
+                                    src={logout}
+                                >
+                                </img>
+                            </span>
+
+                            <span className="text-sm font-medium transition-all group-hover:ms-4">
+                                Logout
+                            </span>
                         </div>
                     </div>
                 </div>
