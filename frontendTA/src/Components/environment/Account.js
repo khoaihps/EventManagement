@@ -59,7 +59,7 @@ const Account = ({handleDismiss}) => {
                         </div>
                         <div className="bg-white w-[500px] p-3 shadow-sm rounded-sm">
                             <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                                <span className="text-blue-500">
+                                <span className="text-blue-600">
                                     <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
