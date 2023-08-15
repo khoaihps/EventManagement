@@ -9,7 +9,7 @@ import registeredEmployeesData from "../database/registeredEmployeesData";
 import EventService from "../../services/event.service";
 import TaskService from "../../services/task.service";
 
-const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialRegisteredEmployees}) => {
+const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregisteredEmployees}) => {
     const navigate = useNavigate();
     // api call specific event
 
@@ -28,8 +28,8 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialRegiste
     const [passEmployees, setPassEmployees] = useState(initialEmployees);
     const [employees, setEmployees] = useState(initialEmployees);
 
-    const [passRegisteredEmployees, setPassRegisteredEmployees] = useState(initialRegisteredEmployees);
-    const [registeredEmployees, setRegisteredEmployees] = useState(initialRegisteredEmployees);
+    const [passUnregisteredEmployees, setPassUnregisteredEmployees] = useState(initialUnregisteredEmployees);
+    const [unregisteredEmployees, setUnregisteredEmployees] = useState(initialUnregisteredEmployees);
 
     const [isEditable, setIsEditable] = useState(false);
 
@@ -47,13 +47,13 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialRegiste
                 setEvent(passEvent);
                 setTasks(passTasks);
                 setEmployees(passEmployees);
-                setRegisteredEmployees(passRegisteredEmployees);
+                setUnregisteredEmployees(passUnregisteredEmployees);
                 setOrder("save");
 
                 console.log(passEvent);
                 console.log(passTasks);
                 console.log(passEmployees);
-                console.log(passRegisteredEmployees);
+                console.log(passUnregisteredEmployees);
             } catch (error) {
                 console.log("Error updating event:", error);
             }
@@ -68,7 +68,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialRegiste
         setPassEvent(initialEvent);
         setPassTasks(initialTasks);
         setPassEmployees(initialEmployees);
-        setRegisteredEmployees(initialRegisteredEmployees);
+        setUnregisteredEmployees(initialUnregisteredEmployees);
         setOrder("discard changes");
 
         setIsEditable(!isEditable);
@@ -97,8 +97,8 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialRegiste
                         <Employees
                             employees={passEmployees}
                             changeEmployees={setPassEmployees}
-                            registeredEmployees={passRegisteredEmployees}
-                            changeRegisteredEmployees={setPassRegisteredEmployees}
+                            unregisteredEmployees={passUnregisteredEmployees}
+                            changeUnregisteredEmployees={setPassUnregisteredEmployees}
                             isEditable={isEditable}
                         />
                     </div>

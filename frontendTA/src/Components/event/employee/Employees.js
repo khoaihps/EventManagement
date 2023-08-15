@@ -2,7 +2,7 @@ import EmployeeBody from "./EmployeeBody";
 import {useState} from "react";
 import ListTable from "./employeeList/ListTable";
 
-const Employees = ({employees, changeEmployees, registeredEmployees, changeRegisteredEmployees, isEditable}) => {
+const Employees = ({employees, changeEmployees, unregisteredEmployees, changeUnregisteredEmployees, isEditable}) => {
     const updateEmployeeData = (option, employeeIndex, newEmployee) => {
         let updatedEmployeeData;
         if (option === "add") {
@@ -22,23 +22,23 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
         changeEmployees(updatedEmployeeData);
     }
 
-    const updateRegisteredEmployeeData = (employeeIndex, newEmployee) => {
+    const updateUnregisteredEmployeeData = (employeeIndex, newEmployee) => {
         let updatedEmployeeData;
-        if (employeeIndex === registeredEmployees.length) {
-            updatedEmployeeData = [...registeredEmployees, newEmployee];
+        if (employeeIndex === unregisteredEmployees.length) {
+            updatedEmployeeData = [...unregisteredEmployees, newEmployee];
         }
         else
         {
-            const foundEmployeeIndex = registeredEmployees.findIndex((employee) => registeredEmployees.indexOf(employee) === employeeIndex);
+            const foundEmployeeIndex = unregisteredEmployees.findIndex((employee) => unregisteredEmployees.indexOf(employee) === employeeIndex);
 
             if (foundEmployeeIndex !== -1 && newEmployee === null)
             {
-                updatedEmployeeData = [...registeredEmployees]
+                updatedEmployeeData = [...unregisteredEmployees]
                 updatedEmployeeData.splice(employeeIndex, 1);
             }
         }
 
-        changeRegisteredEmployees(updatedEmployeeData);
+        changeUnregisteredEmployees(updatedEmployeeData);
     }
 
     const [visibleList, setVisibleList] = useState(false);
@@ -86,8 +86,8 @@ const Employees = ({employees, changeEmployees, registeredEmployees, changeRegis
                 />
                 {visibleList &&
                     <ListTable
-                        registeredEmployees={registeredEmployees}
-                        updateRegisteredEmployeeData={updateRegisteredEmployeeData}
+                        unregisteredEmployees={unregisteredEmployees}
+                        updateUnregisteredEmployeeData={updateUnregisteredEmployeeData}
                         updateEmployeeData={updateEmployeeData}
                         handleDismiss={setVisibleList}
                     />

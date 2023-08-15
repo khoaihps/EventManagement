@@ -49,12 +49,7 @@ const getRegisteredEmployees = async (req, res, next) => {
 
         // Get an array of registered employee IDs
 
-        const registeredEmployees = eventRegisters.map((eventRegister) => ({
-            name: `${eventRegister.t_member_id.firstName} ${eventRegister.t_member_id.lastName}`,
-            email: eventRegister.t_member_id.email,
-            phone: eventRegister.t_member_id.phone,
-            department: eventRegister.t_member_id.department,
-        }));
+        const registeredEmployees = eventRegisters.map(eventRegister => eventRegister.t_member_id);
 
         res.json(registeredEmployees);
     } catch (err) {
