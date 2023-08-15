@@ -2,6 +2,7 @@ import React from "react";
 import male from "../img/male-ava.png";
 import "../style/huhu.css"
 import managerData from "../database/manager"
+import logout from "../img/image.png"
 
 const Account = ({handleDismiss}) => {
     const handleClick = () => {
@@ -26,7 +27,7 @@ const Account = ({handleDismiss}) => {
                             </svg>
                         </button>
                         <div className="huhu w-[500px] md:w-3/12 md:mx-2">
-                            <div className="bg-white p-3 border-t-4 border-green-400">
+                            <div className="bg-white p-3 border-t-4 border-blue-600">
                                 <div className="image overflow-hidden">
                                     <img className="h-auto w-full mx-auto"
                                          src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
@@ -38,7 +39,7 @@ const Account = ({handleDismiss}) => {
                                     <li className="flex items-center py-3">
                                         <span>Status</span>
                                         <span className="ml-auto"><span
-                                            className="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</span></span>
+                                            className="bg-blue-600 py-1 px-2 rounded text-white text-sm">Active</span></span>
                                     </li>
                                     <li className="flex items-center py-3">
                                         <span>Member since</span>
@@ -58,7 +59,7 @@ const Account = ({handleDismiss}) => {
                         </div>
                         <div className="bg-white w-[500px] p-3 shadow-sm rounded-sm">
                             <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                                <span clas="text-green-500">
+                                <span className="text-blue-500">
                                     <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -93,6 +94,21 @@ const Account = ({handleDismiss}) => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div
+                            className="absolute bottom-4 right-4 group inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
+                        >
+                              <span className="text-white absolute -start-full transition-all group-hover:start-4">
+                                <img
+                                    className="h-5 w-5 rtl:rotate-180 text-white"
+                                    src={logout}
+                                >
+                                </img>
+                              </span>
+
+                            <span className="text-sm font-medium transition-all group-hover:ms-4">
+                                Logout
+                              </span>
                         </div>
                     </div>
                 </div>
