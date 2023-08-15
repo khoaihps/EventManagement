@@ -96,7 +96,7 @@ const Account = ({handleDismiss}) => {
                             </div>
                         </div>
                         <div
-                            className="absolute bottom-4 right-4 group inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
+                            className="absolute bottom-4 right-4 cursor-pointer group inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
                         >
                               <span className="text-white absolute -start-full transition-all group-hover:start-4">
                                 <img
