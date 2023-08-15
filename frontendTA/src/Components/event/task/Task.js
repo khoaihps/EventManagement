@@ -22,16 +22,13 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
         if (order === "save") {
             setEnrolledEmployee(passEnrolledEmployee);
             setNotEnrolledEmployee(passNotEnrolledEmployee);
-
-            console.log(passEnrolledEmployee)
-            console.log(passNotEnrolledEmployee);
         } else if (order === "discard changes") {
             setEnrolledEmployee([ ...employees]);
             setNotEnrolledEmployee([ ...employees]);
             setPassEnrolledEmployee([ ...employees]);
             setPassNotEnrolledEmployee([ ...employees]);
         }
-    }, [order, passEnrolledEmployee, passNotEnrolledEmployee]);
+    }, [order]);
 
 
     return (
