@@ -10,8 +10,10 @@ export const loader = async ({ params }) => {
     try {
         const details = await EventService.getEventInfo(params.eventID);
         const tasks = await TaskService.getAllTaskEvent(params.eventID);
-        const employees = await EventService.getEmployees(params.eventID);
-        return {details, tasks, employees};
+        const employees = await EventService.getRegisteredEmployees(params.eventID);
+        const unregisteredEmployees = await EventService.getUnregisteredEmployees(params.eventID);
+        console.log(unregisteredEmployees);
+        return {details, tasks, employees, unregisteredEmployees};
     } catch (error) {
         console.log("Error: ", error);
     }
@@ -32,6 +34,7 @@ export const EventDetail = () => {
                 initialEvent={eventInfo.details}
                 initialTasks={eventInfo.tasks}
                 initialEmployees={eventInfo.employees}
+                initialRegisteredEmployees={eventInfo.unregisteredEmployees}
             />
         </div>
     );

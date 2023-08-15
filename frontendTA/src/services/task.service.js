@@ -25,9 +25,31 @@ const getTaskInfo = async (taskId) => {
             headers: authHeader()
         });
 }
+const updateTask = async (eventId, updatedTaskDetails) => {
+    try {
+        console.log(updatedTaskDetails);
+        const response = await fetch(API_URL + "manager/task/"+ eventId + "/update", {
+            method: 'PUT', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify(updatedTaskDetails) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
 const TaskService = {
     getAllTaskEvent,
-    getTaskInfo
+    getTaskInfo,
+    updateTask
 };
 
 export default TaskService;

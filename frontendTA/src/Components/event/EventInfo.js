@@ -7,15 +7,16 @@ import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
 import registeredEmployeesData from "../database/registeredEmployeesData";
 import EventService from "../../services/event.service";
+import TaskService from "../../services/task.service";
 
-const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
+const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialRegisteredEmployees}) => {
     const navigate = useNavigate();
     // api call specific event
 
     // api call specific tasks associated with the event
     // const initialTasks = tasksData;
     // api call specific employees associated with the event
-    const initialRegisteredEmployees = registeredEmployeesData;
+    // const initialRegisteredEmployees = registeredEmployeesData;
 
 
     const [event, setEvent] = useState(initialEvent);
@@ -40,7 +41,9 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
             try {
                 // Call the updateEvent API function
                 await EventService.updateEvent(passEvent._id, passEvent);
-
+                for (const task of passTasks) {
+                    await TaskService.updateTask(task._id, task);
+                }
                 setEvent(passEvent);
                 setTasks(passTasks);
                 setEmployees(passEmployees);

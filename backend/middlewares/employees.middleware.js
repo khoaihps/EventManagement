@@ -56,12 +56,35 @@ const getRegisteredEmployees = async (req, res, next) => {
             department: eventRegister.t_member_id.department,
         }));
 
-        res.json({ employees: registeredEmployees });
+        res.json(registeredEmployees);
     } catch (err) {
         next(err);
     }
 };
+const getUnregisteredEmployees = async (req, res, next) => {
+    try {
+        const eventId = req.params.eventId;
+
+        // Find all employees
+        const allEmployees = await Employee.find();
+
+        // Find all event registers for the given eventId
+        const eventRegisters = await EventRegister.find({ event_id: eventId });
+
+        // Get an array of registered employee IDs
+        const registeredEmployeeIds = eventRegisters.map((eventRegister) => eventRegister.t_member_id.toString());
+
+        // Filter unregistered employees
+        const unregisteredEmployees = allEmployees.filter((employee) => !registeredEmployeeIds.includes(employee._id.toString()));
+
+        res.json(unregisteredEmployees);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     getRegisteredAndUnregisteredEmployees,
-    getRegisteredEmployees
+    getRegisteredEmployees,
+    getUnregisteredEmployees
 }
