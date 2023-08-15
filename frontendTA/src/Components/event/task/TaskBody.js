@@ -1,7 +1,7 @@
 import React from "react";
 import Task from "./Task";
 
-const TaskBody = ({ tasksData, updateStateValue, updateTaskData, isEditable }) => {
+const TaskBody = ({ tasksData, updateStateValue, updateTaskData, isEditable, order}) => {
     return (
         <tbody className="overflow-auto">
         {tasksData.map((t, index) => (
@@ -12,6 +12,7 @@ const TaskBody = ({ tasksData, updateStateValue, updateTaskData, isEditable }) =
                 isEditable={isEditable}
                 updateTaskData={updateTaskData}
                 setStateValue={updateStateValue}
+                order={order}
             />
         ))}
         </tbody>

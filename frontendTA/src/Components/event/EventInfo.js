@@ -32,24 +32,30 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
 
     const [isEditable, setIsEditable] = useState(false);
 
+    const [order, setOrder] = useState("show");
+
 
     const handleEditButtonClick = async () => {
         if (isEditable) {
-            // console.log(passEvent);
-            // console.log(passTasks);
-            // console.log(passEmployees);
-
-            setEvent(passEvent);
-            setTasks(passTasks);
-            setEmployees(passEmployees);
-            setRegisteredEmployees(passRegisteredEmployees);
-
             try {
                 // Call the updateEvent API function
                 await EventService.updateEvent(passEvent._id, passEvent);
+
+                setEvent(passEvent);
+                setTasks(passTasks);
+                setEmployees(passEmployees);
+                setRegisteredEmployees(passRegisteredEmployees);
+                setOrder("save");
+
+                console.log(passEvent);
+                console.log(passTasks);
+                console.log(passEmployees);
+                console.log(passRegisteredEmployees);
             } catch (error) {
                 console.log("Error updating event:", error);
             }
+        } else {
+            setOrder("show");
         }
 
         setIsEditable(!isEditable);
@@ -60,6 +66,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
         setPassTasks(initialTasks);
         setPassEmployees(initialEmployees);
         setRegisteredEmployees(initialRegisteredEmployees);
+        setOrder("discard changes");
 
         setIsEditable(!isEditable);
     }
@@ -82,6 +89,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
                             tasks={passTasks}
                             change={setPassTasks}
                             isEditable={isEditable}
+                            order={order}
                         />
                         <Employees
                             employees={passEmployees}

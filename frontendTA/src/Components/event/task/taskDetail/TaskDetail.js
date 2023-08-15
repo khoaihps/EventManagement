@@ -1,14 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TaskInfo from "./TaskInfo";
 import "../../../style/TaskDetail.css";
 import TaskEmployees from "./taskEmployee/TaskEmployees";
 
-const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, isEditable }) => {
+const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, isEditable,
+                        enrolledEmployee, notEnrolledEmployee, setEnrolled, setNotEnrolled }) => {
     const [currentTask, setCurrentTask] = useState(task);
+    const [passEnrolledEmployee, setPassEnrolledEmployee] = useState(enrolledEmployee);
+    const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState(notEnrolledEmployee);
+
+    const handleChangeEnrolled = (option, index, newData) => {
+        let cur = [ ...passEnrolledEmployee]
+        if (option === "remove")
+        {
+            cur.splice(index, 1);
+        }
+        else if (option === "add")
+        {
+            cur = [ ...passEnrolledEmployee, newData];
+        }
+        setPassEnrolledEmployee(cur);
+    }
+
+    const handleChangeNotEnrolled = (option, index, newData) => {
+        let cur = [ ...passNotEnrolledEmployee]
+        if (option === "remove")
+        {
+            cur.splice(index, 1);
+        }
+        else if (option === "add")
+        {
+            cur = [ ...passNotEnrolledEmployee, newData];
+        }
+        setPassNotEnrolledEmployee(cur);
+    }
+
+
     const handleClick = () => {
         if (add)
         {
             updateTaskData(index, null);
+            setEnrolled(passEnrolledEmployee);
+            setNotEnrolled(passNotEnrolledEmployee);
         }
         handleDismiss(false);
     };
@@ -17,15 +50,21 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
         setTask(index, currentTask);
         updateTaskData(index, currentTask);
         handleDismiss(false);
+        setEnrolled(passEnrolledEmployee);
+        setNotEnrolled(passNotEnrolledEmployee);
     };
 
     const handleDelete = () => {
         updateTaskData(index, null);
         handleDismiss(false);
+        setEnrolled([]);
+        setNotEnrolled([]);
     }
 
     const handleDiscardChanges = () => {
         setCurrentTask(task);
+        setPassEnrolledEmployee(enrolledEmployee);
+        setPassNotEnrolledEmployee(notEnrolledEmployee);
     };
 
     return (
@@ -46,7 +85,12 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
                         </svg>
                     </button>
                     <div className="child11">
-                        <TaskInfo index={index} task={currentTask} setTask={setCurrentTask} isEditable={isEditable} />
+                        <TaskInfo
+                            index={index}
+                            task={currentTask}
+                            setTask={setCurrentTask}
+                            isEditable={isEditable}
+                        />
                         {isEditable && (
                             <div className="mt-[40px] flex">
                                 <button
@@ -78,11 +122,17 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
                         <TaskEmployees
                             isEditable={isEditable}
                             enrolled={true}
+                            employees={passEnrolledEmployee}
+                            handleChangeEnrolled={handleChangeEnrolled}
+                            handleChangeNotEnrolled={handleChangeNotEnrolled}
                         />
                         <h3>Not Enrolled</h3>
                         <TaskEmployees
                             isEditable={isEditable}
                             enrolled={false}
+                            employees={passNotEnrolledEmployee}
+                            handleChangeEnrolled={handleChangeEnrolled}
+                            handleChangeNotEnrolled={handleChangeNotEnrolled}
                         />
                     </div>
                 </div>

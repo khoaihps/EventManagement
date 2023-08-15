@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import EmployeeDetail from "./employeeDetail/EmployeeDetail";
+import "../../style/td.css"
 const Employee = ({employee, index, updateEmployeeData, isEditable}) => {
     const [employeeInfoVisible, setEmployeeInfoVisible] = useState(false);
     const handleDisplayEmployeeInfo = () => {
