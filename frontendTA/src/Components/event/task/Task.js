@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import TaskDetail from "./taskDetail/TaskDetail";
 import employees from "../../database/employeesData";
+import TaskService from "../../../services/task.service";
 
 const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) => {
     const [isTaskInfoVisible, setTaskInfoVisible] = useState(false);

@@ -52,8 +52,8 @@ const getRegisteredEmployees = async (req, res, next) => {
         const registeredEmployees = eventRegisters.map(eventRegister => eventRegister.t_member_id);
 
         res.json(registeredEmployees);
-    } catch (err) {
-        next(err);
+    } catch (error) {
+        next(error);
     }
 };
 const getUnregisteredEmployees = async (req, res, next) => {
@@ -73,8 +73,8 @@ const getUnregisteredEmployees = async (req, res, next) => {
         const unregisteredEmployees = allEmployees.filter((employee) => !registeredEmployeeIds.includes(employee._id.toString()));
 
         res.json(unregisteredEmployees);
-    } catch (err) {
-        next(err);
+    } catch (error) {
+        next(error);
     }
 };
 

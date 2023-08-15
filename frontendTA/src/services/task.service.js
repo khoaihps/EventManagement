@@ -27,7 +27,6 @@ const getTaskInfo = async (taskId) => {
 }
 const updateTask = async (eventId, updatedTaskDetails) => {
     try {
-        console.log(updatedTaskDetails);
         const response = await fetch(API_URL + "manager/task/"+ eventId + "/update", {
             method: 'PUT', 
             headers: {
@@ -38,7 +37,6 @@ const updateTask = async (eventId, updatedTaskDetails) => {
         });
         if (response.ok){
             const data = await response.json();
-            console.log(data);
             return data;
         }
     } catch (error) {
