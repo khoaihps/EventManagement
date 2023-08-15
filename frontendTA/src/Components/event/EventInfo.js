@@ -7,15 +7,16 @@ import tasksData from "../database/tasksData";
 import employeesData from "../database/employeesData";
 import registeredEmployeesData from "../database/registeredEmployeesData";
 import EventService from "../../services/event.service";
+import TaskService from "../../services/task.service";
 
-const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
+const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregisteredEmployees}) => {
     const navigate = useNavigate();
     // api call specific event
 
     // api call specific tasks associated with the event
     // const initialTasks = tasksData;
     // api call specific employees associated with the event
-    const initialRegisteredEmployees = registeredEmployeesData;
+    // const initialRegisteredEmployees = registeredEmployeesData;
 
 
     const [event, setEvent] = useState(initialEvent);
@@ -27,8 +28,8 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
     const [passEmployees, setPassEmployees] = useState(initialEmployees);
     const [employees, setEmployees] = useState(initialEmployees);
 
-    const [passRegisteredEmployees, setPassRegisteredEmployees] = useState(initialRegisteredEmployees);
-    const [registeredEmployees, setRegisteredEmployees] = useState(initialRegisteredEmployees);
+    const [passUnregisteredEmployees, setPassUnregisteredEmployees] = useState(initialUnregisteredEmployees);
+    const [unregisteredEmployees, setUnregisteredEmployees] = useState(initialUnregisteredEmployees);
 
     const [isEditable, setIsEditable] = useState(false);
 
@@ -40,17 +41,19 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
             try {
                 // Call the updateEvent API function
                 await EventService.updateEvent(passEvent._id, passEvent);
-
+                for (const task of passTasks) {
+                    await TaskService.updateTask(task._id, task);
+                }
                 setEvent(passEvent);
                 setTasks(passTasks);
                 setEmployees(passEmployees);
-                setRegisteredEmployees(passRegisteredEmployees);
+                setUnregisteredEmployees(passUnregisteredEmployees);
                 setOrder("save");
 
                 console.log(passEvent);
                 console.log(passTasks);
                 console.log(passEmployees);
-                console.log(passRegisteredEmployees);
+                console.log(passUnregisteredEmployees);
             } catch (error) {
                 console.log("Error updating event:", error);
             }
@@ -65,7 +68,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
         setPassEvent(initialEvent);
         setPassTasks(initialTasks);
         setPassEmployees(initialEmployees);
-        setRegisteredEmployees(initialRegisteredEmployees);
+        setUnregisteredEmployees(initialUnregisteredEmployees);
         setOrder("discard changes");
 
         setIsEditable(!isEditable);
@@ -94,8 +97,8 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees}) => {
                         <Employees
                             employees={passEmployees}
                             changeEmployees={setPassEmployees}
-                            registeredEmployees={passRegisteredEmployees}
-                            changeRegisteredEmployees={setPassRegisteredEmployees}
+                            unregisteredEmployees={passUnregisteredEmployees}
+                            changeUnregisteredEmployees={setPassUnregisteredEmployees}
                             isEditable={isEditable}
                         />
                     </div>

@@ -4,7 +4,7 @@ import "../../../style/ListDetail.css"
 import "../../../style/employeeDetail.css"
 import "../../../style/td2.css"
 
-const ListTable = ({registeredEmployees, updateRegisteredEmployeeData, updateEmployeeData, handleDismiss}) => {
+const ListTable = ({unregisteredEmployees, updateUnregisteredEmployeeData, updateEmployeeData, handleDismiss}) => {
     const handleClick = () => {
         handleDismiss(false);
     }
@@ -28,10 +28,10 @@ const ListTable = ({registeredEmployees, updateRegisteredEmployeeData, updateEmp
                     </button>
                     <div className="childd">
                         <ListBody
-                            employeesData={registeredEmployees}
+                            employeesData={unregisteredEmployees}
                             isEditable={false}
                             updateEmployeeData={updateEmployeeData}
-                            updateRegisteredEmployeeData={updateRegisteredEmployeeData}
+                            updateUnregisteredEmployeeData={updateUnregisteredEmployeeData}
                         />
                     </div>
                 </div>
