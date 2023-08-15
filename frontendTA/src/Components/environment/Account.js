@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import male from "../img/male-ava.png";
 import "../style/huhu.css"
-import managerData from "../database/manager"
+// import managerData from "../database/manager"
+import ProfileService from "../../services/profile.service";
+import AuthService from "../../services/auth.service";
 
 const Account = ({handleDismiss}) => {
+    const [managerData, setManagerData] = useState({});
+    const updateManagerInfor = async() => {
+const userID = AuthService.getCurrentUser().id;
+        setManagerData(await ProfileService.getManagerInfor(userID));
+    }
+    useEffect(() => {
+        updateManagerInfor();
+        
+    }, []);
     const handleClick = () => {
         handleDismiss(false);
     }
