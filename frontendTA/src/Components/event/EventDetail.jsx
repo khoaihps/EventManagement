@@ -11,7 +11,6 @@ export const loader = async ({ params }) => {
         const details = await EventService.getEventInfo(params.eventID);
         const tasks = await TaskService.getAllTaskEvent(params.eventID);
         const employees = await EventService.getRegisteredEmployees(params.eventID);
-        console.log(employees);
         const unregisteredEmployees = await EventService.getUnregisteredEmployees(params.eventID);
         return {details, tasks, employees, unregisteredEmployees};
     } catch (error) {

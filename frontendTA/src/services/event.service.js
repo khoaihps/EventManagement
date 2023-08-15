@@ -77,7 +77,6 @@ const getUnregisteredEmployees = async (eventID) => {
 
 const updateEvent = async (eventId, updatedEventDetails) => {
     try {
-        console.log(updatedEventDetails);
         const response = await fetch(API_URL + "manager/event/"+ eventId + "/update", {
             method: 'PUT', 
             headers: {
@@ -97,13 +96,55 @@ const updateEvent = async (eventId, updatedEventDetails) => {
     }
 }
 
+const addEventRegister = async (eventId, t_member_id) => {
+    try {
+        const response = await fetch(API_URL + "manager/event/"+ eventId + "/eventregister/add", {
+            method: 'POST', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify({t_member_id: t_member_id}) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
+
+const removeEventRegister = async (eventId, t_member_id) => {
+    try {
+        const response = await fetch(API_URL + "manager/event/"+ eventId + "/eventregister/remove", {
+            method: 'DELETE', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify({t_member_id: t_member_id}) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
+
 const EventService = {
     getEventInfo,
     getAllEvent,
     getAllOpenEvent,
     getRegisteredEmployees,
     getUnregisteredEmployees,
-    updateEvent
+    updateEvent,
+    addEventRegister,
+    removeEventRegister
 };
 
 export default EventService;
