@@ -25,13 +25,15 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     const [notEnrolledEmployee, setNotEnrolledEmployee] = useState([]);
     const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
-    
+
     useEffect(() => {
         setEnrolledEmployee([ ...employees]);
         setNotEnrolledEmployee([ ...employees]);
         setPassEnrolledEmployee([ ...employees]);
         setPassNotEnrolledEmployee([ ...employees])
-
+    }, [])
+    
+    useEffect(() => {
         if (order === "save") {
             setEnrolledEmployee(passEnrolledEmployee);
             setNotEnrolledEmployee(passNotEnrolledEmployee);
