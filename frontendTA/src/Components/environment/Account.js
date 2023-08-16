@@ -11,7 +11,7 @@ const Account = ({ handleDismiss }) => {
     const [managerData, setManagerData] = useState({});
     const updateManagerInfor = async () => {
         const userID = AuthService.getCurrentUser().id;
-        setManagerData(await ProfileService.getManagerInfor(userID));
+        setManagerData(await ProfileService.getProfile(userID));
     }
     const logoutSystem = () => {
         AuthService.logout();

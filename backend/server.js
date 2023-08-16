@@ -41,11 +41,14 @@ const eventManagerRoutes = require('./routes/manager/event.manager.routes');
 app.use('/manager/event', eventManagerRoutes);
 const taskManagerRoutes = require('./routes/manager/task.manager.routes');
 app.use('/manager/task', taskManagerRoutes);
-const managerRoutes = require('./routes/manager/profile.manager.route');
-app.use('/manager/profile', managerRoutes);
+const managerProfileRoutes = require('./routes/manager/profile.manager.routes');
+app.use('/manager/profile', managerProfileRoutes);
 const customerRoutes = require('./routes/customer/customer.routes');
 app.use('/customer/profile', customerRoutes);
+
 // Team member route
+const employeeProfileRoutes = require("./routes/team-member/profile.team-member.routes");
+app.use('/employee/profile', employeeProfileRoutes);
 const eventTeamMemeberRoutes = require('./routes/team-member/event.team-member.routes');
 app.use('/employee/event', eventTeamMemeberRoutes);
 const eventCustomer = require('./routes/customer/event.customer.routes');

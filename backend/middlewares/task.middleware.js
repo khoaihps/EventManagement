@@ -31,11 +31,25 @@ const taskCreating = async (req, res) => {
 
         // Save the new task to the database
         const savedTask = await newTask.save();
-
-        return savedTask; // Return the newly created task
+        res.status(200).json({ message: 'Task created successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error });
+    }
+}
+const taskDeleting = async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+        console.log(taskId);
+        const deletedTask = await Task.findByIdAndDelete(taskId);
+
+        if (!deletedTask) {
+            return res.status(201).json({ message: 'Task not found' });
+        }
+        return res.status(200).json({ message: 'Task deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to delete task' });
     }
 }
 const taskUpdate = async (req, res) => {
@@ -62,7 +76,7 @@ const assignedEmployees = async (req, res) => {
 
         const assignedEmployees = taskAssigns.map(TaskAssign => TaskAssign.t_member_id);
 
-        res.json(assignedEmployees);
+        res.status(200).json(assignedEmployees);
     } catch (error) {
         console.error(error);
     }
@@ -72,7 +86,6 @@ const taskAssignAdding = async (req, res) => {
     try {
         const taskId = req.params.taskId;
         const t_member_id = req.body.t_member_id;
-        console.log(taskId);
         const existingTaskAssign = await TaskAssign.findOne({ task_id: taskId, t_member_id: t_member_id });
         
         if (existingTaskAssign) {
@@ -112,6 +125,7 @@ const taskAssignRemoving = async (req, res) => {
 module.exports = {
     taskDetail,
     taskCreating,
+    taskDeleting,
     taskUpdate,
     assignedEmployees,
     taskAssignAdding,

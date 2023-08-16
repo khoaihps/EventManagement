@@ -49,6 +49,10 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                         await TaskService.addTask(task);
                     }
                 }
+                const deletedTasks = tasks.filter(task => !passTasks.some(passTask => passTask._id === task._id));
+                for (const deletedTask of deletedTasks) {
+                    await TaskService.deleteTask(deletedTask._id);
+                }
                 for (const eventRegister of passEmployees) {
                     await EventService.addEventRegister(passEvent._id, eventRegister._id);
                 }

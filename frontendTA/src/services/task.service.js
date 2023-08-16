@@ -48,6 +48,25 @@ const addTask = async (taskDetails) => {
         throw error;
     }
 };
+const deleteTask = async (taskId) => {
+    try {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/task/" + taskId + "/delete", {
+            method: 'DELETE', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+};
 const updateTask = async (taskId, updatedTaskDetails) => {
     try {
         const role = AuthService.getCurrentUser().role;
@@ -67,7 +86,7 @@ const updateTask = async (taskId, updatedTaskDetails) => {
         console.log("Error: ", error);
         throw error;
     }
-}
+};
 const getAssignedEmployees = async (taskId, eventId) => {
     try {
         const role = AuthService.getCurrentUser().role;
@@ -139,6 +158,7 @@ const TaskService = {
     getAllTaskEvent,
     getTaskInfo,
     addTask,
+    deleteTask,
     updateTask,
     getAssignedEmployees,
     addTaskAssign,
