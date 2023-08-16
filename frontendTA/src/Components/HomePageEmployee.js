@@ -8,7 +8,7 @@ import AuthService from '../services/auth.service';
 
 export const loader = async () => {
     const user = AuthService.getCurrentUser();
-    if (!user || user.role != 'team-member') {
+    if (!user || user.role != 'employee') {
         return redirect('/unauthorized');
     }
     try {
