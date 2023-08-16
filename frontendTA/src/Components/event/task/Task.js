@@ -3,30 +3,38 @@ import TaskDetail from "./taskDetail/TaskDetail";
 import employees from "../../database/employeesData";
 import TaskService from "../../../services/task.service";
 
+// export const loader = async () => {
+//     try {
+//         const assignedEmployees = await TaskService.getAssignedEmployees(); 
+    
+//         return {assignedEmployees};
+//     } catch (error) {
+//         console.log("Error fetching employees:", error);
+//         throw error;
+//     }
+// };
+
 const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) => {
     const [isTaskInfoVisible, setTaskInfoVisible] = useState(false);
     const handleDisplayTaskInfo = () => {
         setTaskInfoVisible(true);
     };
-
+    // const assignedEmployees = TaskService.getAssignedEmployees(); 
+    // console.log(assignedEmployees);
     const [enrolledEmployee, setEnrolledEmployee] = useState([]);
     const [notEnrolledEmployee, setNotEnrolledEmployee] = useState([]);
     const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
-
-    useEffect(()=> {
+    
+    useEffect(() => {
         setEnrolledEmployee([ ...employees]);
         setNotEnrolledEmployee([ ...employees]);
         setPassEnrolledEmployee([ ...employees]);
         setPassNotEnrolledEmployee([ ...employees])
-    }, [])
 
-    useEffect(() => {
         if (order === "save") {
-            setEnrolledEmployee(passEnrolledEmployee); // Corrected
-            setNotEnrolledEmployee(passNotEnrolledEmployee); // Corrected
-            console.log(passEnrolledEmployee)
-            console.log(passNotEnrolledEmployee)
+            setEnrolledEmployee(passEnrolledEmployee);
+            setNotEnrolledEmployee(passNotEnrolledEmployee);
         } else if (order === "discard changes") {
             setEnrolledEmployee([ ...employees]);
             setNotEnrolledEmployee([ ...employees]);
@@ -34,7 +42,6 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
             setPassNotEnrolledEmployee([ ...employees]);
         }
     }, [order]);
-
 
 
     return (
