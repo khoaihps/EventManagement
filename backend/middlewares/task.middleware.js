@@ -48,5 +48,6 @@ const assignedEmployees = async (req, res) => {
 
 module.exports = {
     taskDetail,
-    taskUpdate
+    taskUpdate,
+    assignedEmployees
 }

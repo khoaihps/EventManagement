@@ -1,11 +1,12 @@
-import axios from "axios";
 import authHeader from "./auth-header";
+import AuthService from "./auth.service";
 
 const API_URL = 'http://localhost:4000/';
+const role = AuthService.getCurrentUser().role;
 
 const getEventInfo = async (eventID) => {
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID, {
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID, {
             method: 'GET',
             headers: authHeader(),
         });
@@ -19,7 +20,7 @@ const getEventInfo = async (eventID) => {
 }
 const getAllEvent = async () => {
     try {
-        const response = await fetch(API_URL + "manager/event/all", {
+        const response = await fetch(API_URL + `${role}` + "/event/all", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -33,7 +34,7 @@ const getAllEvent = async () => {
 }
 const getAllOpenEvent = async () => {
     try {
-        const response = await fetch(API_URL + "team-member/event/all", {
+        const response = await fetch(API_URL + `${role}` + "/event/all", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -48,7 +49,7 @@ const getAllOpenEvent = async () => {
 }
 const getRegisteredEmployees = async (eventID) => {
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID + "/remployees", {
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/remployees", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -62,7 +63,7 @@ const getRegisteredEmployees = async (eventID) => {
 }
 const getUnregisteredEmployees = async (eventID) => {
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID + "/uremployees", {
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/uremployees", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -77,7 +78,7 @@ const getUnregisteredEmployees = async (eventID) => {
 
 const updateEvent = async (eventId, updatedEventDetails) => {
     try {
-        const response = await fetch(API_URL + "manager/event/"+ eventId + "/update", {
+        const response = await fetch(API_URL + `${role}` + "/event/"+ eventId + "/update", {
             method: 'PUT', 
             headers: {
                 ...authHeader(),
@@ -98,7 +99,7 @@ const updateEvent = async (eventId, updatedEventDetails) => {
 
 const addEventRegister = async (eventId, t_member_id) => {
     try {
-        const response = await fetch(API_URL + "manager/event/"+ eventId + "/eventregister/add", {
+        const response = await fetch(API_URL + `${role}` + "/event/"+ eventId + "/eventregister/add", {
             method: 'POST', 
             headers: {
                 ...authHeader(),
@@ -118,7 +119,7 @@ const addEventRegister = async (eventId, t_member_id) => {
 
 const removeEventRegister = async (eventId, t_member_id) => {
     try {
-        const response = await fetch(API_URL + "manager/event/"+ eventId + "/eventregister/remove", {
+        const response = await fetch(API_URL + `${role}` + "/event/"+ eventId + "/eventregister/remove", {
             method: 'DELETE', 
             headers: {
                 ...authHeader(),
