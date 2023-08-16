@@ -23,6 +23,7 @@ import {
   EmployeeList,
   loader as allEmployeesLoader 
 } from "./Components/EmployeeList";
+import {EventDetailEmployee} from "./Components/event/EventDetailEmployee";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
   {
     path: "/employee/event/:eventID",
     loader: eventDetailLoader,
-    element: <EventDetail />
+    element: <EventDetailEmployee />
   },
   {
     path: "/employee/home",

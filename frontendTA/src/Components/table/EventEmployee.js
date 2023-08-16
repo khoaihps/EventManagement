@@ -8,15 +8,15 @@ const formatDate = (dateString) => {
     const year = dateObject.getFullYear();
     const month = String(dateObject.getMonth() + 1).padStart(2, '0');
     const day = String(dateObject.getDate()).padStart(2, '0');
-  
+
     return `${year}-${month}-${day}`;
-  }
-  
-const Event = ({id, title, place, deadline, stt, budget}) => {
+}
+
+const EventEmployee = ({id, title, place, deadline, stt, budget, role}) => {
     const navigate = useNavigate();
     const handleClick = () => {
         console.log(id);
-        return navigate(`/manager/event/${id}`);
+        return navigate(`/employee/event/${id}`);
     };
 
     return (
@@ -33,4 +33,4 @@ const Event = ({id, title, place, deadline, stt, budget}) => {
     );
 }
 
-export default Event;
+export default EventEmployee;

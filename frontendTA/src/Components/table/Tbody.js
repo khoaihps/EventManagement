@@ -1,7 +1,7 @@
 import React from "react";
 import Event from './Event'
 
-const Tbody = ({ filteredData }) => {
+const Tbody = ({ filteredData, role}) => {
 
     return (
         <tbody>

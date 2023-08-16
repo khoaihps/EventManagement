@@ -1,10 +1,11 @@
 import React from 'react';
-import Sidebar from "../Components/environment/Sidebar";
 import Table from "./table/Table";
 import Header from "../Components/environment/Header";
 import { redirect, useLoaderData } from 'react-router-dom';
 import EventService from '../services/event.service';
 import AuthService from '../services/auth.service';
+import SidebarEmployee from "./environment/SidebarEmployee";
+import EmployeeTable from "./table/EmployeeTable";
 
 export const loader = async () => {
     const user = AuthService.getCurrentUser();
@@ -22,8 +23,8 @@ export const HomePageEmployee = () => {
     return (
         <div>
             <Header title={"Events"} />
-            <Sidebar/>
-            <Table events={allEvent}/>
+            <SidebarEmployee/>
+            <EmployeeTable events={allEvent}/>
         </div>
     );
 };
