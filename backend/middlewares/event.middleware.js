@@ -224,7 +224,7 @@ const eventRegisterRemoving = async (req, res) => {
         if (existingEventRegister) {
             res.status(200).json(existingEventRegister);
         } else {
-            res.status(404).json({ message: 'Event register not found.' });
+            res.status(201).json({ message: 'Event register not found.' });
         }
     } catch (error) {
         console.error(error);

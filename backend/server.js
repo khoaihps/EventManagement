@@ -46,7 +46,7 @@ app.use('/manager/profile', managerRoutes);
 
 // Team member route
 const eventTeamMemeberRoutes = require('./routes/team-member/event.team-member.routes');
-app.use('/team-member/event', eventTeamMemeberRoutes);
+app.use('/employee/event', eventTeamMemeberRoutes);
 
 // Customer
 const customerRoutes = require('./routes/customer/customer.routes');

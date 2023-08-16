@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
 import '../style/sidebar.css'
 import Account from "./Account";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
     const [visible, setVisible] = useState(false);
+    const navigate = useNavigate();
     const handleClick = () => {
         setVisible(true);
+    }
+
+    const handleOpen = () => {
+        navigate("/manager/employees");
     }
 
     return (
@@ -35,7 +41,9 @@ const Sidebar = () => {
                     </a>
                 </div>
                 <div className="flex flex-col items-center w-full mt-2 border-t border-gray-300">
-                    <a className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300" href="#">
+                    <div className="flex cursor-pointer items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300"
+                        onClick={handleOpen}
+                    >
                         <div className="logo">
                             <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +52,7 @@ const Sidebar = () => {
                             </svg>
                         </div>
                         <span className="ml-2 text-sm font-medium">Employees</span>
-                    </a>
+                    </div>
                 </div>
             </div>
             <div className="flex items-center cursor-pointer justify-center w-full h-16 mt-auto bg-gray-200 hover:bg-gray-300"

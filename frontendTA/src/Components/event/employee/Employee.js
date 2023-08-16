@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import EmployeeDetail from "./employeeDetail/EmployeeDetail";
 import "../../style/td.css"
-const Employee = ({employee, index, updateEmployeeData, isEditable}) => {
+const Employee = ({employee, index, updateEmployeeData, isEditable, updateUnregisteredEmployeeData}) => {
     const [employeeInfoVisible, setEmployeeInfoVisible] = useState(false);
     const handleDisplayEmployeeInfo = () => {
         if (!isEditable)
@@ -11,6 +11,7 @@ const Employee = ({employee, index, updateEmployeeData, isEditable}) => {
         else
         {
             updateEmployeeData("remove", index, null);
+            updateUnregisteredEmployeeData("add", index, employee);
         }
     };
 

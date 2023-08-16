@@ -4,6 +4,7 @@ import "../../../style/employeeDetail.css";
 
 const EmployeeDetail = ({employee, handleDismiss}) => {
     const handleClick = () => {
+        console.log("AAAA")
         handleDismiss(false);
     }
 
@@ -29,6 +30,7 @@ const EmployeeDetail = ({employee, handleDismiss}) => {
                     <div className="childd">
                         <EmployeeInfo
                             employee={employee}
+                            isEditable={false}
                         />
                     </div>
                 </div>

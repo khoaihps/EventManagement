@@ -22,12 +22,13 @@ const Employees = ({employees, changeEmployees, unregisteredEmployees, changeUnr
         changeEmployees(updatedEmployeeData);
     }
 
-    const updateUnregisteredEmployeeData = (employeeIndex, newEmployee) => {
+    const updateUnregisteredEmployeeData = (option, employeeIndex, newEmployee) => {
         let updatedEmployeeData;
-        if (employeeIndex === unregisteredEmployees.length) {
+        if (option === "add")
+        {
             updatedEmployeeData = [...unregisteredEmployees, newEmployee];
         }
-        else
+        else if (option === "remove")
         {
             const foundEmployeeIndex = unregisteredEmployees.findIndex((employee) => unregisteredEmployees.indexOf(employee) === employeeIndex);
 
@@ -83,6 +84,7 @@ const Employees = ({employees, changeEmployees, unregisteredEmployees, changeUnr
                     isEditable={isEditable}
                     employeesData={employees}
                     updateEmployeeData={updateEmployeeData}
+                    updateUnregisteredEmployeeData={updateUnregisteredEmployeeData}
                 />
                 {visibleList &&
                     <ListTable

@@ -1,11 +1,13 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import AuthService from "./auth.service";
 
 const API_URL = 'http://localhost:4000/';
+
 const getAllTaskEvent = async (eventID) => {
-    // const response = await axios.get(API_URL + "manager/event/" + eventID + "/task", { headers: authHeader() });
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID + "/task", {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/task", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -19,6 +21,7 @@ const getAllTaskEvent = async (eventID) => {
     // return response.data;
 }
 const getTaskInfo = async (taskId) => {
+    const role = AuthService.getCurrentUser().role;
     return axios.get(
         `${API_URL}/${taskId}`, 
         { 
@@ -27,7 +30,8 @@ const getTaskInfo = async (taskId) => {
 }
 const updateTask = async (eventId, updatedTaskDetails) => {
     try {
-        const response = await fetch(API_URL + "manager/task/"+ eventId + "/update", {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/task/"+ eventId + "/update", {
             method: 'PUT', 
             headers: {
                 ...authHeader(),
@@ -44,10 +48,26 @@ const updateTask = async (eventId, updatedTaskDetails) => {
         throw error;
     }
 }
+const getAssignedEmployees = async (taskId) => {
+    try {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/task/" + taskId + "/employees", {
+            method: 'GET',
+            headers: authHeader(),
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
 const TaskService = {
     getAllTaskEvent,
     getTaskInfo,
-    updateTask
+    updateTask,
+    getAssignedEmployees
 };
 
 export default TaskService;
