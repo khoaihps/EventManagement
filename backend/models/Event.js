@@ -34,6 +34,11 @@ const taskSchema = new Schema({
     budget: { type: Number, required: true },
     description: { type: String, required: true },
     department_involved: { type: String, required: true },
+    status: {
+        type: String,
+        enum: ['uncompleted', 'completed'],
+        required: true
+    },
     event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true }
 });
 
