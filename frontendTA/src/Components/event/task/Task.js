@@ -27,21 +27,22 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
     
     useEffect(() => {
-        TaskService.getAssignedEmployees(task._id)
+        TaskService.getAssignedEmployees(task._id, task.event_id)
         .then(( data ) => {
-            setEnrolledEmployee([ ...data]);
-            setNotEnrolledEmployee([ ...data]);
-            setPassEnrolledEmployee([ ...data]);
-            setPassNotEnrolledEmployee([ ...data])
+            console.log(data);
+            setEnrolledEmployee([ ...data.assignEmployees]);
+            setNotEnrolledEmployee([ ...data.unAssignedEmployees]);
+            setPassEnrolledEmployee([ ...data.assignEmployees]);
+            setPassNotEnrolledEmployee([ ...data.unAssignedEmployees])
     
             if (order === "save") {
                 setEnrolledEmployee(passEnrolledEmployee);
                 setNotEnrolledEmployee(passNotEnrolledEmployee);
             } else if (order === "discard changes") {
-                setEnrolledEmployee([ ...data]);
-                setNotEnrolledEmployee([ ...data]);
-                setPassEnrolledEmployee([ ...data]);
-                setPassNotEnrolledEmployee([ ...data]);
+                setEnrolledEmployee([ enrolledEmployee]);
+                setNotEnrolledEmployee([ notEnrolledEmployee]);
+                setPassEnrolledEmployee([ enrolledEmployee]);
+                setPassNotEnrolledEmployee([ notEnrolledEmployee]);
             }
         })
         .catch(err => console.log(err))

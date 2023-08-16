@@ -52,7 +52,7 @@ const getAllOpenEvent = async () => {
 }
 const getRegisteredEmployees = async (eventID) => {
     try {
-      const role = AuthService.getCurrentUser().role;
+        const role = AuthService.getCurrentUser().role;
         const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/remployees", {
             method: 'GET',
             headers: authHeader(),

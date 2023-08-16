@@ -48,16 +48,30 @@ const updateTask = async (eventId, updatedTaskDetails) => {
         throw error;
     }
 }
-const getAssignedEmployees = async (taskId) => {
+const getAssignedEmployees = async (taskId, eventId) => {
     try {
         const role = AuthService.getCurrentUser().role;
-        const response = await fetch(API_URL + `${role}` + "/task/" + taskId + "/employees", {
+        const response1 = await fetch(API_URL + `${role}` + "/task/" + taskId + "/employees", {
             method: 'GET',
             headers: authHeader(),
         });
-        if (response.ok){
-            const data = await response.json();
-            return data;
+
+        const response2 = await fetch(API_URL + `${role}` + "/event/" + eventId + "/remployees", {
+            method: 'GET',
+            headers: authHeader(),
+        });
+        if (response1.ok && response2.ok) {
+            const data1 = await response1.json();
+            const data2 = await response2.json();
+            
+            const employeeIdsFromResponse1 = data1.map(employee => employee._id);
+
+            // Filter the second response to get elements not present in data1
+            const unAssignedEmployees = data2.filter(employee => !employeeIdsFromResponse1.includes(employee._id));
+
+            console.log(data1);
+            console.log(unAssignedEmployees);
+            return {assignEmployees: data1 , unAssignedEmployees };
         }
     } catch (error) {
         console.log("Error: ", error);
