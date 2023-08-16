@@ -216,36 +216,6 @@ const taskEventDetail = async (req, res, next) => {
         next(err);
       }
   };
-// const taskEventDetail = async(req, res) => {
-//     try {
-//         const eventId = req.params.eventId;
-
-//         const tasks = Task.find({event_id : eventId}).cursor();
-        
-//         const tasksInfo = [];
-        
-//         for await (const task of tasks) {
-//             console.log(task)
-//             if (task.event_id === eventId) {
-//                 const task_assignment = TaskAssign.find({ task_id : task.task_id });
-//                 console.log(task_assignment)
-//                 const employee = Employee.find({employee_id : task_assignment.t_member_id});
-
-//                 tasksInfo.push({
-//                     'task_id': task.task_id,
-//                     'task_name': task.task_name,
-//                     'employee_name': employee.firstName,
-//                     'status': task.status
-//                 });
-//             }
-//         }
-
-//         res.json(tasksInfo);
-//     } catch (error) {
-//         console.error('Error:', error);
-//         res.status(500).json({ message: 'An error occurred: ' + error });
-//     }
-// }
 
 module.exports = {
     allEvents,
