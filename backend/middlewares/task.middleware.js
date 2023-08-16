@@ -1,4 +1,4 @@
-const { Task } = require('../models/Event');
+const { Task, TaskAssign } = require('../models/Event');
 
 const taskDetail = async (req, res) => {
     try {
@@ -29,7 +29,25 @@ const taskUpdate = async (req, res) => {
     }
 }
 
+const assignedEmployees = async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+
+        // Find all event registers for the given eventId and populate 't_member_id' field
+        const taskAssigns = await TaskAssign.find({ task_id: taskId }).populate('t_member_id');
+
+        // Get an array of registered employee IDs
+
+        const assignedEmployees = taskAssigns.map(TaskAssign => TaskAssign.t_member_id);
+
+        res.json(assignedEmployees);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     taskDetail,
-    taskUpdate
+    taskUpdate,
+    assignedEmployees
 }

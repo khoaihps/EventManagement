@@ -1,7 +1,7 @@
 import Employee from './Employee';
 import React from "react";
 
-const EmployeeBody = ({employeesData, isEditable, updateEmployeeData}) => {
+const EmployeeBody = ({employeesData, isEditable, updateEmployeeData, updateUnregisteredEmployeeData}) => {
     return (
 
         <tbody>
@@ -12,6 +12,7 @@ const EmployeeBody = ({employeesData, isEditable, updateEmployeeData}) => {
                     index={index}
                     isEditable={isEditable}
                     updateEmployeeData={updateEmployeeData}
+                    updateUnregisteredEmployeeData={updateUnregisteredEmployeeData}
                     employee={{ ...e}}
                 />
             ))

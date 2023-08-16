@@ -1,11 +1,13 @@
-import axios from "axios";
 import authHeader from "./auth-header";
+import AuthService from "./auth.service";
 
 const API_URL = 'http://localhost:4000/';
 
+
 const getEventInfo = async (eventID) => {
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID, {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID, {
             method: 'GET',
             headers: authHeader(),
         });
@@ -19,7 +21,8 @@ const getEventInfo = async (eventID) => {
 }
 const getAllEvent = async () => {
     try {
-        const response = await fetch(API_URL + "manager/event/all", {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/all", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -33,7 +36,8 @@ const getAllEvent = async () => {
 }
 const getAllOpenEvent = async () => {
     try {
-        const response = await fetch(API_URL + "team-member/event/all", {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/all", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -48,7 +52,8 @@ const getAllOpenEvent = async () => {
 }
 const getRegisteredEmployees = async (eventID) => {
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID + "/remployees", {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/remployees", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -62,7 +67,8 @@ const getRegisteredEmployees = async (eventID) => {
 }
 const getUnregisteredEmployees = async (eventID) => {
     try {
-        const response = await fetch(API_URL + "manager/event/" + eventID + "/uremployees", {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/uremployees", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -77,8 +83,8 @@ const getUnregisteredEmployees = async (eventID) => {
 
 const updateEvent = async (eventId, updatedEventDetails) => {
     try {
-        console.log(updatedEventDetails);
-        const response = await fetch(API_URL + "manager/event/"+ eventId + "/update", {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/"+ eventId + "/update", {
             method: 'PUT', 
             headers: {
                 ...authHeader(),
@@ -97,13 +103,57 @@ const updateEvent = async (eventId, updatedEventDetails) => {
     }
 }
 
+const addEventRegister = async (eventId, t_member_id) => {
+    try {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/"+ eventId + "/eventregister/add", {
+            method: 'POST', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify({t_member_id: t_member_id}) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
+
+const removeEventRegister = async (eventId, t_member_id) => {
+    try {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/event/"+ eventId + "/eventregister/remove", {
+            method: 'DELETE', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify({t_member_id: t_member_id}) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
+
 const EventService = {
     getEventInfo,
     getAllEvent,
     getAllOpenEvent,
     getRegisteredEmployees,
     getUnregisteredEmployees,
-    updateEvent
+    updateEvent,
+    addEventRegister,
+    removeEventRegister
 };
 
 export default EventService;

@@ -5,6 +5,7 @@ import React from "react";
 import { HomePageEmployee } from "./Components/HomePageEmployee";
 import { HomePageManager } from './Components/HomePageManager';
 import { EventDetail } from "./Components/event/EventDetail";
+import { EmployeeList } from "./Components/EmployeeList";
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<LoginForm />} />
                 <Route path="/manager/home" element={<HomePageManager />} />
+                <Route path="/manager/employees" element={<EmployeeList/>}/>
                 <Route path="/employee/home" element={<HomePageEmployee />} />
                 <Route path="/manager/home/:id" element={<EventDetail />} />
             </Routes>

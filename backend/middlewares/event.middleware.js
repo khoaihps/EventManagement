@@ -1,4 +1,4 @@
-const { Event, Task } = require('../models/Event');
+const { Event, Task, EventRegister } = require('../models/Event');
 
 const allEvents = async (req, res) => {
     try {
@@ -118,6 +118,13 @@ const createEvent = async (req, res) => {
         res.status(500).json({ message: 'An error occurred during event creation' + error});
       }
 }
+const eventRegisterAdding = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const t_member_id = req.body.t_member_id;
+        console.log(eventId);
+        console.log(t_member_id);
+        const existingEventRegister = await EventRegister.findOne({ event_id: eventId, t_member_id: t_member_id });
 
 const getManageEvent = async (req, res) => {
     try {
@@ -189,6 +196,40 @@ const eventCount = async (req, res) => {
 };
 
 
+        if (existingEventRegister) {
+            return res.status(200).json(existingEventRegister);
+        }
+
+        const newEventRegister = new EventRegister({
+            event_id: eventId,
+            t_member_id: t_member_id
+        });
+
+        await newEventRegister.save();
+
+        res.status(201).json(newEventRegister);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to add event register.' });
+    }
+}
+const eventRegisterRemoving = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const t_member_id = req.body.t_member_id;
+
+        const existingEventRegister = await EventRegister.findOneAndDelete({ event_id: eventId, t_member_id: t_member_id });
+
+        if (existingEventRegister) {
+            res.status(200).json(existingEventRegister);
+        } else {
+            res.status(201).json({ message: 'Event register not found.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to remove event register.' });
+    }
+}
 module.exports = {
     allEvents,
     eventDetail,
@@ -200,5 +241,7 @@ module.exports = {
     getManageEvent,
     getHistoryEvent,
     deleteEvent,
-    eventCount
+    eventCount,
+    eventRegisterAdding,
+    eventRegisterRemoving
 }

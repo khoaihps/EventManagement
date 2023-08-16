@@ -44,16 +44,22 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                 for (const task of passTasks) {
                     await TaskService.updateTask(task._id, task);
                 }
+                for (const eventRegister of passEmployees) {
+                    await EventService.addEventRegister(passEvent._id, eventRegister._id);
+                }
+                for (const eventRegister of passUnregisteredEmployees) {
+                    await EventService.removeEventRegister(passEvent._id, eventRegister._id);
+                }
                 setEvent(passEvent);
                 setTasks(passTasks);
                 setEmployees(passEmployees);
                 setUnregisteredEmployees(passUnregisteredEmployees);
                 setOrder("save");
 
-                console.log(passEvent);
-                console.log(passTasks);
-                console.log(passEmployees);
-                console.log(passUnregisteredEmployees);
+                // console.log(passEvent);
+                // console.log(passTasks);
+                // console.log(passEmployees);
+                // console.log(passUnregisteredEmployees);
             } catch (error) {
                 console.log("Error updating event:", error);
             }
