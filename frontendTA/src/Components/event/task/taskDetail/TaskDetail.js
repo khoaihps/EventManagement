@@ -70,7 +70,7 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
     return (
         <div className="taskDetaill fixed inset-0 z-10">
             <div role="alert" className="rounded-xl border border-gray-100 bg-white p-4 shadow-xl absolute">
-                <div className={`w-[1300px] taskDetailInnerr flex items-start gap-4`}>
+                <div className={`${add ? "w-[500px]" : "w-[1300px]"} taskDetailInnerr flex items-start gap-4`}>
                     <button className="text-gray-500 transition hover:text-gray-600 absolute top-[0px] right-[-0px]" onClick={handleClick}>
                         <span className="sr-only">Dismiss popup</span>
                         <svg
@@ -117,24 +117,26 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
                             </div>
                         )}
                     </div>
-                    <div className="child22">
-                        <h3>Enrolled</h3>
-                        <TaskEmployees
-                            isEditable={isEditable}
-                            enrolled={true}
-                            employees={passEnrolledEmployee}
-                            handleChangeEnrolled={handleChangeEnrolled}
-                            handleChangeNotEnrolled={handleChangeNotEnrolled}
-                        />
-                        <h3>Not Enrolled</h3>
-                        <TaskEmployees
-                            isEditable={isEditable}
-                            enrolled={false}
-                            employees={passNotEnrolledEmployee}
-                            handleChangeEnrolled={handleChangeEnrolled}
-                            handleChangeNotEnrolled={handleChangeNotEnrolled}
-                        />
-                    </div>
+                    {!add &&
+                        <div className="child22">
+                            <h3>Enrolled</h3>
+                            <TaskEmployees
+                                isEditable={isEditable}
+                                enrolled={true}
+                                employees={passEnrolledEmployee}
+                                handleChangeEnrolled={handleChangeEnrolled}
+                                handleChangeNotEnrolled={handleChangeNotEnrolled}
+                            />
+                            <h3>Not Enrolled</h3>
+                            <TaskEmployees
+                                isEditable={isEditable}
+                                enrolled={false}
+                                employees={passNotEnrolledEmployee}
+                                handleChangeEnrolled={handleChangeEnrolled}
+                                handleChangeNotEnrolled={handleChangeNotEnrolled}
+                            />
+                        </div>
+                    }
                 </div>
             </div>
         </div>
