@@ -5,6 +5,14 @@ import EmployeeDetail from "../event/employee/employeeDetail/EmployeeDetail";
 const EmployeeElement = ({ employee }) => {
     const [visible, setVisible] = useState(false);
 
+    const dobDate = new Date(employee.DOB);
+
+    // Format the DOB without the hour using toLocaleDateString()
+    const formattedDOB = dobDate.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
     const handleClick = () => {
         setVisible(true);
     }
@@ -20,13 +28,13 @@ const EmployeeElement = ({ employee }) => {
                 {employee.firstName + " " + employee.lastName}
             </td>
             <td className="px-6 py-4">
+                {employee.phone}
+            </td>
+            <td className="px-0 py-4">
                 {employee.email}
             </td>
             <td className="px-6 py-4">
-                {employee.phone}
-            </td>
-            <td className="px-6 py-4">
-
+                {formattedDOB}
             </td>
             <td className="px-6 py-4">
                 {employee.department}
