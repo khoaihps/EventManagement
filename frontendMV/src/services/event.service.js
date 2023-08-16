@@ -24,7 +24,7 @@ export async function createEvent(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...authHeader()
+        ...authHeader(),
       },
       body: JSON.stringify({
         name,
@@ -110,13 +110,15 @@ export const getEventDetail = async (eventID) => {
   }
 };
 
-
 export const deleteEvent = async (eventID) => {
   try {
-    const response = await fetch(API_URL + "/customer/event/delete/" + eventID, {
-      method: "GET",
-      headers: authHeader(),
-    });
+    const response = await fetch(
+      API_URL + "/customer/event/delete/" + eventID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
     if (response.ok) {
       console.log("Event deleted successfully.");
     } else {
@@ -145,20 +147,17 @@ export const eventCount = async () => {
   } catch (error) {
     console.log("Error: ", error);
   }
-}
+};
 
 export const getAllTaskEvent = async (eventID) => {
   try {
-    const response = await fetch(
-      API_URL + "/customer/event/tasks/" + eventID,
-      {
-        method: "GET",
-        headers: authHeader(),
-      }
-    );
+    const response = await fetch(API_URL + "/customer/event/tasks/" + eventID, {
+      method: "GET",
+      headers: authHeader(),
+    });
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return data.tasks;
     }
   } catch (error) {
     console.log("Error: ", error);
@@ -170,9 +169,9 @@ const EventService = {
   getManageEvent,
   getHistoryEvent,
   getEventDetail,
-  deleteEvent, 
+  deleteEvent,
   eventCount,
-  getAllTaskEvent
+  getAllTaskEvent,
 };
 
 export default EventService;
