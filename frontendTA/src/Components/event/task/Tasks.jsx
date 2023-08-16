@@ -57,7 +57,8 @@ const Tasks = ({tasks, change, isEditable, order}) => {
         budget: 0,
         description: "",
         department_involved: "",
-        event_id: ""
+        event_id: "",
+        status: "uncompleted"
     });
     const index = tasks.length;
     const [enrolledEmployee, setEnrolledEmployee] = useState([]);

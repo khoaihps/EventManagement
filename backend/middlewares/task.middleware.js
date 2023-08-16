@@ -16,6 +16,28 @@ const taskDetail = async (req, res) => {
     }
 }
 
+const taskCreating = async (req, res) => {
+    try {
+        const taskDetails = req.body;
+        const newTask = new Task({
+            name: taskDetails.name,
+            deadline: taskDetails.deadline,
+            budget: taskDetails.budget,
+            description: taskDetails.description,
+            department_involved: taskDetails.department_involved,
+            event_id: taskDetails.event_id,
+            status: taskDetails.status
+        });
+
+        // Save the new task to the database
+        const savedTask = await newTask.save();
+
+        return savedTask; // Return the newly created task
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error });
+    }
+}
 const taskUpdate = async (req, res) => {
     try {
         const taskId = req.params.taskId;
@@ -25,7 +47,7 @@ const taskUpdate = async (req, res) => {
         res.status(200).send(updatedTask);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error updating event details' });
+        res.status(500).json({ message: 'Error updating task details.' });
     }
 }
 
@@ -89,6 +111,7 @@ const taskAssignRemoving = async (req, res) => {
 }
 module.exports = {
     taskDetail,
+    taskCreating,
     taskUpdate,
     assignedEmployees,
     taskAssignAdding,

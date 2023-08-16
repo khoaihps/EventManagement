@@ -27,11 +27,31 @@ const getTaskInfo = async (taskId) => {
         { 
             headers: authHeader()
         });
-}
-const updateTask = async (eventId, updatedTaskDetails) => {
+};
+const addTask = async (taskDetails) => {
     try {
         const role = AuthService.getCurrentUser().role;
-        const response = await fetch(API_URL + `${role}` + "/task/"+ eventId + "/update", {
+        const response = await fetch(API_URL + `${role}` + "/task/create", {
+            method: 'POST', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify(taskDetails) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+};
+const updateTask = async (taskId, updatedTaskDetails) => {
+    try {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/task/"+ taskId + "/update", {
             method: 'PUT', 
             headers: {
                 ...authHeader(),
@@ -118,6 +138,7 @@ const removeTaskAssign = async (taskId, t_member_id) => {
 const TaskService = {
     getAllTaskEvent,
     getTaskInfo,
+    addTask,
     updateTask,
     getAssignedEmployees,
     addTaskAssign,

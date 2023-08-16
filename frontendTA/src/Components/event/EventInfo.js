@@ -42,7 +42,12 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                 // Call the updateEvent API function
                 await EventService.updateEvent(passEvent._id, passEvent);
                 for (const task of passTasks) {
-                    await TaskService.updateTask(task._id, task);
+                    if (task._id) TaskService.updateTask(task._id, task);
+                    else {
+                        task.event_id = passEvent._id;
+                        console.log(task);
+                        await TaskService.addTask(task);
+                    }
                 }
                 for (const eventRegister of passEmployees) {
                     await EventService.addEventRegister(passEvent._id, eventRegister._id);
