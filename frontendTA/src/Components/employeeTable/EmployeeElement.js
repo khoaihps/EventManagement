@@ -1,6 +1,6 @@
 import "../style/item.css";
 import React, {useState} from "react";
-import EmployeeDetail from "../event/employee/employeeDetail/EmployeeDetail";
+import EmployeeDetail from "./EmployeeDetail";
 
 const EmployeeElement = ({ employee }) => {
     const [visible, setVisible] = useState(false);
@@ -14,7 +14,7 @@ const EmployeeElement = ({ employee }) => {
         day: 'numeric',
     });
     const handleClick = () => {
-        setVisible(true);
+        setVisible(!visible);
     }
 
     return (
@@ -41,7 +41,7 @@ const EmployeeElement = ({ employee }) => {
             </td>
             {
                 visible &&
-                <EmployeeDetail employee={employee} handleDismiss={setVisible}/>
+                <EmployeeDetail employee={employee} handleDismiss={() => setVisible(false)}/>
             }
         </tr>
     );
