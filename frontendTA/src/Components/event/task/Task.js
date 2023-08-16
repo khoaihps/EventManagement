@@ -3,17 +3,6 @@ import TaskDetail from "./taskDetail/TaskDetail";
 import employees from "../../database/employeesData";
 import TaskService from "../../../services/task.service";
 
-// export const loader = async () => {
-//     try {
-//         const assignedEmployees = await TaskService.getAssignedEmployees(); 
-    
-//         return {assignedEmployees};
-//     } catch (error) {
-//         console.log("Error fetching employees:", error);
-//         throw error;
-//     }
-// };
-
 const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) => {
     const [isTaskInfoVisible, setTaskInfoVisible] = useState(false);
     const handleDisplayTaskInfo = () => {
@@ -40,8 +29,11 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     };
 
     const submit = async () => {
-        for (const assignedEmployees of passEnrolledEmployee) {
-            await TaskService.addTaskAssign(task._id, assignedEmployees._id);
+        for (const assignedEmployee of passEnrolledEmployee) {
+            await TaskService.addTaskAssign(task._id, assignedEmployee._id);
+        }
+        for (const unassignedEmployee of passNotEnrolledEmployee) {
+            await TaskService.removeTaskAssign(task._id, unassignedEmployee._id);
         }
         setEnrolledEmployee(passEnrolledEmployee);
         setNotEnrolledEmployee(passNotEnrolledEmployee);
