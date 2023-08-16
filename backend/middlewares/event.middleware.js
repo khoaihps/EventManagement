@@ -125,6 +125,23 @@ const eventRegisterAdding = async (req, res) => {
         console.log(eventId);
         console.log(t_member_id);
         const existingEventRegister = await EventRegister.findOne({ event_id: eventId, t_member_id: t_member_id });
+        if (existingEventRegister) {
+            return res.status(200).json(existingEventRegister);
+        }
+
+        const newEventRegister = new EventRegister({
+            event_id: eventId,
+            t_member_id: t_member_id
+        });
+
+        await newEventRegister.save();
+
+        res.status(201).json(newEventRegister);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to add event register.' });
+    }
+}
 
 const getManageEvent = async (req, res) => {
     try {
@@ -196,23 +213,6 @@ const eventCount = async (req, res) => {
 };
 
 
-        if (existingEventRegister) {
-            return res.status(200).json(existingEventRegister);
-        }
-
-        const newEventRegister = new EventRegister({
-            event_id: eventId,
-            t_member_id: t_member_id
-        });
-
-        await newEventRegister.save();
-
-        res.status(201).json(newEventRegister);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Failed to add event register.' });
-    }
-}
 const eventRegisterRemoving = async (req, res) => {
     try {
         const eventId = req.params.eventId;
