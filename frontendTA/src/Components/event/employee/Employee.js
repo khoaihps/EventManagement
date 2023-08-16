@@ -1,25 +1,48 @@
-import React from "react";
-const Employee = ({task, isEditable}) => {
+import React, {useState} from "react";
+import EmployeeDetail from "./employeeDetail/EmployeeDetail";
+import "../../style/td.css"
+const Employee = ({employee, index, updateEmployeeData, isEditable, updateUnregisteredEmployeeData}) => {
+    const [employeeInfoVisible, setEmployeeInfoVisible] = useState(false);
+    const handleDisplayEmployeeInfo = () => {
+        if (!isEditable)
+        {
+            setEmployeeInfoVisible(true);
+        }
+        else
+        {
+            updateEmployeeData("remove", index, null);
+            updateUnregisteredEmployeeData("add", index, employee);
+        }
+    };
+
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {task.username}
+                {employee.firstName + " " + employee.lastName}
             </th>
+            {/*<td className="px-6 py-4">*/}
+            {/*    {employee.email}*/}
+            {/*</td>*/}
             <td className="px-6 py-4">
-                {task.email}
+                {employee.phone}
             </td>
             <td className="px-6 py-4">
-                {task.phone}
-            </td>
-            <td className="px-6 py-4">
-                {task.department}
+                {employee.department}
             </td>
             <td className="px-6 py-4 text-right">
-                <a href="#" className="
+                <a href="#" onClick={handleDisplayEmployeeInfo}
+                   className="
                 inline-block w-20 h-6 text-center leading-12 font-medium text-blue-600 dark:text-blue-500 hover:underline">
                     {isEditable ? "Remove" : "Show"}
                 </a>
             </td>
+            {
+                employeeInfoVisible &&
+                <EmployeeDetail
+                    employee={employee}
+                    handleDismiss={setEmployeeInfoVisible}
+                />
+            }
         </tr>
     );
 }

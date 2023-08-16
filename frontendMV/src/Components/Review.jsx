@@ -1,7 +1,5 @@
 import "../App.css";
-import MDA from "../assets/img/MaiDucAn.jpeg";
 import TA from "../assets/img/TranAnh.jpeg";
-import DAK from "../assets/img/DoanAnhKhoa.jpeg";
 
 const Review = () => {
   return (
@@ -17,7 +15,7 @@ const Review = () => {
           </a>
         </div>
         <div className="w-full mb-10">
-          <div className="h-3 text-3xl leading-tight text-left text-indigo-500">
+          <div className="h-3 text-3xl leading-tight text-left text-yellow-500">
             “
           </div>
           <p className="px-5 text-sm text-center text-gray-600 dark:text-gray-100">
@@ -26,12 +24,12 @@ const Review = () => {
             detail, creativity, and seamless execution make them the go-to
             choice for any event, big or small.
           </p>
-          <div className="h-3 -mt-3 text-3xl leading-tight text-right text-indigo-500">
+          <div className="h-3 -mt-3 text-3xl leading-tight text-right text-yellow-500">
             ”
           </div>
         </div>
         <div className="w-full">
-          <p className="font-bold text-center text-indigo-500 text-md">
+          <p className="font-bold text-center text-yellow-500 text-md">
             Anh Chan
           </p>
           <p className="text-xs text-center text-gray-500 dark:text-gray-300">

@@ -1,0 +1,45 @@
+tr {
+    height: 53px !important;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+tr td, tr th {
+    width: 155px;
+    text-align: left;
+    margin-right: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+tbody tr th::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 135%;
+    height: 100%;
+    background-color: white;
+    opacity: 0; /* Initially transparent */
+    z-index: -1; /* Behind the text */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+tbody tr th:hover::before {
+    opacity: 1;
+}
+
+tbody tr th:hover {
+    overflow: visible; /* Show hidden content on hover */
+    z-index: 2;
+    background-color: white;
+}
+
+thead {
+    background-color: lightgray !important;
+}
+
+thead th {
+    background-color: lightgray;
+}

@@ -1,5 +1,5 @@
 import '../style/item.css';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React from "react";
 import Badge from './Badge';
 

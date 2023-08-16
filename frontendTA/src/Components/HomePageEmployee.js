@@ -1,14 +1,14 @@
 import React from 'react';
-import Sidebar from "./Sidebar";
+import Sidebar from "../Components/environment/Sidebar";
 import Table from "./table/Table";
-import Header from "./Header";
+import Header from "../Components/environment/Header";
 import { redirect, useLoaderData } from 'react-router-dom';
 import EventService from '../services/event.service';
 import AuthService from '../services/auth.service';
 
 export const loader = async () => {
     const user = AuthService.getCurrentUser();
-    if (!user || user.role != 'team-member') {
+    if (!user || user.role != 'employee') {
         return redirect('/unauthorized');
     }
     try {

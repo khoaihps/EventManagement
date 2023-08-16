@@ -1,0 +1,21 @@
+.lololo tr {
+    height: 53px !important;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.lololo tr td, .lololo tr th {
+    width: 195px !important;
+    text-align: left;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+.lololo thead {
+    background-color: lightgray !important;
+}
+
+.lololo thead th {
+    background-color: lightgray;
+}

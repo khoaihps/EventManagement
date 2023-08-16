@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
-import './index.css';
+import './Components/style/index.css';
 import { LoginForm, loader as checkLoginStatus } from './Components/LoginForm';
 import { HomePageManager } from './Components/HomePageManager';
 import {
@@ -19,6 +19,10 @@ import {
 import Unauthorized from './Components/Unauthorized';
 import Logout from './Components/Logout';
 import NotFound from './Components/NotFound';
+import { 
+  EmployeeList,
+  loader as allEmployeesLoader 
+} from "./Components/EmployeeList";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +42,11 @@ const router = createBrowserRouter([
     path: "/manager/home",
     loader: allEventLoader,
     element: <HomePageManager />
+  },
+  {
+    path: "/manager/employees",
+    loader: allEmployeesLoader,
+    element: <EmployeeList/>
   },
   {
     path: "/manager/event",
