@@ -147,13 +147,32 @@ export const eventCount = async () => {
   }
 }
 
+export const getAllTaskEvent = async (eventID) => {
+  try {
+    const response = await fetch(
+      API_URL + "/customer/event/tasks/" + eventID,
+      {
+        method: "GET",
+        headers: authHeader(),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
 const EventService = {
   createEvent,
   getManageEvent,
   getHistoryEvent,
   getEventDetail,
   deleteEvent, 
-  eventCount
+  eventCount,
+  getAllTaskEvent
 };
 
 export default EventService;
