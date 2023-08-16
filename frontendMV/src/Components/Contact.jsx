@@ -32,9 +32,11 @@ const Contact = () => {
               </div>
               <h2 className="mb-6 text-3xl font-bold md:text-4xl">Email</h2>
               <h3 className="mb-6 text-lg font-medium">
-                Lorem ipsum dor amet set ispicus dor san amet
+                We will contact you mainly through email
               </h3>
-              <p className="text-xl text-gray-500 sm:text-2xl">abc@gmail.com</p>
+              <p className="text-xl text-gray-500 sm:text-2xl">
+                contact@eventist.com
+              </p>
             </div>
           </div>
           <div className="w-full px-4 mb-20 lg:w-1/3 lg:mb-0">
@@ -53,11 +55,9 @@ const Contact = () => {
               </div>
               <h2 className="mb-6 text-3xl font-bold md:text-4xl">Phone</h2>
               <h3 className="mb-6 text-lg font-medium">
-                Lorem ipsum dor amet set ispicus dor san amet
+                Phone number is needed for instant contact
               </h3>
-              <p className="text-xl text-gray-500 sm:text-2xl">
-                +977-014451967
-              </p>
+              <p className="text-xl text-gray-500 sm:text-2xl">+84-889131103</p>
             </div>
           </div>
           <div className="w-full px-4 mb-10 lg:w-1/3 lg:mb-0">
@@ -77,10 +77,10 @@ const Contact = () => {
               </div>
               <h2 className="mb-6 text-3xl font-bold md:text-4xl">Office</h2>
               <h3 className="mb-6 text-lg font-medium">
-                Lorem ipsum dor amet set ispicus dor san amet
+                You are also welcomed at our office for direct work
               </h3>
               <p className="text-xl text-gray-500 sm:text-2xl">
-                Sukedhara, Kathmandu
+                Hanoi, Vietnam
               </p>
             </div>
           </div>
@@ -161,7 +161,7 @@ const Contact = () => {
               />
             </div>
             <div className="px-6">
-              <button className="px-4 py-2 font-medium text-gray-100 bg-yellow-500 rounded shadow hover:bg-yellow-600 ">
+              <button className="px-4 py-2 font-medium text-gray-100 bg-yellow-500 rounded shadow hover:bg-black hover:text-yellow-500 ">
                 Send Message
               </button>
             </div>

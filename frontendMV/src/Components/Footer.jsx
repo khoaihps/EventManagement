@@ -2,7 +2,7 @@ import "../App.css";
 
 const Footer = () => {
   return (
-    <footer className="static bottom-0 bg-white dark:bg-gray-800 pt-4 pb-8 xl:pt-8">
+    <footer className="bg-white dark:bg-gray-800 pt-4 pb-8 xl:pt-8">
       <div className="max-w-screen-lg px-4 mx-auto text-gray-400 xl:max-w-screen-xl sm:px-6 md:px-8 dark:text-gray-300">
         <ul className="flex flex-wrap justify-center pb-8 text-lg font-light">
           <li className="w-1/2 md:w-1/3 lg:w-1/3">
@@ -12,16 +12,16 @@ const Footer = () => {
               </h2>
               <ul>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <div>Elements</div>
+                  <a href="/">Home</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <div>Forms</div>
+                  <a href="/customer/about">About</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <div>Commerces</div>
+                  <a href="/customer/event">Your events</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <div>Navigation</div>
+                  <a href="/customer/contact">Contact</a>
                 </li>
               </ul>
             </div>
@@ -33,16 +33,18 @@ const Footer = () => {
               </h2>
               <ul>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Github</a>
+                  <a href="https://github.com/khoaihps/EventManagement">
+                    Github
+                  </a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Facebook</a>
+                  <a href="https://www.facebook.com/mindvuvbnim/">Facebook</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Twitter</a>
+                  <a href="https://www.instagram.com/mindvu/">Instagram</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">LinkedIn</a>
+                  <a href="https://www.youtube.com/@eventist1249">Youtube</a>
                 </li>
               </ul>
             </div>
@@ -54,16 +56,16 @@ const Footer = () => {
               </h2>
               <ul>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Settings</a>
+                  <a href="#">Create account</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Themes</a>
+                  <a href="#">Log in</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">Plugins</a>
+                  <a href="#">My Profile</a>
                 </li>
                 <li className="mb-4 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white">
-                  <a href="#">LinkedIn</a>
+                  <a href="#">More information</a>
                 </li>
               </ul>
             </div>

@@ -1,12 +1,34 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TaskDetail from "./taskDetail/TaskDetail";
+import employees from "../../database/employeesData";
 
-const Task = ({ index, updateTaskData, task, setStateValue, isEditable }) => {
+const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) => {
     const [isTaskInfoVisible, setTaskInfoVisible] = useState(false);
     const handleDisplayTaskInfo = () => {
         setTaskInfoVisible(true);
     };
 
+    const [enrolledEmployee, setEnrolledEmployee] = useState([]);
+    const [notEnrolledEmployee, setNotEnrolledEmployee] = useState([]);
+    const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
+    const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
+
+    useEffect(() => {
+        setEnrolledEmployee([ ...employees]);
+        setNotEnrolledEmployee([ ...employees]);
+        setPassEnrolledEmployee([ ...employees]);
+        setPassNotEnrolledEmployee([ ...employees])
+
+        if (order === "save") {
+            setEnrolledEmployee(passEnrolledEmployee);
+            setNotEnrolledEmployee(passNotEnrolledEmployee);
+        } else if (order === "discard changes") {
+            setEnrolledEmployee([ ...employees]);
+            setNotEnrolledEmployee([ ...employees]);
+            setPassEnrolledEmployee([ ...employees]);
+            setPassNotEnrolledEmployee([ ...employees]);
+        }
+    }, [order]);
 
 
     return (
@@ -19,7 +41,7 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable }) => {
                     {task.name}
                 </th>
                 <td className="px-6 py-4">{task.deadline}</td>
-                <td className="px-6 py-4">{task.budget}</td>
+                {/*<td className="px-6 py-4">{task.budget}</td>*/}
                 <td className="px-6 py-4">{task.department_involved}</td>
                 <td className="px-6 py-4 text-right">
                     <div
@@ -30,7 +52,21 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable }) => {
                         {isEditable ? "Edit" : "Show"}
                     </div>
                 </td>
-                {isTaskInfoVisible && <TaskDetail index={index} updateTaskData={updateTaskData} isEditable={isEditable} task={task} setTask={setStateValue} handleDismiss={setTaskInfoVisible}/>}
+                {isTaskInfoVisible &&
+                    <TaskDetail
+                        add={false}
+                        index={index}
+                        updateTaskData={updateTaskData}
+                        isEditable={isEditable}
+                        task={task}
+                        setTask={setStateValue}
+                        handleDismiss={setTaskInfoVisible}
+                        enrolledEmployee={passEnrolledEmployee}
+                        notEnrolledEmployee={passNotEnrolledEmployee}
+                        setEnrolled={setPassEnrolledEmployee}
+                        setNotEnrolled={setPassNotEnrolledEmployee}
+                    />
+                }
             </tr>
         </>
     );

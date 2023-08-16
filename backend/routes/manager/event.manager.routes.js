@@ -1,7 +1,7 @@
 const express = require("express");
 const { authenticateManager } = require('../../middlewares/auth.middleware');
 const { allEvents, eventDetail, allTaskOfEvent, eventUpdate } = require('../../middlewares/event.middleware');
-const {getRegisteredAndUnregisteredEmployees, getRegisteredEmployees } = require('../../middlewares/employees.middleware');
+const {getRegisteredAndUnregisteredEmployees, getRegisteredEmployees, getUnregisteredEmployees } = require('../../middlewares/employees.middleware');
 const router = express.Router();
 
 router.use(authenticateManager);
@@ -12,5 +12,6 @@ router.get('/:eventId/task', allTaskOfEvent);
 router.put('/:eventId/update', eventUpdate);
 router.get('/:eventId/employees', getRegisteredAndUnregisteredEmployees)
 router.get('/:eventId/remployees', getRegisteredEmployees)
+router.get('/:eventId/uremployees', getUnregisteredEmployees)
 
 module.exports = router;

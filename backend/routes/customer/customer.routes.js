@@ -1,14 +1,19 @@
-const express = require('express');
-const { authenticateCustomer } = require('../../middlewares/auth.middleware');
-const { getCustomerInfo, updateCustomerInfo, deleteCustomerAccount } = require('../../middlewares/user.middleware');
-
+const express = require("express");
+const { authenticateCustomer } = require("../../middlewares/auth.middleware");
+const {
+  getCustomerInfo,
+  updateCustomerInfo,
+  deleteCustomerAccount,
+  changePassword,
+} = require("../../middlewares/customer.middleware");
 
 const router = express.Router();
 
-// router.use(authenticateCustomer);
+router.use(authenticateCustomer);
 
-router.get('/:customerID', getCustomerInfo);
-router.get('/update/:customerID', updateCustomerInfo);
-router.get('/delete/:customerID', deleteCustomerAccount);
+router.get("/:customerID", getCustomerInfo);
+router.put("/update/:customerID", updateCustomerInfo);
+router.get("/delete/:customerID", deleteCustomerAccount);
+router.put("/change-password/:customerID", changePassword);
 
 module.exports = router;

@@ -4,6 +4,7 @@ import AuthService, { login } from '../services/auth.service';
 import Design from './img/download.svg';
 import Design2 from './img/download1.svg';
 import Alert from './environment/Alert'
+import './style/App.css'
 
 export const loader = async () => {
     const user = AuthService.getCurrentUser();

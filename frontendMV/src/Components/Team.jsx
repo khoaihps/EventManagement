@@ -17,13 +17,13 @@ const Team = () => {
       <div className="flex flex-col items-center md:flex-row justify-evenly">
         <div className="p-4">
           <div className="mb-4 text-center opacity-90">
-            <a href="#" className="relative block">
+            <div className="relative block">
               <img
                 alt="profil"
                 src={DAK}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
-            </a>
+            </div>
           </div>
           <div className="text-center">
             <p className="text-2xl text-gray-800 dark:text-black">Khoa Doan</p>
@@ -34,13 +34,13 @@ const Team = () => {
         </div>
         <div className="p-4">
           <div className="mb-4 text-center opacity-90">
-            <a href="#" className="relative block">
+            <div className="relative block">
               <img
                 alt="profil"
                 src={MDA}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
-            </a>
+            </div>
           </div>
           <div className="text-center">
             <p className="text-2xl text-gray-800 dark:text-black">An Mai</p>
@@ -51,13 +51,13 @@ const Team = () => {
         </div>
         <div className="p-4">
           <div className="mb-4 text-center opacity-90">
-            <a href="#" className="relative block">
+            <div className="relative block">
               <img
                 alt="profil"
                 src={DHH}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
-            </a>
+            </div>
           </div>
           <div className="text-center">
             <p className="text-2xl text-gray-800 dark:text-black">Hai Do</p>
@@ -68,13 +68,13 @@ const Team = () => {
         </div>
         <div className="p-4">
           <div className="mb-4 text-center opacity-90">
-            <a href="#" className="relative block">
+            <div className="relative block">
               <img
                 alt="profil"
                 src={VDM}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
-            </a>
+            </div>
           </div>
           <div className="text-center">
             <p className="text-2xl text-gray-800 dark:text-black">Minh Vu</p>
@@ -85,13 +85,13 @@ const Team = () => {
         </div>
         <div className="p-4">
           <div className="mb-4 text-center opacity-90">
-            <a href="#" className="relative block">
+            <div className="relative block">
               <img
                 alt="profil"
                 src={TA}
                 className="mx-auto object-cover rounded-full h-40 w-40 "
               />
-            </a>
+            </div>
           </div>
           <div className="text-center">
             <p className="text-2xl text-gray-800 dark:text-black">Anh Tran</p>

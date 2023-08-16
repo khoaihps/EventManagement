@@ -23,7 +23,7 @@ router.post('/manager', async (req, res) => {
                     process.env.JWT_SECRET,
                     { expiresIn: '24h' }
                 );
-                res.json({ name: manager.lastName, role: 'manager', loginStatus: 'success', token });
+                res.json({ name: manager.lastName, role: 'manager', loginStatus: 'success', token,  id: manager._id });
             } else {
                 res.status(401).json({ loginStatus: 'failure', message: 'Invalid password.' });
             }
@@ -51,7 +51,7 @@ router.post('/employee', async (req, res) => {
                     process.env.JWT_SECRET,
                     { expiresIn: '24h' }
                 );
-                res.json({ name: employee.lastName, role: 'employee', loginStatus: 'success', token });
+                res.json({ name: employee.lastName, role: 'employee', loginStatus: 'success', token,  id: employee._id });
             } else {
                 res.status(401).json({ loginStatus: 'failure', message: 'Invalid password.' });
             }

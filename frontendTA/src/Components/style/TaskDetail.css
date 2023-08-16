@@ -1,4 +1,4 @@
-.taskDetail {
+.taskDetaill {
     position: fixed;
     top: -100px;
     /*right: 100px;*/
@@ -9,12 +9,16 @@
     z-index: 10;
 }
 
-.taskDetailInner {
+.taskDetailInnerr {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.child {
-    width: 49.5%;
+.child11 {
+    width: 40%;
+}
+
+.child22 {
+    width: 60%;
 }

@@ -5,6 +5,7 @@ import { getManageEvent } from "../services/event.service";
 import { formatDate } from "../services/util";
 import PopUp from "./PopUp";
 import { useNavigate } from "react-router-dom";
+import { eventCount } from "../services/event.service";
 
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(2);
@@ -35,8 +36,10 @@ const EventTabs = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [buttonView, setButtonView] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
-
-  const navigate = useNavigate();
+  const [pending, setPending] = useState("");
+  const [open, setOpen] = useState("");
+  const [closed, setClosed] = useState("");
+  const [rejected, setRejected] = useState("");
 
   const handleEventNameChange = (event) => {
     setNameError("");
@@ -85,33 +88,11 @@ const EventTabs = () => {
   const handleSubmitEvent = async (event) => {
     event.preventDefault();
     try {
-      const { success, error } = await EventService.createEvent(
-        name,
-        deadline,
-        place,
-        type_of_event,
-        description,
-        size,
-        budget
-      );
-
-      if (success) {
-        console.log("Event proposed successfully:");
-        window.location.reload(); // Refresh the page
-      } else {
-        console.log("Event create failed:", error);
-      }
-    } catch (error) {
-      console.error("An error occurred during event creation:", error);
-    }
-    if (deadline === "") {
-    } else {
       const currentDateTime = new Date();
       const sevenDaysAfterCurrentTime = new Date();
       sevenDaysAfterCurrentTime.setDate(
         sevenDaysAfterCurrentTime.getDate() + 7
       );
-
       if (
         new Date(deadline) <= currentDateTime ||
         new Date(deadline) <= sevenDaysAfterCurrentTime
@@ -119,9 +100,28 @@ const EventTabs = () => {
         setDeadlineError(
           "The event must be booked at least 7 days before it starts"
         );
+      } else {
+        const { success, error } = await EventService.createEvent(
+          name,
+          deadline,
+          place,
+          type_of_event,
+          description,
+          size,
+          budget
+        );
+        if (success) {
+          console.log("Event proposed successfully:");
+          window.location.reload(); // Refresh the page
+        } else {
+          console.log("Event create failed:", error);
+        }
       }
+    } catch (error) {
+      console.error("An error occurred during event creation:", error);
     }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getManageEvent();
@@ -133,6 +133,7 @@ const EventTabs = () => {
 
     fetchData();
   }, []);
+
   useEffect(() => {
     const fetchHistory = async () => {
       const data = await getHistoryEvent();
@@ -141,9 +142,23 @@ const EventTabs = () => {
         setHistoryData(data);
       }
     };
-
     fetchHistory();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await eventCount();
+      console.log("Data from API:", data);
+      if (data) {
+        setPending(data.pending);
+        setOpen(data.open);
+        setClosed(data.closed);
+        setRejected(data.rejected);
+      }
+    };
+    fetchData();
+  }, []);
+
   const openPopup = (event) => {
     setSelectedEvent(event);
     setButtonView(true);
@@ -455,7 +470,7 @@ const EventTabs = () => {
                   <div className="flex flex-col mb-2 max-w-xl m-auto mt-3">
                     <button
                       type="submit"
-                      className="py-2 px-4  bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-700 focus:ring-offset-yellow-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                      className="py-2 px-4  bg-yellow-500 hover:bg-black hover:text-yellow-500 focus:ring-yellow-700 focus:ring-offset-yellow-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                     >
                       Send
                     </button>
@@ -551,7 +566,7 @@ const EventTabs = () => {
                                 <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                   <button
                                     href="#"
-                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-black hover:text-yellow-500"
                                     onClick={() => openPopup(event)}
                                   >
                                     View
@@ -761,6 +776,32 @@ const EventTabs = () => {
                     </div>
                   </PopUp>
                 )}
+                <section className="">
+                  <div className="max-w-screen-xl px-4 py-12 sm:px-4 md:py-8 lg:px-4">
+                    <div className="mt-0 mb-8">
+                      <dl className="grid grid-cols-1 gap-4 grid-cols-2">
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Pending
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-yellow-500 md:text-5xl">
+                            {pending}
+                          </dd>
+                        </div>
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Open
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-green-500 md:text-5xl">
+                            {open}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
             <div className={openTab === 3 ? "block" : "hidden"} id="history">
@@ -852,7 +893,7 @@ const EventTabs = () => {
                                 <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                   <button
                                     href="#"
-                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-gray-700"
+                                    className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-black hover:text-yellow-500"
                                     onClick={() => openPopup(event)}
                                   >
                                     View
@@ -1056,6 +1097,32 @@ const EventTabs = () => {
                     </div>
                   </PopUp>
                 )}
+                <section className="">
+                  <div className="max-w-screen-xl px-4 py-12 sm:px-4 md:py-8 lg:px-4">
+                    <div className="mt-0 mb-8">
+                      <dl className="grid grid-cols-1 gap-4 grid-cols-2">
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Closed
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-blue-500 md:text-5xl">
+                            {closed}
+                          </dd>
+                        </div>
+                        <div className="flex flex-col rounded-lg border border-yellow-500 px-4 py-8 text-center bg-gray-800">
+                          <dt className="order-last text-lg font-medium text-gray-500">
+                            Rejected
+                          </dt>
+
+                          <dd className="text-4xl font-extrabold text-red-500 md:text-5xl">
+                            {rejected}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
             <div

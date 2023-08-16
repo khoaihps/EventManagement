@@ -1,0 +1,22 @@
+tr {
+    height: 53px !important;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+tr td, tr th {
+    width: 155px;
+    text-align: left;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: lightgray !important;
+}
+
+thead th {
+    background-color: lightgray;
+}

@@ -77,6 +77,12 @@ const NavBar2 = () => {
                 My Profile
               </a>
               <a
+                href="/customer/password"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Change Password
+              </a>
+              <a
                 href="/customer/login"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={handleLogout}
