@@ -108,20 +108,24 @@ const EventTabs = () => {
           "The event must be booked at least 7 days before it starts"
         );
       } else {
-        const { success, error } = await EventService.createEvent(
-          name,
-          deadline,
-          place,
-          type_of_event,
-          description,
-          size,
-          budget
-        );
-        if (success) {
-          console.log("Event proposed successfully:");
-          window.location.reload(); // Refresh the page
+        if (budget < 0) {
+          setBudgetError("Budget must be greater than 0");
         } else {
-          console.log("Event create failed:", error);
+          const { success, error } = await EventService.createEvent(
+            name,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            size,
+            budget
+          );
+          if (success) {
+            console.log("Event proposed successfully:");
+            window.location.reload(); // Refresh the page
+          } else {
+            console.log("Event create failed:", error);
+          }
         }
       }
     } catch (error) {
@@ -359,11 +363,6 @@ const EventTabs = () => {
                   <div className="grid max-w-xl grid-cols-2 gap-2 m-auto">
                     <div className="col-span-2 lg:col-span-1">
                       <div className=" relative ">
-                        {type_of_event && (
-                          <p className="absolute text-sm text-red-500">
-                            {type_of_eventError}
-                          </p>
-                        )}
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
                           id="type_of_event"
@@ -382,11 +381,6 @@ const EventTabs = () => {
                     </div>
                     <div className="col-span-2 lg:col-span-1">
                       <div className=" relative ">
-                        {size && (
-                          <p className="absolute text-sm text-red-500">
-                            {sizeError}
-                          </p>
-                        )}
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
                           name="event-size"
@@ -414,11 +408,6 @@ const EventTabs = () => {
                   </div>
                   <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
                     <div className=" relative ">
-                      {place && (
-                        <p className="absolute text-sm text-red-500">
-                          {placeError}
-                        </p>
-                      )}
                       <input
                         type="text"
                         id="event-address"
@@ -476,11 +465,6 @@ const EventTabs = () => {
                   <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
                     <div className=" relative ">
                       <label className="text-gray-700" htmlFor="name">
-                        {description && (
-                          <p className="absolute text-sm text-red-500">
-                            {descriptionError}
-                          </p>
-                        )}
                         <textarea
                           className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                           id="comment"
@@ -922,7 +906,7 @@ const EventTabs = () => {
                                             setTrigger={closeTaskDetail}
                                           >
                                             <p className="italic">
-                                              ID: {selectedTask.name}
+                                              ID: {selectedTask._id}
                                             </p>
                                             <span
                                               className={`relative inline-block px-3 py-1 font-semibold mb-4 leading-tight ${

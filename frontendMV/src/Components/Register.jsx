@@ -241,6 +241,7 @@ const Register = () => {
               type="email"
               id="Email"
               name="email"
+              placeholder="abc@def.gh"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               value={email}
               onChange={handleEmailChange}
@@ -263,6 +264,7 @@ const Register = () => {
               id="phone"
               name="phone"
               pattern="[0-9]{10}"
+              placeholder="0123456789"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               value={phone}
               onChange={handlePhoneChange}
