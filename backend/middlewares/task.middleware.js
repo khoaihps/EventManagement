@@ -46,8 +46,51 @@ const assignedEmployees = async (req, res) => {
     }
 }
 
+const taskAssignAdding = async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+        const t_member_id = req.body.t_member_id;
+        console.log(taskId);
+        const existingTaskAssign = await TaskAssign.findOne({ task_id: taskId, t_member_id: t_member_id });
+        
+        if (existingTaskAssign) {
+            return res.status(200).json(existingTaskAssign);
+        }
+
+        const newTaskAssign = new TaskAssign({
+            task_id: taskId,
+            t_member_id: t_member_id
+        });
+
+        await newTaskAssign.save();
+
+        res.status(201).json(newTaskAssign);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to add task assignment.' });
+    }
+}
+const taskAssignRemoving = async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+        const t_member_id = req.body.t_member_id;
+
+        const existingTaskAssign = await TaskAssign.findOneAndDelete({ task_id: taskId, t_member_id: t_member_id });
+
+        if (existingTaskAssign) {
+            res.status(200).json(existingTaskAssign);
+        } else {
+            res.status(201).json({ message: 'Task assignment not found.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to remove task assignment.' });
+    }
+}
 module.exports = {
     taskDetail,
     taskUpdate,
-    assignedEmployees
+    assignedEmployees,
+    taskAssignAdding,
+    taskAssignRemoving
 }

@@ -26,28 +26,41 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
 
+    const fetchData = async () => {
+        try {
+            const data = await TaskService.getAssignedEmployees(task._id, task.event_id);
+
+            setEnrolledEmployee([...data.assignedEmployees]);
+            setNotEnrolledEmployee([...data.unAssignedEmployees]);
+            setPassEnrolledEmployee([...data.assignedEmployees]);
+            setPassNotEnrolledEmployee([...data.unAssignedEmployees]);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const submit = async () => {
+        for (const assignedEmployees of passEnrolledEmployee) {
+            await TaskService.addTaskAssign(task._id, assignedEmployees._id);
+        }
+        setEnrolledEmployee(passEnrolledEmployee);
+        setNotEnrolledEmployee(passNotEnrolledEmployee);
+    }
+
     useEffect(() => {
-        TaskService.getAssignedEmployees(task._id, task.event_id)
-        .then(( data ) => {
-            console.log(data);
-            setEnrolledEmployee([ ...data.assignEmployees]);
-            setNotEnrolledEmployee([ ...data.unAssignedEmployees]);
-            setPassEnrolledEmployee([ ...data.assignEmployees]);
-            setPassNotEnrolledEmployee([ ...data.unAssignedEmployees])
-    
-            if (order === "save") {
-                setEnrolledEmployee(passEnrolledEmployee);
-                setNotEnrolledEmployee(passNotEnrolledEmployee);
-            } else if (order === "discard changes") {
-                setEnrolledEmployee([ enrolledEmployee]);
-                setNotEnrolledEmployee([ notEnrolledEmployee]);
-                setPassEnrolledEmployee([ enrolledEmployee]);
-                setPassNotEnrolledEmployee([ notEnrolledEmployee]);
-            }
-        })
-        .catch(err => console.log(err))
-        
-    }, [order]);
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (order === "save") {
+            submit();
+        } else if (order === "discard changes") {
+            setEnrolledEmployee([ enrolledEmployee]);
+            setNotEnrolledEmployee([ notEnrolledEmployee]);
+            setPassEnrolledEmployee([ enrolledEmployee]);
+            setPassNotEnrolledEmployee([ notEnrolledEmployee]);
+        }
+    }, [order])
 
 
     return (
