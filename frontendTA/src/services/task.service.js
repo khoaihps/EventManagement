@@ -3,10 +3,10 @@ import authHeader from "./auth-header";
 import AuthService from "./auth.service";
 
 const API_URL = 'http://localhost:4000/';
-const role = AuthService.getCurrentUser().role;
 
 const getAllTaskEvent = async (eventID) => {
     try {
+        const role = AuthService.getCurrentUser().role;
         const response = await fetch(API_URL + `${role}` + "/event/" + eventID + "/task", {
             method: 'GET',
             headers: authHeader(),
@@ -21,6 +21,7 @@ const getAllTaskEvent = async (eventID) => {
     // return response.data;
 }
 const getTaskInfo = async (taskId) => {
+    const role = AuthService.getCurrentUser().role;
     return axios.get(
         `${API_URL}/${taskId}`, 
         { 
@@ -29,6 +30,7 @@ const getTaskInfo = async (taskId) => {
 }
 const updateTask = async (eventId, updatedTaskDetails) => {
     try {
+        const role = AuthService.getCurrentUser().role;
         const response = await fetch(API_URL + `${role}` + "/task/"+ eventId + "/update", {
             method: 'PUT', 
             headers: {
@@ -48,6 +50,7 @@ const updateTask = async (eventId, updatedTaskDetails) => {
 }
 const getAssignedEmployees = async (taskId) => {
     try {
+        const role = AuthService.getCurrentUser().role;
         const response = await fetch(API_URL + `${role}` + "/task/" + taskId + "/employees", {
             method: 'GET',
             headers: authHeader(),

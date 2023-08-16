@@ -42,7 +42,7 @@ const assignedEmployees = async (req, res) => {
 
         res.json(assignedEmployees);
     } catch (error) {
-        next(error);
+        console.error(error);
     }
 }
 
