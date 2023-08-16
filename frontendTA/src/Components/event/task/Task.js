@@ -25,7 +25,7 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     const [notEnrolledEmployee, setNotEnrolledEmployee] = useState([]);
     const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
-    
+
     useEffect(() => {
         TaskService.getAssignedEmployees(task._id)
         .then(( data ) => {
