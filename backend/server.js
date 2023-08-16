@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors');
 const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken');
+const { authenticateManager } = require('./middlewares/auth.middleware');
 
 require('dotenv').config()
 
@@ -36,21 +38,18 @@ app.use('/login', loginRoute);
 const registerRoute = require('./routes/register');
 app.use('/register', registerRoute);
 
-// Event manager route
+// Event route for manager
+// const eventManagerRoute = require('./routes/eventManager');
+// app.use('/manager/event', authenticateManager, eventManagerRoute);
+
 const eventManagerRoutes = require('./routes/manager/event.manager.routes');
 app.use('/manager/event', eventManagerRoutes);
 const taskManagerRoutes = require('./routes/manager/task.manager.routes');
 app.use('/manager/task', taskManagerRoutes);
-const managerRoutes = require('./routes/manager/profile.manager.route');
-app.use('/manager/profile', managerRoutes);
+
 
 // Team member route
 const eventTeamMemeberRoutes = require('./routes/team-member/event.team-member.routes');
 app.use('/team-member/event', eventTeamMemeberRoutes);
-
-// Customer
-const customerRoutes = require('./routes/customer/customer.routes');
-app.use('/customer/profile', customerRoutes);
-
-const eventCustomerRoutes = require('./routes/customer/event.customer.routes');
-app.use('/customer/event', eventCustomerRoutes);
+const eventCustomer = require('./routes/customer/event.customer.routes');
+app.use('/customer/event', eventCustomer);

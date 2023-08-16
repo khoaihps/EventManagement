@@ -1,17 +1,10 @@
 const mongoose = require('mongoose');
 
-// const userSchema = new mongoose.Schema({
-//     username: { type: String, required: true, unique: true },
-//     password: { type: String, required: true },
-//     role: { type: String, enum: ['manager', 'employee', 'customer'], required: true },
-// });
-
-// // Customer User
-// const customerUserSchema = new mongoose.Schema({
-//   username: { type: String, required: true, unique: true },
-//   password: { type: String, required: true },
-//   role: { type: String, default: 'customer' },
-// });
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, enum: ['manager', 'employee', 'customer'], required: true },
+});
 
 // Customer Schema
 const customerSchema = new mongoose.Schema({
@@ -51,11 +44,13 @@ const employeeSchema = new mongoose.Schema({
 });
 
 
+const User = mongoose.model('User', userSchema);
 const Customer = mongoose.model('Customer', customerSchema);
 const Manager = mongoose.model('Manager', managerSchema);
 const Employee = mongoose.model('Employee', employeeSchema);
 
 module.exports = {
+    User,
     Customer,
     Manager,
     Employee,
