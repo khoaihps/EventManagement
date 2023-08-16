@@ -262,6 +262,7 @@ const Register = () => {
               type="tel"
               id="phone"
               name="phone"
+              pattern="[0-9]{10}"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               value={phone}
               onChange={handlePhoneChange}
