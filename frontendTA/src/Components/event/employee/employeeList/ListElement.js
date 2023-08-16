@@ -3,7 +3,7 @@ import EmployeeDetail from "../employeeDetail/EmployeeDetail";
 const ListElement = ({employee, index, updateUnregisteredEmployeeData, updateEmployeeData}) => {
     const [employeeInfoVisible, setEmployeeInfoVisible] = useState(false);
     const handleDelete = () => {
-        updateUnregisteredEmployeeData(index, null);
+        updateUnregisteredEmployeeData("remove", index, null);
         updateEmployeeData("add", index, employee)
     };
 
