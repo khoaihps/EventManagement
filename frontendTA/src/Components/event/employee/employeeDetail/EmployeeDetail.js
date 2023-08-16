@@ -4,7 +4,6 @@ import "../../../style/employeeDetail.css";
 
 const EmployeeDetail = ({employee, handleDismiss}) => {
     const handleClick = () => {
-        console.log("AAAA")
         handleDismiss(false);
     }
 
