@@ -8,6 +8,7 @@ const Account = ({handleDismiss}) => {
     const handleClick = () => {
         handleDismiss(false);
     }
+
     return (
         <div>
             <div className="taskDetaill fixed inset-0 z-10">

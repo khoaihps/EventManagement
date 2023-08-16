@@ -8,14 +8,12 @@ const Search = ({ onSearch }) => {
 
     const handleSearchInputChange = (event) => {
         setSearchInput(event.target.value);
-        console.log(searchInput)
         onSearch(searchKey, event.target.value);
     };
 
     const handleSearchKey = (event) => {
         setSearchKey(event.target.innerHTML)
         handleButtonClick();
-        console.log(searchKey)
         onSearch(event.target.innerHTML, searchInput);
     }
     const handleButtonClick = () => {
@@ -23,10 +21,10 @@ const Search = ({ onSearch }) => {
     };
 
     return (
-        <div>
+        <div className="">
             <label htmlFor="table-search" className="sr-only">Search</label>
-            <div className="w-100 relative flex">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <div className="w-100 relative left-0 flex">
+                <div className="absolute inset-y-0 right-0 flex items-center pl-3 pointer-events-none">
                     <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
                          viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"

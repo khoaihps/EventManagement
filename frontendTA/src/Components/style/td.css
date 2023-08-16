@@ -2,7 +2,6 @@ tr {
     height: 53px !important;
     display: flex;
     align-items: center;
-    text-align: center;
     white-space: nowrap;
 }
 
