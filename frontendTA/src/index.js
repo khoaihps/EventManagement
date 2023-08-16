@@ -19,7 +19,10 @@ import {
 import Unauthorized from './Components/Unauthorized';
 import Logout from './Components/Logout';
 import NotFound from './Components/NotFound';
-import { EmployeeList } from "./Components/EmployeeList";
+import { 
+  EmployeeList,
+  loader as allEmployeesLoader 
+} from "./Components/EmployeeList";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/manager/employees",
+    loader: allEmployeesLoader,
     element: <EmployeeList/>
   },
   {

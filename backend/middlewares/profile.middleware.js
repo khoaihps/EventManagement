@@ -30,8 +30,18 @@ const getEmployeeInfo = async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch.' + error });
     }
 }
+const getAllEmployees = async (req, res, next) => {
+    try {
+        const allEmployees = await Employee.find();
+        res.json(allEmployees);
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).json({ message: 'Failed to fetch.' + error });
+    }
+}
 module.exports = {
     getCustomerInfo,
     getEmployeeInfo,
-    getManagerInfo
+    getManagerInfo,
+    getAllEmployees
 }
