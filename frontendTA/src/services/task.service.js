@@ -69,19 +69,59 @@ const getAssignedEmployees = async (taskId, eventId) => {
             // Filter the second response to get elements not present in data1
             const unAssignedEmployees = data2.filter(employee => !employeeIdsFromResponse1.includes(employee._id));
 
-            console.log(data1);
-            console.log(unAssignedEmployees);
-            return {assignEmployees: data1 , unAssignedEmployees };
+            return {assignedEmployees: data1 , unAssignedEmployees };
         }
     } catch (error) {
         console.log("Error: ", error);
+    }
+}
+const addTaskAssign = async (taskId, t_member_id) => {
+    try {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/task/"+ taskId + "/taskassign/add", {
+            method: 'POST', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify({t_member_id: t_member_id}) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
+    }
+}
+const removeTaskAssign = async (taskId, t_member_id) => {
+    try {
+      const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/task/"+ taskId + "/taskassign/remove", {
+            method: 'DELETE', 
+            headers: {
+                ...authHeader(),
+                'Content-Type': 'application/json' // Set the Content-Type header
+            },
+            body: JSON.stringify({t_member_id: t_member_id}) 
+        });
+        if (response.ok){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        throw error;
     }
 }
 const TaskService = {
     getAllTaskEvent,
     getTaskInfo,
     updateTask,
-    getAssignedEmployees
+    getAssignedEmployees,
+    addTaskAssign,
+    removeTaskAssign
 };
 
 export default TaskService;

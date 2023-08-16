@@ -231,6 +231,7 @@ const eventRegisterRemoving = async (req, res) => {
         res.status(500).json({ message: 'Failed to remove event register.' });
     }
 }
+
 module.exports = {
     allEvents,
     eventDetail,

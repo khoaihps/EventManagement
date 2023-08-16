@@ -28,16 +28,24 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
 
     const fetchData = async () => {
         try {
-            const data = await TaskService.getAssignedEmployees(task._id);
+            const data = await TaskService.getAssignedEmployees(task._id, task.event_id);
 
-            setEnrolledEmployee([...data]);
-            setNotEnrolledEmployee([...data]);
-            setPassEnrolledEmployee([...data]);
-            setPassNotEnrolledEmployee([...data]);
+            setEnrolledEmployee([...data.assignedEmployees]);
+            setNotEnrolledEmployee([...data.unAssignedEmployees]);
+            setPassEnrolledEmployee([...data.assignedEmployees]);
+            setPassNotEnrolledEmployee([...data.unAssignedEmployees]);
         } catch (err) {
             console.log(err);
         }
     };
+
+    const submit = async () => {
+        for (const assignedEmployees of passEnrolledEmployee) {
+            await TaskService.addTaskAssign(task._id, assignedEmployees._id);
+        }
+        setEnrolledEmployee(passEnrolledEmployee);
+        setNotEnrolledEmployee(passNotEnrolledEmployee);
+    }
 
     useEffect(() => {
         fetchData();
@@ -45,8 +53,7 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
 
     useEffect(() => {
         if (order === "save") {
-            setEnrolledEmployee(passEnrolledEmployee);
-            setNotEnrolledEmployee(passNotEnrolledEmployee);
+            submit();
         } else if (order === "discard changes") {
             setEnrolledEmployee([ enrolledEmployee]);
             setNotEnrolledEmployee([ notEnrolledEmployee]);
