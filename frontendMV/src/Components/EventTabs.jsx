@@ -887,7 +887,7 @@ const EventTabs = () => {
                                           <span
                                             className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
                                               taskDT.task.status ===
-                                              "uncomleted"
+                                              "uncompleted"
                                                 ? "text-yellow-900"
                                                 : "text-green-900"
                                             }`}
@@ -927,7 +927,7 @@ const EventTabs = () => {
                                             <span
                                               className={`relative inline-block px-3 py-1 font-semibold mb-4 leading-tight ${
                                                 selectedTask.status ===
-                                                "uncomleted"
+                                                "uncompleted"
                                                   ? "text-yellow-900"
                                                   : "text-green-900"
                                               }`}
