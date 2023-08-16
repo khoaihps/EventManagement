@@ -26,28 +26,34 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
 
+    const fetchData = async () => {
+        try {
+            const data = await TaskService.getAssignedEmployees(task._id);
+
+            setEnrolledEmployee([...data]);
+            setNotEnrolledEmployee([...data]);
+            setPassEnrolledEmployee([...data]);
+            setPassNotEnrolledEmployee([...data]);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
-        TaskService.getAssignedEmployees(task._id, task.event_id)
-        .then(( data ) => {
-            console.log(data);
-            setEnrolledEmployee([ ...data.assignEmployees]);
-            setNotEnrolledEmployee([ ...data.unAssignedEmployees]);
-            setPassEnrolledEmployee([ ...data.assignEmployees]);
-            setPassNotEnrolledEmployee([ ...data.unAssignedEmployees])
-    
-            if (order === "save") {
-                setEnrolledEmployee(passEnrolledEmployee);
-                setNotEnrolledEmployee(passNotEnrolledEmployee);
-            } else if (order === "discard changes") {
-                setEnrolledEmployee([ enrolledEmployee]);
-                setNotEnrolledEmployee([ notEnrolledEmployee]);
-                setPassEnrolledEmployee([ enrolledEmployee]);
-                setPassNotEnrolledEmployee([ notEnrolledEmployee]);
-            }
-        })
-        .catch(err => console.log(err))
-        
-    }, [order]);
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (order === "save") {
+            setEnrolledEmployee(passEnrolledEmployee);
+            setNotEnrolledEmployee(passNotEnrolledEmployee);
+        } else if (order === "discard changes") {
+            setEnrolledEmployee([ enrolledEmployee]);
+            setNotEnrolledEmployee([ notEnrolledEmployee]);
+            setPassEnrolledEmployee([ enrolledEmployee]);
+            setPassNotEnrolledEmployee([ notEnrolledEmployee]);
+        }
+    }, [order])
 
 
     return (
