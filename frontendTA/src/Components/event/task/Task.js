@@ -3,17 +3,6 @@ import TaskDetail from "./taskDetail/TaskDetail";
 import employees from "../../database/employeesData";
 import TaskService from "../../../services/task.service";
 
-// export const loader = async () => {
-//     try {
-//         const assignedEmployees = await TaskService.getAssignedEmployees(); 
-    
-//         return {assignedEmployees};
-//     } catch (error) {
-//         console.log("Error fetching employees:", error);
-//         throw error;
-//     }
-// };
-
 const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) => {
     const [isTaskInfoVisible, setTaskInfoVisible] = useState(false);
     const handleDisplayTaskInfo = () => {
@@ -26,28 +15,44 @@ const Task = ({ index, updateTaskData, task, setStateValue, isEditable, order}) 
     const [passEnrolledEmployee, setPassEnrolledEmployee] = useState([]);
     const [passNotEnrolledEmployee, setPassNotEnrolledEmployee] = useState([]);
 
+    const fetchData = async () => {
+        try {
+            const data = await TaskService.getAssignedEmployees(task._id, task.event_id);
+
+            setEnrolledEmployee([...data.assignedEmployees]);
+            setNotEnrolledEmployee([...data.unAssignedEmployees]);
+            setPassEnrolledEmployee([...data.assignedEmployees]);
+            setPassNotEnrolledEmployee([...data.unAssignedEmployees]);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const submit = async () => {
+        for (const assignedEmployee of passEnrolledEmployee) {
+            await TaskService.addTaskAssign(task._id, assignedEmployee._id);
+        }
+        for (const unassignedEmployee of passNotEnrolledEmployee) {
+            await TaskService.removeTaskAssign(task._id, unassignedEmployee._id);
+        }
+        setEnrolledEmployee(passEnrolledEmployee);
+        setNotEnrolledEmployee(passNotEnrolledEmployee);
+    }
+
     useEffect(() => {
-        TaskService.getAssignedEmployees(task._id, task.event_id)
-        .then(( data ) => {
-            console.log(data);
-            setEnrolledEmployee([ ...data.assignEmployees]);
-            setNotEnrolledEmployee([ ...data.unAssignedEmployees]);
-            setPassEnrolledEmployee([ ...data.assignEmployees]);
-            setPassNotEnrolledEmployee([ ...data.unAssignedEmployees])
-    
-            if (order === "save") {
-                setEnrolledEmployee(passEnrolledEmployee);
-                setNotEnrolledEmployee(passNotEnrolledEmployee);
-            } else if (order === "discard changes") {
-                setEnrolledEmployee([ enrolledEmployee]);
-                setNotEnrolledEmployee([ notEnrolledEmployee]);
-                setPassEnrolledEmployee([ enrolledEmployee]);
-                setPassNotEnrolledEmployee([ notEnrolledEmployee]);
-            }
-        })
-        .catch(err => console.log(err))
-        
-    }, [order]);
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (order === "save") {
+            submit();
+        } else if (order === "discard changes") {
+            setEnrolledEmployee([ enrolledEmployee]);
+            setNotEnrolledEmployee([ notEnrolledEmployee]);
+            setPassEnrolledEmployee([ enrolledEmployee]);
+            setPassNotEnrolledEmployee([ notEnrolledEmployee]);
+        }
+    }, [order])
 
 
     return (

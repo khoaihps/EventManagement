@@ -42,16 +42,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                 // Call the updateEvent API function
                 await EventService.updateEvent(passEvent._id, passEvent);
                 for (const task of passTasks) {
-                    if (task._id) TaskService.updateTask(task._id, task);
-                    else {
-                        task.event_id = passEvent._id;
-                        console.log(task);
-                        await TaskService.addTask(task);
-                    }
-                }
-                const deletedTasks = tasks.filter(task => !passTasks.some(passTask => passTask._id === task._id));
-                for (const deletedTask of deletedTasks) {
-                    await TaskService.deleteTask(deletedTask._id);
+                    await TaskService.updateTask(task._id, task);
                 }
                 for (const eventRegister of passEmployees) {
                     await EventService.addEventRegister(passEvent._id, eventRegister._id);
@@ -90,7 +81,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
     }
 
     const comeBack = () => {
-        navigate('/manager/home/')
+        navigate('/employee/home/')
     }
 
     return (
@@ -102,42 +93,27 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                         change={setPassEvent}
                         isEditable={isEditable}
                     />
-                    <div className="tasks">
-                        <Tasks
-                            tasks={passTasks}
-                            change={setPassTasks}
-                            isEditable={isEditable}
-                            order={order}
-                        />
-                        <Employees
-                            employees={passEmployees}
-                            changeEmployees={setPassEmployees}
-                            unregisteredEmployees={passUnregisteredEmployees}
-                            changeUnregisteredEmployees={setPassUnregisteredEmployees}
-                            isEditable={isEditable}
-                        />
-                    </div>
                 </div>
                 <div className="flex justify-around items-center">
                     <button type="submit"
-                        className={`${isEditable ? 'aaa bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' :
-                            'aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                            className={`${isEditable ? 'aaa bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' :
+                                'aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
                             }
                         text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
-                        onClick={handleEditButtonClick}
+                            onClick={handleEditButtonClick}
                     >
                         {isEditable ? 'Save' : 'Edit'}
                     </button>
                     {isEditable ? <button type="submit"
-                        className=" aaa ml-4
+                                          className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                        onClick={handleDiscardChanges}
+                                          onClick={handleDiscardChanges}
                     >
                         Discard Changes
                     </button> : <button type="submit"
-                        className=" aaa ml-4
+                                        className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                        onClick={comeBack}
+                                        onClick={comeBack}
                     >
                         Move Back
                     </button>

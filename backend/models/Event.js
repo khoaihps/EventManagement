@@ -19,7 +19,8 @@ const eventSchema = new Schema({
         type: String,
         enum: ['pending', 'open', 'closed', 'rejected'],
         required: true
-    }
+    },
+    budget: { type: Number, required: true } 
 });
 
 // Task Schema
@@ -29,7 +30,12 @@ const taskSchema = new Schema({
     budget: { type: Number, required: true },
     description: { type: String, required: true },
     department_involved: { type: String, required: true },
-    event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true }
+    event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
+    status: {
+        type: String,
+        enum: ['uncompleted', 'completed'],
+        required: true
+    }
 });
 
 // Task Assign Schema

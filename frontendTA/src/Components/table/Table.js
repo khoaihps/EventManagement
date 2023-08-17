@@ -7,7 +7,6 @@ import Sort from "./Sort";
 import "../style/hehe.css";
 
 const Table = ({events}) => {
-
     const [filteredData, setFilteredData] = useState(events);
 
     const handleSearch = (searchKey, searchInput) => {

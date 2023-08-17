@@ -6,6 +6,7 @@ import { HomePageEmployee } from "./Components/HomePageEmployee";
 import { HomePageManager } from './Components/HomePageManager';
 import { EventDetail } from "./Components/event/EventDetail";
 import { EmployeeList } from "./Components/EmployeeList";
+import {EventDetailEmployee} from "./Components/event/EventDetailEmployee";
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path="/manager/employees" element={<EmployeeList/>}/>
                 <Route path="/employee/home" element={<HomePageEmployee />} />
                 <Route path="/manager/home/:id" element={<EventDetail />} />
+                <Route path="/employee/home/:id" element={<EventDetailEmployee />} />
             </Routes>
         </Router>
     );

@@ -5,6 +5,7 @@ import EventInfo from "./EventInfo";
 import '../style/eventDetail.css'
 import EventService from "../../services/event.service";
 import TaskService from "../../services/task.service";
+import EventInfoEmployee from "./EventInfoEmployee";
 
 export const loader = async ({ params }) => {
     try {
@@ -19,7 +20,7 @@ export const loader = async ({ params }) => {
     return null;
 }
 
-export const EventDetail = ({ }) => {
+export const EventDetailEmployee = () => {
     const eventInfo = useLoaderData();
 
     return (
@@ -28,7 +29,7 @@ export const EventDetail = ({ }) => {
                 title={"Event Detail"}
             />
             <Sidebar/>
-            <EventInfo
+            <EventInfoEmployee
                 initialEvent={eventInfo.details}
                 initialTasks={eventInfo.tasks}
                 initialEmployees={eventInfo.employees}

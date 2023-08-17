@@ -1,12 +1,14 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import AuthService from "./auth.service";
 
 const API_URL = 'http://localhost:4000/';
 
-const getManagerInfor = async (userId) => {
+const getProfile = async (userId) => {
     try {
+        const role = AuthService.getCurrentUser().role;
         console.log(userId);
-        const response = await fetch(API_URL + "manager/profile/" + userId, {
+        const response = await fetch(API_URL + `${role}` + "/profile/" + userId, {
             method: 'GET',
             headers: authHeader(),
         });
@@ -21,7 +23,8 @@ const getManagerInfor = async (userId) => {
 }
 const getAllEmployees = async (managerID) => {
     try {
-        const response = await fetch(API_URL + "manager/profile/" + managerID + "/employees", {
+        const role = AuthService.getCurrentUser().role;
+        const response = await fetch(API_URL + `${role}` + "/profile/" + managerID + "/employees", {
             method: 'GET',
             headers: authHeader(),
         });
@@ -34,7 +37,7 @@ const getAllEmployees = async (managerID) => {
     }
 }
 const ProfileService = {
-    getManagerInfor,
+    getProfile,
     getAllEmployees
 };
 
