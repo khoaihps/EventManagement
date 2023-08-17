@@ -88,6 +88,11 @@ const router = createBrowserRouter([
     path: "/:path",
     element: <NotFound />
   },
+  {
+    path: "/",
+    loader: checkLoginStatus,
+    element: <LoginForm />
+  }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
