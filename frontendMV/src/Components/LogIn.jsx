@@ -29,8 +29,14 @@ const LogIn = () => {
       const { success, error } = await AuthService.login(username, password);
       console.log(username);
       if (success) {
-        navigate("/");
-        setLoginError("");
+        const user = AuthService.getCurrentUser();
+        if (user.role != "customer") {
+          console.log(user.log);
+          setLoginError("Log in error, try using other account!");
+        } else {
+          navigate("/");
+          setLoginError("");
+        }
       } else {
         // Login failed
         console.log("Login failed:", error);

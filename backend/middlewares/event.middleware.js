@@ -1,4 +1,5 @@
-const { Event, Task, EventRegister } = require('../models/Event');
+const { Event, Task, TaskAssign } = require('../models/Event');
+const { Employee } = require('../models/User');
 
 const allEvents = async (req, res) => {
     try {
@@ -188,6 +189,33 @@ const eventCount = async (req, res) => {
     }
 };
 
+const taskEventDetail = async (req, res, next) => {
+    try {
+        const eventId = req.params.eventId;
+    
+        // Find all tasks for the given event_id
+        const tasks = await Task.find({ event_id: eventId });
+    
+        // Create a map to store assigned employees by task ID
+        const assignedEmployeesMap = new Map();
+    
+        // Iterate through tasks and set taskID as the key in the map
+        for (const task of tasks) {
+          const taskAssignments = await TaskAssign.find({ task_id: task._id }).populate('t_member_id');
+          assignedEmployeesMap.set(task._id.toString(), taskAssignments.map((assignment) => assignment.t_member_id));
+        }
+    
+        // Construct an array of tasks with assigned employees
+        const tasksWithAssignments = tasks.map((task) => ({
+          task: task,
+          assignedEmployees: assignedEmployeesMap.get(task._id.toString()) || [],
+        }));
+    
+        res.json({ tasks: tasksWithAssignments });
+      } catch (err) {
+        next(err);
+      }
+  };
 
 
 const eventRegisterAdding = async (req, res) => {
@@ -245,5 +273,6 @@ module.exports = {
     deleteEvent,
     eventCount,
     eventRegisterAdding,
-    eventRegisterRemoving
+    eventRegisterRemoving,
+    taskEventDetail
 }
