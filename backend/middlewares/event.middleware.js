@@ -1,4 +1,4 @@
-const { Event, Task, TaskAssign } = require('../models/Event');
+const { Event, Task, TaskAssign, EventRegister } = require('../models/Event');
 const { Employee } = require('../models/User');
 
 const allEvents = async (req, res) => {
