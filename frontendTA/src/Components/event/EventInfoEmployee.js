@@ -1,6 +1,6 @@
 import EventTable from "./EventTable";
 import Tasks from "./task/Tasks";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Employees from "../event/employee/Employees";
 import tasksData from "../database/tasksData";
@@ -13,7 +13,6 @@ import AuthService from "../../services/auth.service";
 
 const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregisteredEmployees}) => {
     const navigate = useNavigate();
-    const [enroll, setEnroll] = useState(false);
     // api call specific event
 
     // api call specific tasks associated with the event
@@ -38,13 +37,58 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
 
     const [order, setOrder] = useState("show");
 
+    const [enroll, setEnroll] = useState(false);
+
+    useEffect(() => {
+        const t_member_id = AuthService.getCurrentUser().id;
+        const employeeIDs = passEmployees.map(employee => employee._id);
+        if (employeeIDs.includes(t_member_id)) {
+            setEnroll(true);
+            console.log("AAAA")
+        }
+        else {
+            setEnroll(false)
+            console.log("BBBB")
+        }
+    }, [])
 
     const handleEnrollButtonClick = async () => {
         console.log("dak");
         try {
             const t_member_id = AuthService.getCurrentUser().id;
-            console.log(t_member_id)
+            // console.log(t_member_id)
+            // let find = false;
+            // console.log("UUUU")
+            // console.log(employees)
+            // employees.forEach((e) => {
+            //     if (t_member_id === e._id)
+            //     {
+            //         setEnroll(true);
+            //         break;
+            //     }
+            //     else
+            //     {
+            //         console.log("BBBBB")
+            //     }
+            // });
+            // let i = 0;
+            // while (i < employees.length)
+            // {
+            //
+            // }
             // Call the updateEvent API function
+            // const t_member_id = AuthService.getCurrentUser().id;
+            // const employeeIDs = passEmployees.map(employee => employee._id);
+            // if (employeeIDs.includes(t_member_id)) {
+            //     setEnroll(true);
+            //     console.log("AAAA")
+            // }
+            // else {
+            //     setEnroll(false)
+            //     console.log("BBBB")
+            // }
+            setEnroll(!enroll);
+
             await EventService.addEventRegister(passEvent._id, t_member_id);
             window.location.reload();
         } catch (error) {
@@ -91,7 +135,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                 </div>
                 <div className="flex justify-around items-center">
                     {
-                        enroll &&
+                        !enroll &&
                         <button type="submit"
                                 className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
