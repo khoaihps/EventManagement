@@ -66,8 +66,6 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
         } else {
             setOrder("show");
         }
-
-        setIsEditable(!isEditable);
     };
 
     const handleDiscardChanges = () => {
@@ -76,8 +74,6 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
         setPassEmployees(initialEmployees);
         setUnregisteredEmployees(initialUnregisteredEmployees);
         setOrder("discard changes");
-
-        setIsEditable(!isEditable);
     }
 
     const comeBack = () => {
@@ -97,7 +93,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                         <Tasks
                             tasks={passTasks}
                             change={setPassTasks}
-                            isEditable={isEditable}
+                            isEditable={false}
                             order={order}
                         />
                         <Employees
@@ -105,34 +101,27 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                             changeEmployees={setPassEmployees}
                             unregisteredEmployees={passUnregisteredEmployees}
                             changeUnregisteredEmployees={setPassUnregisteredEmployees}
-                            isEditable={isEditable}
+                            isEditable={false}
                         />
                     </div>
                 </div>
                 <div className="flex justify-around items-center">
                     <button type="submit"
-                            className={`${isEditable ? 'aaa bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' :
-                                'aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-                            }
+                            className={`
+                                aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
+                           
                         text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
                             onClick={handleEditButtonClick}
                     >
-                        {isEditable ? 'Save' : 'Edit'}
+                        Enroll
                     </button>
-                    {isEditable ? <button type="submit"
-                                          className=" aaa ml-4
-                                          bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                                          onClick={handleDiscardChanges}
-                    >
-                        Discard Changes
-                    </button> : <button type="submit"
+                    <button type="submit"
                                         className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                                         onClick={comeBack}
                     >
                         Move Back
                     </button>
-                    }
                 </div>
             </div>
         </div>
