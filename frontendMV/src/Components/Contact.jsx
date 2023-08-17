@@ -11,9 +11,7 @@ const Contact = () => {
           <h2 className="pb-2 mb-2 text-xl font-bold text-gray-800 md:text-4xl">
             Let's Stay Connected
           </h2>
-          <p className="text-sm text-gray-600">
-            Lorem ipsum dor amet ispicusus isopiros amet ispis lorem
-          </p>
+          <p className="text-sm text-gray-600">Coming soon!</p>
         </div>
         <div className="flex flex-wrap mb-6">
           <div className="w-full px-4 mb-20 lg:w-1/3 lg:mb-0">

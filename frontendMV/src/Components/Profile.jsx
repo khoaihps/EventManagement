@@ -264,7 +264,7 @@ const Profile = () => {
         <PopUp trigger={buttonDelete} setTrigger={closeDelete}>
           <div>
             <div className="font-bold flex items-center justify-center mb-3">
-              Permanantly delete your account?
+              Permanantly delete your account and events?
             </div>
             <div className="flex items-center justify-center">
               <button
@@ -405,9 +405,10 @@ const Profile = () => {
             <div>
               <div className="relative">
                 <input
-                  type="number"
+                  type="tel"
+                  pattern="[0-9]{10}"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                  placeholder="Enter phone number"
+                  placeholder="0123456789"
                   onChange={handlePhoneChange}
                   defaultValue={phone}
                   required

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import EventService, { getHistoryEvent } from "../services/event.service";
+import EventService, {
+  getAllTaskEvent,
+  getHistoryEvent,
+} from "../services/event.service";
 import "../services/event.service";
 import { getManageEvent } from "../services/event.service";
 import { formatDate } from "../services/util";
@@ -10,6 +13,7 @@ import { eventCount } from "../services/event.service";
 const EventTabs = () => {
   const [openTab, setOpenTab] = React.useState(2);
   const [eventData, setEventData] = useState([]);
+  const [taskData, setTaskData] = useState([]);
   const [historyData, setHistoryData] = useState([]);
 
   const [name, setName] = useState("");
@@ -34,8 +38,11 @@ const EventTabs = () => {
   const [descriptionError, setDescriptionError] = useState("");
 
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [buttonView, setButtonView] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
+  const [taskView, setTaskView] = useState(false);
+  const [taskDetailView, setTaskDetailView] = useState(false);
   const [pending, setPending] = useState("");
   const [open, setOpen] = useState("");
   const [closed, setClosed] = useState("");
@@ -101,27 +108,37 @@ const EventTabs = () => {
           "The event must be booked at least 7 days before it starts"
         );
       } else {
-        const { success, error } = await EventService.createEvent(
-          name,
-          deadline,
-          place,
-          type_of_event,
-          description,
-          size,
-          budget
-        );
-        if (success) {
-          console.log("Event proposed successfully:");
-          window.location.reload(); // Refresh the page
+        if (budget < 0) {
+          setBudgetError("Budget must be greater than 0");
         } else {
-          console.log("Event create failed:", error);
+          const { success, error } = await EventService.createEvent(
+            name,
+            deadline,
+            place,
+            type_of_event,
+            description,
+            size,
+            budget
+          );
+          if (success) {
+            console.log("Event proposed successfully:");
+            window.location.reload(); // Refresh the page
+          } else {
+            console.log("Event create failed:", error);
+          }
         }
       }
     } catch (error) {
       console.error("An error occurred during event creation:", error);
     }
   };
-
+  const fetchTask = async (id) => {
+    const data = await getAllTaskEvent(id);
+    console.log("Task from API:", data);
+    if (data) {
+      setTaskData(data);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       const data = await getManageEvent();
@@ -163,15 +180,30 @@ const EventTabs = () => {
     setSelectedEvent(event);
     setButtonView(true);
   };
-  const openConfirmPopup = (event) => {
+  const closePopup = () => {
+    setSelectedEvent(null);
+    setButtonView(false);
+  };
+  const openConfirmPopup = () => {
     setConfirmView(true);
   };
   const closeConfirmPopup = () => {
     setConfirmView(false);
   };
-  const closePopup = () => {
-    setSelectedEvent(null);
-    setButtonView(false);
+  const openTaskPopup = (id) => {
+    fetchTask(id);
+    setTaskView(true);
+  };
+  const closeTaskPopup = () => {
+    setTaskView(false);
+  };
+  const openTaskDetail = (task) => {
+    setSelectedTask(task);
+    setTaskDetailView(true);
+  };
+  const closeTaskDetail = () => {
+    setSelectedTask(null);
+    setTaskDetailView(false);
   };
 
   return (
@@ -331,11 +363,6 @@ const EventTabs = () => {
                   <div className="grid max-w-xl grid-cols-2 gap-2 m-auto">
                     <div className="col-span-2 lg:col-span-1">
                       <div className=" relative ">
-                        {type_of_event && (
-                          <p className="absolute text-sm text-red-500">
-                            {type_of_eventError}
-                          </p>
-                        )}
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
                           id="type_of_event"
@@ -354,11 +381,6 @@ const EventTabs = () => {
                     </div>
                     <div className="col-span-2 lg:col-span-1">
                       <div className=" relative ">
-                        {size && (
-                          <p className="absolute text-sm text-red-500">
-                            {sizeError}
-                          </p>
-                        )}
                         <select
                           className="block w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 flex-1"
                           name="event-size"
@@ -386,11 +408,6 @@ const EventTabs = () => {
                   </div>
                   <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
                     <div className=" relative ">
-                      {place && (
-                        <p className="absolute text-sm text-red-500">
-                          {placeError}
-                        </p>
-                      )}
                       <input
                         type="text"
                         id="event-address"
@@ -448,11 +465,6 @@ const EventTabs = () => {
                   <div className="flex flex-col mt-2 mb-2 max-w-xl m-auto">
                     <div className=" relative ">
                       <label className="text-gray-700" htmlFor="name">
-                        {description && (
-                          <p className="absolute text-sm text-red-500">
-                            {descriptionError}
-                          </p>
-                        )}
                         <textarea
                           className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                           id="comment"
@@ -771,7 +783,223 @@ const EventTabs = () => {
                           )}
                         </div>
                       ) : (
-                        <></>
+                        <div>
+                          <button
+                            className="mt-4 group relative inline-flex items-center overflow-hidden rounded bg-green-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-green-500"
+                            onClick={() => openTaskPopup(selectedEvent._id)}
+                          >
+                            <span className="absolute -end-full transition-all group-hover:end-4">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                              >
+                                <rect
+                                  x="3"
+                                  y="4"
+                                  width="18"
+                                  height="18"
+                                  rx="2"
+                                  ry="2"
+                                ></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                              </svg>
+                            </span>
+
+                            <span className="text-sm font-medium transition-all group-hover:me-4">
+                              Progress
+                            </span>
+                          </button>
+                          {selectedEvent ? (
+                            <PopUp
+                              trigger={taskView}
+                              setTrigger={closeTaskPopup}
+                            >
+                              <table className="min-w-full leading-normal">
+                                <thead>
+                                  <tr>
+                                    <th
+                                      scope="col"
+                                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                                    >
+                                      Task
+                                    </th>
+
+                                    <th
+                                      scope="col"
+                                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                                    >
+                                      Deadline
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                                    >
+                                      Status
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                                    ></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {taskData.length > 0 ? (
+                                    taskData.map((taskDT) => (
+                                      <tr>
+                                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                          <div className="flex items-center">
+                                            <div>
+                                              <p className="text-gray-900 whitespace-no-wrap">
+                                                {taskDT.task.name}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </td>
+
+                                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                          <p className="text-gray-900 whitespace-no-wrap">
+                                            {formatDate(taskDT.task.deadline)}
+                                          </p>
+                                        </td>
+                                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                          <span
+                                            className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
+                                              taskDT.task.status ===
+                                              "uncompleted"
+                                                ? "text-yellow-900"
+                                                : "text-green-900"
+                                            }`}
+                                          >
+                                            <span
+                                              aria-hidden="true"
+                                              className={`absolute inset-0 ${
+                                                taskDT.task.status ===
+                                                "uncompleted"
+                                                  ? "bg-yellow-200"
+                                                  : "bg-green-200"
+                                              } rounded-full opacity-50`}
+                                            ></span>
+                                            <span className="relative">
+                                              {taskDT.task.status}
+                                            </span>
+                                          </span>
+                                        </td>
+                                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                          <button
+                                            onClick={() =>
+                                              openTaskDetail(taskDT.task)
+                                            }
+                                            className="inline-block rounded bg-yellow-500 px-4 py-2 text-xs font-medium text-white hover:bg-black hover:text-yellow-500"
+                                          >
+                                            View
+                                          </button>
+                                        </td>
+                                        {selectedTask ? (
+                                          <PopUp
+                                            trigger={taskDetailView}
+                                            setTrigger={closeTaskDetail}
+                                          >
+                                            <p className="italic">
+                                              ID: {selectedTask._id}
+                                            </p>
+                                            <span
+                                              className={`relative inline-block px-3 py-1 font-semibold mb-4 leading-tight ${
+                                                selectedTask.status ===
+                                                "uncompleted"
+                                                  ? "text-yellow-900"
+                                                  : "text-green-900"
+                                              }`}
+                                            >
+                                              <span
+                                                aria-hidden="true"
+                                                className={`absolute inset-0 ${
+                                                  selectedTask.status ===
+                                                  "uncompleted"
+                                                    ? "bg-yellow-200"
+                                                    : "bg-green-200"
+                                                } rounded-full opacity-50`}
+                                              ></span>
+                                              <span className="relative">
+                                                {selectedTask.status}
+                                              </span>
+                                            </span>
+                                            <div className="flow-root">
+                                              <dl className="-my-3 divide-y divide-gray-100 text-sm">
+                                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                                  <dt className="font-medium text-gray-900">
+                                                    Task
+                                                  </dt>
+                                                  <dd className="text-gray-700 sm:col-span-2">
+                                                    {selectedTask.name}
+                                                  </dd>
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                                  <dt className="font-medium text-gray-900">
+                                                    Deadline
+                                                  </dt>
+                                                  <dd className="text-gray-700 sm:col-span-2">
+                                                    {formatDate(
+                                                      selectedTask.deadline
+                                                    )}
+                                                  </dd>
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                                  <dt className="font-medium text-gray-900">
+                                                    Budget
+                                                  </dt>
+                                                  <dd className="text-gray-700 sm:col-span-2">
+                                                    {selectedTask.budget}
+                                                    .000.000 VND
+                                                  </dd>
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                                  <dt className="font-medium text-gray-900">
+                                                    Department
+                                                  </dt>
+                                                  <dd className="text-gray-700 sm:col-span-2">
+                                                    {
+                                                      selectedTask.department_involved
+                                                    }
+                                                  </dd>
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                                  <dt className="font-medium text-gray-900">
+                                                    Description
+                                                  </dt>
+                                                  <dd className="text-gray-700 sm:col-span-2">
+                                                    {selectedTask.description}
+                                                  </dd>
+                                                </div>
+                                              </dl>
+                                            </div>
+                                          </PopUp>
+                                        ) : (
+                                          <></>
+                                        )}
+                                      </tr>
+                                    ))
+                                  ) : (
+                                    <tr>
+                                      <td colSpan="3">
+                                        <p className="text-gray-500">
+                                          No tasks available
+                                        </p>
+                                      </td>
+                                    </tr>
+                                  )}
+                                </tbody>
+                              </table>
+                            </PopUp>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       )}
                     </div>
                   </PopUp>

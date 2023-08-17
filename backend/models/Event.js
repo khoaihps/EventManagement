@@ -15,6 +15,11 @@ const eventSchema = new Schema({
     description: { type: String, required: true },
     date_proposed: { type: Date, required: true },
     last_modified: { type: Date, default: Date.now },
+    size: { 
+        type: String, 
+        enum: ['Small','Medium','Large','Mega'],
+        required: true },
+    budget: { type: Number, required: true},
     status: {
         type: String,
         enum: ['pending', 'open', 'closed', 'rejected'],
@@ -28,7 +33,7 @@ const taskSchema = new Schema({
     name: { type: String, required: true },
     deadline: { type: Date, required: true },
     budget: { type: Number, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
     department_involved: { type: String, required: true },
     event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
     status: {
