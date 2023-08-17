@@ -9,7 +9,7 @@ router.use(authenticateManager);
 router.get('/all', allEvents);
 router.get('/:eventId', eventDetail);
 router.get('/:eventId/task', allTaskOfEvent);
-router.get('/:eventId/employees', getRegisteredAndUnregisteredEmployees);
+// router.get('/:eventId/employees', getRegisteredAndUnregisteredEmployees);
 router.get('/:eventId/remployees', getRegisteredEmployees);
 router.get('/:eventId/uremployees', getUnregisteredEmployees);
 
