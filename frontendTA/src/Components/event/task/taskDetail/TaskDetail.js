@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TaskInfo from "./TaskInfo";
 import "../../../style/TaskDetail.css";
 import TaskEmployees from "./taskEmployee/TaskEmployees";
+import TaskService from "../../../../services/task.service";
 
 const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, isEditable,
                         enrolledEmployee, notEnrolledEmployee, setEnrolled, setNotEnrolled }) => {
@@ -15,10 +16,12 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
         if (reTask.status === "completed")
         {
             reTask.status = "uncompleted";
+            TaskService.updateTask(reTask._id, reTask);
         }
         else
         {
             reTask.status = "completed";
+            TaskService.updateTask(reTask._id, reTask);
         }
 
         setMark(!mark);
