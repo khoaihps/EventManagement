@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { Manager, Employee } = require('../models/User');
+const { Manager, Employee, Customer } = require('../models/User');
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post('/manager', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create a new employee
+        // Create a new manager
         const newManager = new Manager({
             firstName,
             lastName,
@@ -40,7 +40,7 @@ router.post('/manager', async (req, res) => {
             address
         });
 
-        // Save the employee to the database
+        // Save the manager to the database
         await newManager.save();
 
         res.status(201).json({ message: 'Manager account registered successfully.' });
@@ -98,6 +98,67 @@ router.post('/employee', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'An error occurred during registration.' });
     }
+});
+
+// Customer Register Route
+router.post('/customer', async (req, res) => {
+  try {
+      const {
+          firstName,
+          lastName,
+          username,
+          password,
+          DOB,
+          email,
+          phone,
+          address
+      } = req.body;
+
+      let existingCustomer = null;
+
+      // Check if the username already exists
+      existingCustomer = await Customer.findOne({ username });
+      if (existingCustomer) {
+          return res.status(409).json({ message: 'Username already exists.' });
+      }
+
+      // Check if the phone already exists
+      existingCustomer = await Customer.findOne({ phone });
+      if (existingCustomer) {
+          return res.status(409).json({ message: 'Phone already exists.' });
+      }
+
+      // Check if the email already exists
+      existingCustomer = await Customer.findOne({ email });
+      if (existingCustomer) {
+          return res.status(409).json({ message: 'Email already exists.' });
+      }
+
+      // Generate a salt and hash the password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      // Create a new customer
+      const newCustomer = new Customer({
+          firstName,
+          lastName,
+          username,
+          password: hashedPassword,
+          DOB,
+          email,
+          phone,
+          address
+      });
+
+      // Save the customer to the database
+      await newCustomer.save();
+
+      res.status(201).json({ message: 'Customer account registered successfully.' });
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'An error occurred during registration.' });
+  }
 });
 
 module.exports = router;
