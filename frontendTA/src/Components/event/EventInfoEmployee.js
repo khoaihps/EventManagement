@@ -93,6 +93,21 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                         change={setPassEvent}
                         isEditable={isEditable}
                     />
+                    <div className="tasks">
+                        <Tasks
+                            tasks={passTasks}
+                            change={setPassTasks}
+                            isEditable={isEditable}
+                            order={order}
+                        />
+                        <Employees
+                            employees={passEmployees}
+                            changeEmployees={setPassEmployees}
+                            unregisteredEmployees={passUnregisteredEmployees}
+                            changeUnregisteredEmployees={setPassUnregisteredEmployees}
+                            isEditable={isEditable}
+                        />
+                    </div>
                 </div>
                 <div className="flex justify-around items-center">
                     <button type="submit"
