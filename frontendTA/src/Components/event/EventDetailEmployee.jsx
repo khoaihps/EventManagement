@@ -1,7 +1,6 @@
 import {useLoaderData, useParams} from "react-router-dom";
 import Header from "../environment/Header";
-import Sidebar from "../environment/Sidebar";
-import EventInfo from "./EventInfo";
+import SidebarEmployee from "../environment/SidebarEmployee";
 import '../style/eventDetail.css'
 import EventService from "../../services/event.service";
 import TaskService from "../../services/task.service";
@@ -28,7 +27,7 @@ export const EventDetailEmployee = () => {
             <Header
                 title={"Event Detail"}
             />
-            <Sidebar/>
+            <SidebarEmployee />
             <EventInfoEmployee
                 initialEvent={eventInfo.details}
                 initialTasks={eventInfo.tasks}

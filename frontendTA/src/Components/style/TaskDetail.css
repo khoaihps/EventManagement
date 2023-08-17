@@ -22,3 +22,11 @@
 .child22 {
     width: 60%;
 }
+
+
+.bbb {
+    height: 50px;
+    width: 110px !important;
+    font-size: 10px;
+    text-align: center;
+}

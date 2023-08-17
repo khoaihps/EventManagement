@@ -11,6 +11,7 @@ import TaskService from "../../services/task.service";
 
 const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregisteredEmployees}) => {
     const navigate = useNavigate();
+    const [enroll, setEnroll] = useState(false);
     // api call specific event
 
     // api call specific tasks associated with the event
@@ -113,7 +114,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                         text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
                             onClick={handleEditButtonClick}
                     >
-                        Enroll
+                        {enroll ? "Enroll" : ""}
                     </button>
                     <button type="submit"
                                         className=" aaa ml-4
