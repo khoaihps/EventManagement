@@ -8,6 +8,8 @@ import employeesData from "../database/employeesData";
 import registeredEmployeesData from "../database/registeredEmployeesData";
 import EventService from "../../services/event.service";
 import TaskService from "../../services/task.service";
+import authHeader from "../../services/auth-header";
+import AuthService from "../../services/auth.service";
 
 const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregisteredEmployees}) => {
     const navigate = useNavigate();
@@ -36,35 +38,16 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
     const [order, setOrder] = useState("show");
 
 
-    const handleEditButtonClick = async () => {
-        if (isEditable) {
-            try {
-                // Call the updateEvent API function
-                await EventService.updateEvent(passEvent._id, passEvent);
-                for (const task of passTasks) {
-                    await TaskService.updateTask(task._id, task);
-                }
-                for (const eventRegister of passEmployees) {
-                    await EventService.addEventRegister(passEvent._id, eventRegister._id);
-                }
-                for (const eventRegister of passUnregisteredEmployees) {
-                    await EventService.removeEventRegister(passEvent._id, eventRegister._id);
-                }
-                setEvent(passEvent);
-                setTasks(passTasks);
-                setEmployees(passEmployees);
-                setUnregisteredEmployees(passUnregisteredEmployees);
-                setOrder("save");
-
-                console.log(passEvent);
-                console.log(passTasks);
-                console.log(passEmployees);
-                console.log(passUnregisteredEmployees);
-            } catch (error) {
-                console.log("Error updating event:", error);
-            }
-        } else {
-            setOrder("show");
+    const handleEnrollButtonClick = async () => {
+        console.log("dak");
+        try {
+            const t_member_id = AuthService.getCurrentUser().id;
+            console.log(t_member_id)
+            // Call the updateEvent API function
+            await EventService.addEventRegister(passEvent._id, t_member_id);
+            window.location.reload();
+        } catch (error) {
+            console.log("Error enroll event:", error);
         }
     };
 
@@ -111,7 +94,7 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                                 aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
                            
                         text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
-                            onClick={handleEditButtonClick}
+                            onClick={handleEnrollButtonClick}
                     >
                         Enroll
                     </button>
