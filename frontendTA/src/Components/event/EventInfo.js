@@ -65,10 +65,10 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                 setUnregisteredEmployees(passUnregisteredEmployees);
                 setOrder("save");
 
-                // console.log(passEvent);
-                // console.log(passTasks);
-                // console.log(passEmployees);
-                // console.log(passUnregisteredEmployees);
+                console.log(passEvent);
+                console.log(passTasks);
+                console.log(passEmployees);
+                console.log(passUnregisteredEmployees);
             } catch (error) {
                 console.log("Error updating event:", error);
             }
