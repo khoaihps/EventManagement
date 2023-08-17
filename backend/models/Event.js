@@ -28,7 +28,7 @@ const taskSchema = new Schema({
     name: { type: String, required: true },
     deadline: { type: Date, required: true },
     budget: { type: Number, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
     department_involved: { type: String, required: true },
     event_id: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
     status: {
