@@ -11,6 +11,16 @@ const TaskDetail = ({ task, add, setTask, index, updateTaskData, handleDismiss, 
     const [mark, setMark] = useState(true);
 
     const handleMark = () => {
+        const reTask = currentTask;
+        if (reTask.status === "completed")
+        {
+            reTask.status = "uncompleted";
+        }
+        else
+        {
+            reTask.status = "completed";
+        }
+        
         setMark(!mark);
     }
 
