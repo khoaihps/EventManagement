@@ -90,15 +90,16 @@ const EventInfo = ({initialEvent, initialTasks, initialEmployees, initialUnregis
                     </div>
                 </div>
                 <div className="flex justify-around items-center">
-                    <button type="submit"
-                            className={`
-                                aaa bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
-                           
-                        text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
-                            onClick={handleEnrollButtonClick}
-                    >
-                        {enroll ? "Enroll" : ""}
-                    </button>
+                    {
+                        enroll &&
+                        <button type="submit"
+                                className=" aaa ml-4
+                                          bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                                onClick={handleEnrollButtonClick}
+                        >
+                            Enroll
+                        </button>
+                    }
                     <button type="submit"
                                         className=" aaa ml-4
                                           bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
