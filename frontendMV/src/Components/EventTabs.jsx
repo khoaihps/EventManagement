@@ -132,6 +132,7 @@ const EventTabs = () => {
       console.error("An error occurred during event creation:", error);
     }
   };
+
   const fetchTask = async (id) => {
     const data = await getAllTaskEvent(id);
     console.log("Task from API:", data);
@@ -1352,19 +1353,6 @@ const EventTabs = () => {
                   </div>
                 </section>
               </div>
-            </div>
-            <div
-              className={openTab === 4 ? "block" : "hidden"}
-              id="notification"
-            >
-              <p>
-                Efficiently unleash cross-media information without cross-media
-                value. Quickly maximize timely deliverables for real-time
-                schemas.
-                <br />
-                <br /> Dramatically maintain clicks-and-mortar solutions without
-                functional solutions.
-              </p>
             </div>
           </div>
         </div>
